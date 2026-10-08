@@ -50,13 +50,15 @@ export default async function BandCalendarPage({ params, searchParams }: Props) 
       state: a.state,
       locked: a.state === 'members',
       label:
-        a.state === 'blocked'
-          ? t('blocked')
-          : a.state === 'members'
-            ? t('busyMembers', { names: a.busyMembers.join(', ') })
-            : a.tour
-              ? t('freeOnTour')
-              : t('free'),
+        a.state === 'members'
+          ? t('busyMembers', { names: a.busyMembers.join(', ') })
+          : a.state === 'open'
+            ? a.tour
+              ? t('openOnTour')
+              : t('open')
+            : t('unset'),
+      // Case vierge : rien d'écrit, sauf pendant une tournée.
+      visible: a.state === 'unset' ? (a.tour ? t('unsetTour') : '') : undefined,
     }
   }
 
@@ -95,19 +97,17 @@ export default async function BandCalendarPage({ params, searchParams }: Props) 
             days={days}
             today={today}
             toggle={toggleBandDay.bind(null, band.id)}
-            labels={{ free: t('free'), blocked: t('blocked') }}
+            off={{ state: 'unset', label: t('unset'), visible: '' }}
+            on={{ state: 'open', label: t('open') }}
           />
           <div className={styles.legend}>
             <span>
-              <i className={styles.swatch} style={{ border: '2px solid var(--c-amber)' }} />
-              {t('free')}
+              <i className={styles.swatch} style={{ background: 'var(--c-amber)' }} />
+              {t('legendOpen')}
             </span>
             <span>
-              <i
-                className={styles.swatch}
-                style={{ background: 'var(--c-ink)', border: '1px solid var(--c-line)' }}
-              />
-              {t('blocked')}
+              <i className={styles.swatch} style={{ border: '1px solid var(--c-line-strong)' }} />
+              {t('legendUnset')}
             </span>
             <span>
               <i

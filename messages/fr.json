@@ -551,7 +551,10 @@
       "title": "Dispos",
       "free": "Libre",
       "busy": "Pris",
-      "tour": "En tournée du {from} au {to}"
+      "tour": "En tournée du {from} au {to}",
+      "open": "Dispo",
+      "none": "Aucun soir dispo indiqué pour l'instant.",
+      "noneMember": "Aucun soir dispo coché. Les orgas ne voient que les soirs cochés dans ton calendrier."
     }
   },
   "editOrga": {
@@ -693,14 +696,18 @@
   },
   "calendar": {
     "bandTitle": "Calendrier du groupe",
-    "bandIntro": "Clique sur un jour pour le passer libre ou indispo. Un soir où un membre indispensable est pris apparaît automatiquement en rouge : les orgas ne voient que les soirs vraiment libres.",
+    "bandIntro": "Le calendrier part vierge : clique sur les soirs où le groupe est dispo pour jouer, reclique pour annuler. Un soir où un membre indispensable est pris passe automatiquement en rouge et ne compte pas : les orgas ne voient que les soirs vraiment libres.",
     "musicianTitle": "Mon agenda",
     "musicianIntro": "Clique sur un jour pour le marquer occupé. Tes groupes voient seulement « occupé », jamais la raison, et ne te proposent pas ces soirs-là.",
     "free": "Libre",
-    "freeOnTour": "Libre · tournée",
-    "blocked": "Indispo",
     "busy": "Occupé",
     "busyMembers": "Pris : {names}",
+    "open": "Dispo",
+    "openOnTour": "Dispo · tournée",
+    "unset": "Pas dispo",
+    "unsetTour": "Tournée",
+    "legendOpen": "Dispo (coché)",
+    "legendUnset": "Pas dispo (vierge)",
     "legendMembers": "Membre indispensable pris",
     "prev": "Mois précédent",
     "next": "Mois suivant",

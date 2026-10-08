@@ -64,18 +64,18 @@ export function weekdayIndex(day: string): number {
 export type Tour = { startDate: string; endDate: string; region: string }
 export type BandDay = {
   day: string
-  // blocked : le groupe a marqué le jour indispo ; members : un membre indispensable est pris
-  state: 'free' | 'blocked' | 'members'
+  // open : le groupe s'est dit dispo ; unset : rien de coché (pas dispo) ; members : un membre indispensable est pris
+  state: 'open' | 'unset' | 'members'
   busyMembers: string[]
   tour: string | null
 }
 
-// Dispos combinées : un soir est libre seulement si le groupe ne l'a pas bloqué
+// Dispos combinées : le calendrier part vierge. Un soir est dispo seulement si le groupe l'a coché
 // et si tous ses membres indispensables sont libres (agenda perso, plus tard shows confirmés).
 export function combineBandDays(
   days: string[],
   input: {
-    bandBlocked: Set<string>
+    bandOpen: Set<string>
     essentialMembers: { name: string; busy: Set<string> }[]
     tours: Tour[]
   },
@@ -83,7 +83,7 @@ export function combineBandDays(
   return days.map((day) => {
     const busyMembers = input.essentialMembers.filter((m) => m.busy.has(day)).map((m) => m.name)
     const tour = input.tours.find((t) => t.startDate <= day && day <= t.endDate)?.region ?? null
-    const state = input.bandBlocked.has(day) ? 'blocked' : busyMembers.length ? 'members' : 'free'
+    const state = busyMembers.length ? 'members' : input.bandOpen.has(day) ? 'open' : 'unset'
     return { day, state, busyMembers, tour }
   })
 }

@@ -551,7 +551,10 @@
       "title": "Availability",
       "free": "Free",
       "busy": "Taken",
-      "tour": "On tour {from} to {to}"
+      "tour": "On tour {from} to {to}",
+      "open": "Available",
+      "none": "No available nights listed yet.",
+      "noneMember": "No available nights checked. Promoters only see the nights you check in your calendar."
     }
   },
   "editOrga": {
@@ -693,14 +696,18 @@
   },
   "calendar": {
     "bandTitle": "Band calendar",
-    "bandIntro": "Click a day to mark it free or unavailable. A night when an essential member is busy turns red automatically: promoters only see nights that are really free.",
+    "bandIntro": "Your calendar starts blank: click the nights the band is available to play, click again to undo. A night when an essential member is busy turns red automatically and doesn't count: promoters only see nights that are really free.",
     "musicianTitle": "My calendar",
     "musicianIntro": "Click a day to mark it busy. Your bands only see “busy”, never the reason, and won't offer you those nights.",
     "free": "Free",
-    "freeOnTour": "Free · on tour",
-    "blocked": "Unavailable",
     "busy": "Busy",
     "busyMembers": "Busy: {names}",
+    "open": "Available",
+    "openOnTour": "Available · on tour",
+    "unset": "Not available",
+    "unsetTour": "On tour",
+    "legendOpen": "Available (checked)",
+    "legendUnset": "Not available (blank)",
     "legendMembers": "Essential member busy",
     "prev": "Previous month",
     "next": "Next month",

@@ -2,7 +2,7 @@ import 'server-only'
 import { and, eq, gte, inArray, isNotNull, lte } from 'drizzle-orm'
 
 import { db } from '@/db'
-import { bandMember, tour, unavailability } from '@/db/schema'
+import { bandAvailability as bandOpenDay, bandMember, tour, unavailability } from '@/db/schema'
 
 import { combineBandDays, type BandDay } from './calendar'
 
@@ -12,16 +12,12 @@ export async function bandAvailability(bandId: string, days: string[]): Promise<
   const from = days[0]
   const to = days[days.length - 1]
 
-  const [blocks, members, tours] = await Promise.all([
+  const [open, members, tours] = await Promise.all([
     db
-      .select({ day: unavailability.day })
-      .from(unavailability)
+      .select({ day: bandOpenDay.day })
+      .from(bandOpenDay)
       .where(
-        and(
-          eq(unavailability.bandId, bandId),
-          gte(unavailability.day, from),
-          lte(unavailability.day, to),
-        ),
+        and(eq(bandOpenDay.bandId, bandId), gte(bandOpenDay.day, from), lte(bandOpenDay.day, to)),
       ),
     db.query.bandMember.findMany({
       where: and(
@@ -53,7 +49,7 @@ export async function bandAvailability(bandId: string, days: string[]): Promise<
     : []
 
   return combineBandDays(days, {
-    bandBlocked: new Set(blocks.map((b) => b.day)),
+    bandOpen: new Set(open.map((o) => o.day)),
     essentialMembers: members.map((m) => ({
       name: m.user?.musician?.stageName ?? m.user?.name ?? '—',
       busy: new Set(personal.filter((p) => p.userId === m.userId).map((p) => p.day)),

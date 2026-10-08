@@ -1,4 +1,4 @@
-import { relations, sql } from 'drizzle-orm'
+import { relations } from 'drizzle-orm'
 import {
   boolean,
   date,
@@ -216,26 +216,34 @@ export const musician = pgTable('musician', {
 
 /* ---------- Calendriers ---------- */
 
-// Jour indisponible : pour un groupe (band_id) ou dans l'agenda perso d'un musicien (user_id).
+// Soir où le groupe se dit dispo pour jouer. Le calendrier part vierge : rien de coché = pas dispo.
+export const bandAvailability = pgTable(
+  'band_availability',
+  {
+    id: text('id').primaryKey(),
+    bandId: text('band_id')
+      .notNull()
+      .references(() => band.id, { onDelete: 'cascade' }),
+    day: date('day', { mode: 'string' }).notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [uniqueIndex('band_availability_band_day').on(t.bandId, t.day)],
+)
+
+// Jour occupé dans l'agenda perso d'un musicien : il bloque ce soir-là pour tous ses groupes.
 // La note n'est visible que de son auteur ; les autres voient seulement « occupé ».
 export const unavailability = pgTable(
   'unavailability',
   {
     id: text('id').primaryKey(),
-    bandId: text('band_id').references(() => band.id, { onDelete: 'cascade' }),
-    userId: text('user_id').references(() => user.id, { onDelete: 'cascade' }),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
     day: date('day', { mode: 'string' }).notNull(),
     note: text('note'),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [
-    uniqueIndex('unavailability_band_day')
-      .on(t.bandId, t.day)
-      .where(sql`band_id is not null`),
-    uniqueIndex('unavailability_user_day')
-      .on(t.userId, t.day)
-      .where(sql`user_id is not null`),
-  ],
+  (t) => [uniqueIndex('unavailability_user_day').on(t.userId, t.day)],
 )
 
 // Période de tournée d'un groupe : les orgas de la région voient qu'il passe près de chez eux.

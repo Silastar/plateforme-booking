@@ -7,26 +7,34 @@ import { useRouter } from '@/i18n/navigation'
 
 import styles from './calendar.module.css'
 
+// Groupe : unset (vierge) ↔ open (dispo), members (membre pris). Agenda du musicien : free ↔ busy.
+export type DayState = 'open' | 'unset' | 'members' | 'free' | 'busy'
+
 export type DayView = {
-  state: 'free' | 'blocked' | 'members'
+  state: DayState
+  // Lu par les lecteurs d'écran ; « visible » remplace le texte affiché dans la case (vide = rien).
   label: string
+  visible?: string
   // Jour non modifiable (passé, ou occupé par un membre : rien à basculer côté groupe).
   locked?: boolean
 }
 
-// Grille du mois : un clic sur un jour le bascule libre ↔ indispo (affichage immédiat, puis serveur).
+// Grille du mois : un clic bascule le jour entre ses deux états (affichage immédiat, puis serveur).
+// « off » = état de départ d'un jour vierge, « on » = état coché.
 export function CalendarGrid({
   weeks,
   days,
   today,
   toggle,
-  labels,
+  off,
+  on,
 }: {
   weeks: (string | null)[][]
   days: Record<string, DayView>
   today: string
   toggle: (day: string) => Promise<{ ok: boolean }>
-  labels: { free: string; blocked: string }
+  off: Omit<DayView, 'locked'>
+  on: Omit<DayView, 'locked'>
 }) {
   const t = useTranslations('calendar')
   const format = useFormatter()
@@ -36,12 +44,11 @@ export function CalendarGrid({
     days,
     (current: Record<string, DayView>, day: string): Record<string, DayView> => {
       const d = current[day]
-      if (!d || d.state === 'members') return current
-      const next: DayView =
-        d.state === 'blocked'
-          ? { ...d, state: 'free', label: labels.free }
-          : { ...d, state: 'blocked', label: labels.blocked }
-      return { ...current, [day]: next }
+      if (!d || (d.state !== on.state && d.state !== off.state)) return current
+      return {
+        ...current,
+        [day]: { ...d, visible: undefined, ...(d.state === on.state ? off : on) },
+      }
     },
   )
   const weekdays = weeks[0]
@@ -75,7 +82,7 @@ export function CalendarGrid({
               type="button"
               disabled={disabled}
               aria-label={t('dayLabel', { date, state: d.label })}
-              aria-pressed={d.state === 'blocked'}
+              aria-pressed={d.state === on.state}
               className={`${styles.day} ${styles[d.state]} ${past ? styles.past : ''} ${day === today ? styles.today : ''}`}
               onClick={() =>
                 startTransition(async () => {
@@ -86,7 +93,7 @@ export function CalendarGrid({
               }
             >
               <span className={styles.dayNumber}>{Number(day.slice(8))}</span>
-              <span className={styles.dayLabel}>{d.label}</span>
+              <span className={styles.dayLabel}>{d.visible ?? d.label}</span>
             </button>
           )
         })}

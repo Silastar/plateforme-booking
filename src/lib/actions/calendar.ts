@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto'
 import { z } from 'zod'
 
 import { db } from '@/db'
-import { tour, unavailability } from '@/db/schema'
+import { bandAvailability, tour, unavailability } from '@/db/schema'
 import { getBandForEdit } from '@/lib/bands'
 import { addDays, todayIso } from '@/lib/calendar'
 import { getMusicianForEdit } from '@/lib/musicians'
@@ -27,13 +27,13 @@ export async function toggleBandDay(bandId: string, day: string): Promise<{ ok: 
   if (!session || !editableDay(day)) return { ok: false }
   const b = await getBandForEdit(bandId, session.user.id)
   if (!b) return { ok: false }
-  const existing = await db.query.unavailability.findFirst({
-    where: and(eq(unavailability.bandId, b.id), eq(unavailability.day, day)),
+  const existing = await db.query.bandAvailability.findFirst({
+    where: and(eq(bandAvailability.bandId, b.id), eq(bandAvailability.day, day)),
   })
-  if (existing) await db.delete(unavailability).where(eq(unavailability.id, existing.id))
+  if (existing) await db.delete(bandAvailability).where(eq(bandAvailability.id, existing.id))
   else
     await db
-      .insert(unavailability)
+      .insert(bandAvailability)
       .values({ id: randomUUID(), bandId: b.id, day })
       .onConflictDoNothing()
   return { ok: true }

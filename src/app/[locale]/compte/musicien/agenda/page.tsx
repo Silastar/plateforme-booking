@@ -40,7 +40,7 @@ export default async function MusicianAgendaPage({ params, searchParams }: Props
   const days: Record<string, DayView> = Object.fromEntries(
     all.map((d) => [
       d,
-      busy.has(d) ? { state: 'blocked', label: t('busy') } : { state: 'free', label: t('free') },
+      busy.has(d) ? { state: 'busy', label: t('busy') } : { state: 'free', label: t('free') },
     ]),
   )
 
@@ -72,7 +72,8 @@ export default async function MusicianAgendaPage({ params, searchParams }: Props
             days={days}
             today={today}
             toggle={toggleMusicianDay}
-            labels={{ free: t('free'), blocked: t('busy') }}
+            off={{ state: 'free', label: t('free') }}
+            on={{ state: 'busy', label: t('busy') }}
           />
         </div>
       </div>

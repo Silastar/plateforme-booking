@@ -31,24 +31,28 @@ describe('grille du mois', () => {
 describe('dispos combinées', () => {
   const days = ['2027-03-13', '2027-03-14', '2027-03-15', '2027-03-21']
   const r = combineBandDays(days, {
-    bandBlocked: new Set(['2027-03-13']),
+    bandOpen: new Set(['2027-03-13', '2027-03-14', '2027-03-21']),
     essentialMembers: [
-      { name: 'Léa', busy: new Set(['2027-03-13', '2027-03-14']) },
-      { name: 'Sam', busy: new Set(['2027-03-14']) },
+      { name: 'Léa', busy: new Set(['2027-03-14']) },
+      { name: 'Sam', busy: new Set(['2027-03-14', '2027-03-15']) },
     ],
     tours: [{ startDate: '2027-03-20', endDate: '2027-03-22', region: 'Suisse romande' }],
   })
 
-  it('le blocage du groupe passe avant les membres', () => {
-    expect(r[0].state).toBe('blocked')
+  it('dispo seulement si le groupe a coché le soir', () => {
+    expect(r[0].state).toBe('open')
   })
 
-  it('un membre indispensable pris rend le soir indisponible, avec les noms', () => {
+  it('un membre indispensable pris passe avant la dispo, avec les noms', () => {
     expect(r[1]).toMatchObject({ state: 'members', busyMembers: ['Léa', 'Sam'] })
+    expect(r[2]).toMatchObject({ state: 'members', busyMembers: ['Sam'] })
   })
 
-  it('libre sinon, avec la tournée en cours', () => {
-    expect(r[2].state).toBe('free')
-    expect(r[3]).toMatchObject({ state: 'free', tour: 'Suisse romande' })
+  it('vierge par défaut, avec la tournée en cours', () => {
+    expect(
+      combineBandDays(['2027-03-16'], { bandOpen: new Set(), essentialMembers: [], tours: [] })[0]
+        .state,
+    ).toBe('unset')
+    expect(r[3]).toMatchObject({ state: 'open', tour: 'Suisse romande' })
   })
 })

@@ -10,7 +10,7 @@ import { Link } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
 import { bandAvailability, bandTours } from '@/lib/availability'
 import { getBandPage } from '@/lib/bands'
-import { addDays, todayIso, weekdayIndex } from '@/lib/calendar'
+import { addDays, todayIso } from '@/lib/calendar'
 import { embedFor } from '@/lib/embeds'
 import type { Genre } from '@/lib/genres'
 import { getSession } from '@/lib/session'
@@ -40,14 +40,13 @@ export default async function BandPage({ params }: Props) {
   // Cachet : orgas connectés, équipe et membres du groupe. Fiche technique : tout compte connecté.
   const canSeeFee = isMember || viewerRole === 'orga' || viewerRole === 'admin'
   const canSeeRider = Boolean(session)
-  // Dispos : prochains vendredis et samedis sur 8 semaines, pour les orgas connectés et le groupe.
+  // Dispos : prochains soirs cochés par le groupe (4 mois), pour les orgas connectés et le groupe.
   const today = todayIso()
-  const weekends = Array.from({ length: 56 }, (_, i) => addDays(today, i)).filter((d) =>
-    [4, 5].includes(weekdayIndex(d)),
-  )
-  const [dispos, tours] = canSeeFee
-    ? await Promise.all([bandAvailability(band.id, weekends), bandTours(band.id)])
+  const nextDays = Array.from({ length: 120 }, (_, i) => addDays(today, i))
+  const [availability, tours] = canSeeFee
+    ? await Promise.all([bandAvailability(band.id, nextDays), bandTours(band.id)])
     : [[], []]
+  const dispos = availability.filter((d) => d.state === 'open')
   const upcomingTours = tours.filter((x) => x.endDate >= today).slice(0, 3)
   const dayFmt = (d: string) =>
     format.dateTime(new Date(`${d}T12:00:00Z`), {
@@ -266,7 +265,7 @@ export default async function BandPage({ params }: Props) {
             </section>
           )}
 
-          {canSeeFee && (dispos.length > 0 || upcomingTours.length > 0) && (
+          {canSeeFee && (
             <section aria-labelledby="dispos" className={styles.panel}>
               <h2 id="dispos" className={styles.asideTitle}>
                 {t('dispos.title')}
@@ -281,6 +280,11 @@ export default async function BandPage({ params }: Props) {
                   gap: 8,
                 }}
               >
+                {dispos.length === 0 && (
+                  <li className={styles.muted}>
+                    {isMember ? t('dispos.noneMember') : t('dispos.none')}
+                  </li>
+                )}
                 {dispos.slice(0, 6).map((d) => (
                   <li
                     key={d.day}
@@ -289,15 +293,12 @@ export default async function BandPage({ params }: Props) {
                       justifyContent: 'space-between',
                       gap: 8,
                       padding: '10px 12px',
-                      border:
-                        d.state === 'free' ? '2px solid var(--c-amber)' : '1px solid var(--c-line)',
-                      color: d.state === 'free' ? 'var(--c-amber)' : 'var(--c-faint)',
+                      border: '2px solid var(--c-amber)',
+                      color: 'var(--c-amber)',
                     }}
                   >
                     <span style={{ fontWeight: 800, color: 'var(--c-text)' }}>{dayFmt(d.day)}</span>
-                    <span className="label">
-                      {d.state === 'free' ? t('dispos.free') : t('dispos.busy')}
-                    </span>
+                    <span className="label">{t('dispos.open')}</span>
                   </li>
                 ))}
                 {upcomingTours.map((x) => (

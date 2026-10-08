@@ -86,12 +86,26 @@
   overflow-wrap: anywhere;
 }
 
+/* Groupe : dispo coché = ambre plein, vierge = case neutre. */
+.open {
+  background: var(--c-amber);
+  border: 2px solid var(--c-amber);
+  color: var(--c-ink);
+}
+
+.unset {
+  background: transparent;
+  border: 1px solid var(--c-line-strong);
+  color: var(--c-faint);
+}
+
+/* Agenda du musicien : libre = contour ambre, occupé = case éteinte. */
 .free {
   border: 2px solid var(--c-amber);
   color: var(--c-amber);
 }
 
-.blocked {
+.busy {
   background: var(--c-ink);
   border: 1px solid var(--c-line);
   color: var(--c-faint);
