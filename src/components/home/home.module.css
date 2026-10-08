@@ -1,0 +1,496 @@
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 88px var(--gutter) 80px;
+}
+
+.lights {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.heroInner {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px;
+  align-items: center;
+}
+
+.heroText {
+  flex: 999 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.heroTitle {
+  font-size: clamp(56px, 9.5vw, 140px);
+}
+
+.heroTitle span {
+  display: block;
+}
+
+.heroTitleAccent {
+  color: var(--c-red-bright);
+}
+
+.lead {
+  margin: 0;
+  font-size: 20px;
+  max-width: 600px;
+  color: var(--c-text-soft);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.ctas a {
+  min-height: 56px;
+  padding: 18px 24px;
+}
+
+.polaroidWrap {
+  flex: 1 1 320px;
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+}
+
+.polaroid {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: var(--c-paper);
+  padding: 14px 14px 56px;
+  transform: rotate(2.5deg);
+}
+
+.photoPlaceholder {
+  height: 360px;
+  background: var(--c-surface-2);
+  border: 1px dashed var(--c-line-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  color: #a39c8f;
+  font-weight: 700;
+}
+
+.polaroidCaption {
+  margin: 14px 0 0;
+  font-family: var(--font-marker);
+  color: var(--c-ink);
+  font-size: 22px;
+  text-align: center;
+}
+
+.tapePiece {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 120px;
+  height: 30px;
+  margin-left: -60px;
+  background: var(--c-tape);
+  opacity: 0.9;
+  transform: rotate(-4deg);
+}
+
+/* ---------- Bandeau des genres ---------- */
+.marquee {
+  background: var(--c-amber);
+  color: var(--c-ink);
+  overflow: hidden;
+  border-block: 4px solid var(--c-ink);
+  transform: rotate(-1deg);
+  margin: 0 -20px;
+}
+
+.marqueeTrack {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: defile 40s linear infinite;
+  font-family: var(--font-display);
+  font-size: 30px;
+  text-transform: uppercase;
+  padding: 10px 0;
+  letter-spacing: 0.04em;
+}
+
+.marqueeTrack span {
+  padding-right: 24px;
+}
+
+@keyframes defile {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack {
+    animation: none;
+  }
+}
+
+/* ---------- Recherche rapide (ticket) ---------- */
+.searchSection {
+  padding: 72px var(--gutter) 40px;
+}
+
+.ticketForm {
+  display: flex;
+  flex-wrap: wrap;
+  background: var(--c-paper);
+  color: var(--c-ink);
+}
+
+.ticketStub {
+  flex: 1 1 200px;
+  padding: 24px 28px;
+  border-right: 3px dashed var(--c-ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.ticketTitle {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.ticketFields {
+  flex: 999 1 560px;
+  padding: 24px 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  align-items: end;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.field input,
+.field select {
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  padding: 12px;
+  border: 2px solid var(--c-ink);
+  border-radius: 0;
+  background: var(--c-paper-light);
+  color: var(--c-ink);
+  min-height: 50px;
+  width: 100%;
+}
+
+/* ---------- Critères ---------- */
+.section {
+  padding: 72px var(--gutter);
+}
+
+.sectionTitle {
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1;
+  margin-bottom: 32px;
+}
+
+.amber {
+  color: var(--c-amber);
+}
+
+.criteriaGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 4px;
+}
+
+.criterion {
+  background: var(--c-surface);
+  border-top: 6px solid var(--c-red);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.criterionNumber {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 1;
+  color: var(--c-amber);
+}
+
+.criterion h3 {
+  font-size: 22px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.criterion p {
+  margin: 0;
+  color: var(--c-muted);
+}
+
+/* ---------- Setlists ---------- */
+.setlistSection {
+  padding: 80px var(--gutter);
+  background: var(--c-surface);
+  border-block: 1px solid var(--c-line);
+}
+
+.setlists {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px;
+  justify-content: center;
+  padding-top: 16px;
+}
+
+.setlist {
+  flex: 1 1 360px;
+  max-width: 520px;
+  position: relative;
+  background: var(--c-paper-light);
+  color: var(--c-ink);
+  padding: 40px 36px 36px;
+}
+
+.setlistLeft {
+  transform: rotate(-1.5deg);
+}
+
+.setlistRight {
+  transform: rotate(1.2deg);
+}
+
+.setlist .tapePiece {
+  left: 30%;
+}
+
+.setlist h3 {
+  font-family: var(--font-marker);
+  font-weight: 400;
+  font-size: 30px;
+  border-bottom: 3px solid currentColor;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.setlistRight h3 {
+  color: var(--c-red-dark);
+}
+
+.setlist ol {
+  margin: 0;
+  padding-left: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: var(--font-marker);
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+.setlistLink {
+  display: inline-block;
+  margin-top: 24px;
+  color: var(--c-red-dark);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.setlistLink:hover {
+  color: var(--c-red);
+}
+
+/* ---------- Dates ouvertes (billets) ---------- */
+.sectionHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.sectionHead .sectionTitle {
+  margin-bottom: 0;
+}
+
+.headLink {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+.tickets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ticket {
+  background: var(--c-paper);
+  color: var(--c-ink);
+  display: flex;
+  flex-direction: column;
+}
+
+.ticketMain {
+  padding: 24px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ticketKicker {
+  color: var(--c-red-dark);
+}
+
+.ticketDate {
+  font-size: 56px;
+  line-height: 1;
+}
+
+.ticketVenue {
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ticketMeta {
+  color: var(--c-on-paper-soft);
+}
+
+.locked {
+  margin: 10px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 2px solid var(--c-ink);
+  padding-top: 12px;
+  color: var(--c-on-paper-soft);
+  font-size: 15px;
+}
+
+.perforation {
+  position: relative;
+  border-top: 3px dashed var(--c-ink);
+  margin: 0 16px;
+}
+
+.perforation::before,
+.perforation::after {
+  content: '';
+  position: absolute;
+  top: -15px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--c-ink);
+}
+
+.perforation::before {
+  left: -30px;
+}
+
+.perforation::after {
+  right: -30px;
+}
+
+.ticketStubRow {
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+
+.ticketGenre {
+  font-family: var(--font-display);
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+.ticketLink {
+  color: var(--c-ink);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+.ticketLink:hover {
+  color: var(--c-red-dark);
+}
+
+.note {
+  margin: 16px 0 0;
+  color: var(--c-faint);
+  font-size: 14px;
+}
+
+/* ---------- Appel final ---------- */
+.join {
+  padding: 80px var(--gutter);
+  background: var(--c-red);
+  color: #fff;
+}
+
+.joinInner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+
+.joinTitle {
+  font-size: clamp(56px, 8vw, 110px);
+  line-height: 0.9;
+}
+
+.joinText {
+  margin: 12px 0 0;
+  font-size: 19px;
+  max-width: 520px;
+}

@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "siteName": "[NOM DU SITE]",
+    "description": "Salles, bars et festivals trouvent leurs groupes ; les groupes trouvent leurs dates. Par genre, lieu, date et cachet."
+  },
+  "a11y": {
+    "skip": "Aller au contenu",
+    "mainNav": "Navigation principale",
+    "legalNav": "Liens légaux",
+    "language": "Langue"
+  },
+  "nav": {
+    "bands": "Groupes",
+    "openDates": "Dates ouvertes",
+    "howItWorks": "Comment ça marche",
+    "pricing": "Tarifs",
+    "login": "Connexion",
+    "signup": "Monter sur scène"
+  },
+  "footer": {
+    "terms": "Conditions d'utilisation",
+    "privacy": "Confidentialité",
+    "contact": "Contact"
+  },
+  "genres": {
+    "all": "Tous les genres",
+    "rock": "Rock",
+    "punk": "Punk",
+    "jazz": "Jazz",
+    "electro": "Électro",
+    "folk": "Folk",
+    "metal": "Metal",
+    "blues": "Blues",
+    "hiphop": "Hip-hop",
+    "garage": "Garage",
+    "reggae": "Reggae",
+    "stoner": "Stoner",
+    "chanson": "Chanson"
+  },
+  "home": {
+    "hero": {
+      "tag": "Salles, bars, festivals × groupes",
+      "titleLine1": "Trouve ta scène.",
+      "titleLine2": "Trouve ton groupe.",
+      "lead": "Les orgas cherchent des groupes, les groupes cherchent des dates. Ici, ils se trouvent par genre, lieu, date et cachet, et le live peut commencer.",
+      "ctaOrga": "J'organise des concerts",
+      "ctaBand": "Je joue dans un groupe",
+      "photoAlt": "[Photo live : contre-jour, foule, guitares levées]",
+      "photoCaption": "Ven 14 mars · Le Bocal"
+    },
+    "search": {
+      "label": "Recherche rapide",
+      "pass": "Pass recherche",
+      "titleLine1": "Qui joue",
+      "titleLine2": "quand ?",
+      "genre": "Genre",
+      "place": "Lieu",
+      "placePlaceholder": "Ville",
+      "date": "Date",
+      "submit": "Chercher"
+    },
+    "criteria": {
+      "titleLine1": "Quatre critères.",
+      "titleLine2": "Une date qui tient.",
+      "genre": { "title": "Genre", "text": "Le son que l'orga cherche croise celui du groupe." },
+      "place": { "title": "Lieu", "text": "La salle est dans la zone où le groupe peut rouler." },
+      "date": { "title": "Date", "text": "La date tombe un soir où le groupe est libre." },
+      "fee": {
+        "title": "Cachet",
+        "text": "Le budget de l'orga et la fourchette du groupe se rejoignent."
+      }
+    },
+    "setlist": {
+      "title": "La setlist",
+      "orga": {
+        "title": "Côté orga",
+        "items": [
+          "Présente ta salle",
+          "Publie tes dates à pourvoir",
+          "Trouve le groupe qui colle",
+          "Propose, confirme",
+          "Après le show : note le groupe"
+        ],
+        "link": "Voir un profil orga →"
+      },
+      "band": {
+        "title": "Côté groupe",
+        "items": [
+          "Balance tes morceaux et ta fiche tech",
+          "Indique ta zone, ton cachet, tes dispos",
+          "Reçois des offres ou candidate",
+          "Joue !",
+          "Après le show : note l'orga"
+        ],
+        "link": "Voir un profil groupe →"
+      }
+    },
+    "dates": {
+      "title": "Dates ouvertes",
+      "all": "Toutes les dates →",
+      "openDate": "Date ouverte · {weekday}",
+      "capacity": "{count} places",
+      "locked": "Budget et détails réservés aux membres",
+      "login": "Se connecter →",
+      "sample": "Exemples en attendant les vraies dates."
+    },
+    "join": {
+      "title": "Monte le son.",
+      "text": "Crée ton profil en quelques minutes. Les profils orga sont vérifiés par notre équipe.",
+      "orga": "Profil orga",
+      "band": "Profil groupe"
+    }
+  },
+  "notFound": {
+    "title": "Pas de show ici.",
+    "text": "Cette page n'existe pas, ou pas encore.",
+    "back": "Retour à l'accueil"
+  }
+}

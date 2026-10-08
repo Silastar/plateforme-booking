@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "siteName": "[SITE NAME]",
+    "description": "Venues, bars and festivals find their bands; bands find their gigs. By genre, location, date and fee."
+  },
+  "a11y": {
+    "skip": "Skip to content",
+    "mainNav": "Main navigation",
+    "legalNav": "Legal links",
+    "language": "Language"
+  },
+  "nav": {
+    "bands": "Bands",
+    "openDates": "Open dates",
+    "howItWorks": "How it works",
+    "pricing": "Pricing",
+    "login": "Log in",
+    "signup": "Get on stage"
+  },
+  "footer": {
+    "terms": "Terms of use",
+    "privacy": "Privacy",
+    "contact": "Contact"
+  },
+  "genres": {
+    "all": "All genres",
+    "rock": "Rock",
+    "punk": "Punk",
+    "jazz": "Jazz",
+    "electro": "Electronic",
+    "folk": "Folk",
+    "metal": "Metal",
+    "blues": "Blues",
+    "hiphop": "Hip-hop",
+    "garage": "Garage",
+    "reggae": "Reggae",
+    "stoner": "Stoner",
+    "chanson": "Singer-songwriter"
+  },
+  "home": {
+    "hero": {
+      "tag": "Venues, bars, festivals × bands",
+      "titleLine1": "Find your stage.",
+      "titleLine2": "Find your band.",
+      "lead": "Promoters are looking for bands, bands are looking for gigs. Here they find each other by genre, location, date and fee, and the show can start.",
+      "ctaOrga": "I book shows",
+      "ctaBand": "I play in a band",
+      "photoAlt": "[Live photo: backlit stage, crowd, guitars up]",
+      "photoCaption": "Fri, Mar 14 · Le Bocal"
+    },
+    "search": {
+      "label": "Quick search",
+      "pass": "Search pass",
+      "titleLine1": "Who plays",
+      "titleLine2": "when?",
+      "genre": "Genre",
+      "place": "Location",
+      "placePlaceholder": "City",
+      "date": "Date",
+      "submit": "Search"
+    },
+    "criteria": {
+      "titleLine1": "Four criteria.",
+      "titleLine2": "One solid booking.",
+      "genre": { "title": "Genre", "text": "The sound the promoter wants matches the band's." },
+      "place": {
+        "title": "Location",
+        "text": "The venue is within the area the band can travel to."
+      },
+      "date": { "title": "Date", "text": "The date falls on a night the band is free." },
+      "fee": { "title": "Fee", "text": "The promoter's budget and the band's fee range overlap." }
+    },
+    "setlist": {
+      "title": "The setlist",
+      "orga": {
+        "title": "For promoters",
+        "items": [
+          "Introduce your venue",
+          "Post your open dates",
+          "Find the band that fits",
+          "Make an offer, confirm",
+          "After the show: rate the band"
+        ],
+        "link": "See a promoter profile →"
+      },
+      "band": {
+        "title": "For bands",
+        "items": [
+          "Upload your tracks and tech rider",
+          "Set your area, your fee, your availability",
+          "Get offers or apply",
+          "Play!",
+          "After the show: rate the promoter"
+        ],
+        "link": "See a band profile →"
+      }
+    },
+    "dates": {
+      "title": "Open dates",
+      "all": "All dates →",
+      "openDate": "Open date · {weekday}",
+      "capacity": "{count} capacity",
+      "locked": "Budget and details for members only",
+      "login": "Log in →",
+      "sample": "Examples until real dates come in."
+    },
+    "join": {
+      "title": "Turn it up.",
+      "text": "Create your profile in minutes. Promoter profiles are checked by our team.",
+      "orga": "Promoter profile",
+      "band": "Band profile"
+    }
+  },
+  "notFound": {
+    "title": "No show here.",
+    "text": "This page doesn't exist, or not yet.",
+    "back": "Back to home"
+  }
+}
