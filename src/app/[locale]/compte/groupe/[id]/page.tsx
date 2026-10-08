@@ -3,9 +3,11 @@ import { notFound } from 'next/navigation'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { BandEditor } from '@/components/profiles/BandEditor'
+import { LineupManager } from '@/components/profiles/LineupManager'
 import { Link, redirect } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
 import { getBandForEdit } from '@/lib/bands'
+import { getLineup } from '@/lib/lineup'
 import { getSession } from '@/lib/session'
 
 type Props = { params: Promise<{ locale: Locale; id: string }> }
@@ -24,6 +26,7 @@ export default async function EditBandPage({ params }: Props) {
   const band = await getBandForEdit(id, session.user.id)
   if (!band) notFound()
   const t = await getTranslations('editBand')
+  const lineup = await getLineup(band.id, session.user.id)
 
   return (
     <section style={{ padding: '44px var(--gutter) 72px' }}>
@@ -92,6 +95,7 @@ export default async function EditBandPage({ params }: Props) {
             feeNote: band.feeNote,
           }}
         />
+        <LineupManager bandId={band.id} members={lineup} />
       </div>
     </section>
   )

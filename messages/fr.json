@@ -345,7 +345,8 @@
       "logout": "Se déconnecter",
       "myProfiles": "Mes profils",
       "editBand": "Modifier",
-      "viewPage": "Voir la page"
+      "viewPage": "Voir la page",
+      "invites": "{count, plural, one {Tu as une invitation de groupe en attente →} other {Tu as # invitations de groupe en attente →}}"
     },
     "onboarding": {
       "title": "Ton profil",
@@ -373,7 +374,11 @@
       "invalid": "Valeur invalide.",
       "auth": "Ta session a expiré : reconnecte-toi.",
       "forbidden": "Tu n'as pas les droits pour modifier ce profil.",
-      "server": "Un problème est survenu de notre côté."
+      "server": "Un problème est survenu de notre côté.",
+      "email": "Adresse e-mail invalide.",
+      "noMusician": "Aucun profil musicien avec cette adresse. Ajoute la personne comme simple nom, ou demande-lui de s'inscrire.",
+      "alreadyMember": "Déjà dans le line-up (ou invitation en cours).",
+      "lastAdmin": "Il faut au moins un admin dans le groupe."
     }
   },
   "editBand": {
@@ -517,6 +522,21 @@
       "curfew": "couvre-feu {time}",
       "indoor": "Intérieur",
       "outdoor": "Plein air"
+    },
+    "musician": {
+      "subInstruments": "Instruments",
+      "subRadius": "Zone",
+      "km": "{km} km autour de {city}",
+      "notice": "Prévenir au moins",
+      "days": "{n, plural, =0 {Le jour même} one {# jour avant} other {# jours avant}}",
+      "repertoire": "Répertoire",
+      "gear": "Matos",
+      "bandsCount": "{count, plural, one {# groupe} other {# groupes}}",
+      "available": "Dispo pour dépanner",
+      "bands": "Ses groupes",
+      "seeBand": "Voir le groupe →",
+      "hear": "L'entendre jouer",
+      "subs": "Dépannage"
     }
   },
   "editOrga": {
@@ -582,5 +602,77 @@
     "photo": "Photo du lieu",
     "delete": "Supprimer ce lieu",
     "confirmDelete": "Supprimer « {name} » ?"
+  },
+  "editMusician": {
+    "title": "Modifier mon profil musicien",
+    "back": "Mon compte",
+    "viewPublic": "Voir la page publique",
+    "infos": {
+      "title": "Toi et ton instrument",
+      "photo": "Photo",
+      "styles": "Styles joués",
+      "stylesHelp": "Jusqu'à 6.",
+      "bio": "Bio",
+      "bioHelp": "Formation, influences, groupes passés."
+    },
+    "videos": {
+      "title": "T'entendre jouer",
+      "intro": "Des vidéos où l'on t'entend. Elles ne se chargent qu'au clic du visiteur.",
+      "video1": "Vidéo 1",
+      "video2": "Vidéo 2"
+    },
+    "subs": {
+      "title": "Dépannage",
+      "intro": "Pour les groupes qui cherchent un remplaçant.",
+      "instruments": "Instruments pour dépanner",
+      "instrumentsPlaceholder": "Ex. batterie, percussions",
+      "radius": "Rayon (km)",
+      "notice": "Prévenir au moins (jours)",
+      "repertoire": "Répertoire",
+      "repertoirePlaceholder": "Ex. apprend un set d'une heure en une semaine",
+      "gear": "Matos",
+      "gearPlaceholder": "Ex. caisse claire et cymbales perso"
+    }
+  },
+  "lineup": {
+    "title": "Line-up",
+    "intro": "Les membres indispensables comptent pour les dispos du groupe. Les admins modifient le profil, voient les cachets et acceptent les offres.",
+    "requests": "Demandes pour rejoindre le groupe",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "you": "Toi",
+    "linked": "Profil musicien lié",
+    "noAccount": "Sans compte (simple nom)",
+    "role": "Rôle",
+    "rolePlaceholder": "Ex. batterie",
+    "essential": "Indispensable",
+    "admin": "Admin",
+    "save": "OK",
+    "remove": "Retirer",
+    "confirmRemove": "Retirer {name} du line-up ?",
+    "invited": "Invitations envoyées",
+    "invitedTo": "{name} : en attente de réponse",
+    "cancelInvite": "Annuler",
+    "inviteTitle": "Inviter un musicien inscrit",
+    "inviteHelp": "Il reçoit un e-mail et accepte depuis son compte.",
+    "email": "Son e-mail",
+    "invite": "Envoyer l'invitation",
+    "addTitle": "Ajouter un membre sans compte",
+    "addHelp": "Juste un nom dans le line-up. Il pourra être remplacé par son profil plus tard.",
+    "name": "Nom",
+    "add": "Ajouter",
+    "inviteFrom": "{band} t'invite dans son line-up",
+    "myBands": "Mes groupes",
+    "noBands": "Pas encore de groupe lié à ton profil.",
+    "leave": "Quitter",
+    "confirmLeave": "Quitter {band} ?",
+    "requestSent": "Demande envoyée à {band}",
+    "cancelRequest": "Annuler la demande",
+    "searchLabel": "Ton groupe est déjà inscrit ?",
+    "searchPlaceholder": "Nom du groupe",
+    "search": "Chercher",
+    "noResults": "Aucun groupe trouvé.",
+    "alreadyLinked": "Déjà lié",
+    "askToJoin": "Demander à rejoindre"
   }
 }

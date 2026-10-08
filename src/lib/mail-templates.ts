@@ -69,3 +69,55 @@ export function authMail(kind: Kind, locale: string, name: string, url: string) 
 </div>`
   return { subject, text, html }
 }
+
+const LINEUP = {
+  fr: {
+    invite: {
+      subject: '{band} t’invite dans son line-up',
+      intro: '{actor} t’invite à rejoindre le line-up de {band}. Réponds depuis ton compte :',
+      cta: 'Voir l’invitation',
+    },
+    request: {
+      subject: '{actor} veut rejoindre {band}',
+      intro:
+        '{actor} demande à rejoindre le line-up de {band}. Accepte ou refuse depuis la page du groupe :',
+      cta: 'Voir la demande',
+    },
+  },
+  en: {
+    invite: {
+      subject: '{band} invites you to its lineup',
+      intro: '{actor} invites you to join the {band} lineup. Answer from your account:',
+      cta: 'See the invite',
+    },
+    request: {
+      subject: '{actor} wants to join {band}',
+      intro: '{actor} asks to join the {band} lineup. Accept or decline from the band page:',
+      cta: 'See the request',
+    },
+  },
+} as const
+
+// Invitation d'un musicien par un groupe, ou demande d'un musicien pour rejoindre un groupe.
+export function lineupMail(
+  kind: 'invite' | 'request',
+  locale: string,
+  name: string,
+  vars: { band: string; actor: string },
+  url: string,
+) {
+  const l: Locale = locale === 'en' ? 'en' : 'fr'
+  const fill = (s: string) => s.replace('{band}', vars.band).replace('{actor}', vars.actor)
+  const k = LINEUP[l][kind]
+  const c = COPY[l]
+  const subject = `${fill(k.subject)} · ${c.site}`
+  const intro = fill(k.intro)
+  const text = `${c.hello} ${name},\n\n${intro}\n${url}\n\n${c.site}`
+  const html = `<div style="font-family:Arial,sans-serif;background:#0c0b0a;color:#f4efe4;padding:32px">
+<p style="font-size:22px;font-weight:bold;text-transform:uppercase;margin:0 0 24px">${escape(c.site)}</p>
+<p>${escape(c.hello)} ${escape(name)},</p>
+<p>${escape(intro)}</p>
+<p><a href="${escape(url)}" style="display:inline-block;background:#f5b82e;color:#0c0b0a;padding:14px 20px;font-weight:bold;text-transform:uppercase;text-decoration:none">${escape(fill(k.cta))}</a></p>
+</div>`
+  return { subject, text, html }
+}

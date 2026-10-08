@@ -345,7 +345,8 @@
       "logout": "Log out",
       "myProfiles": "My profiles",
       "editBand": "Edit",
-      "viewPage": "View page"
+      "viewPage": "View page",
+      "invites": "{count, plural, one {You have a band invite waiting →} other {You have # band invites waiting →}}"
     },
     "onboarding": {
       "title": "Your profile",
@@ -373,7 +374,11 @@
       "invalid": "Invalid value.",
       "auth": "Your session expired: please log in again.",
       "forbidden": "You're not allowed to edit this profile.",
-      "server": "Something went wrong on our end."
+      "server": "Something went wrong on our end.",
+      "email": "Invalid email address.",
+      "noMusician": "No musician profile with this email. Add the person as a name only, or ask them to sign up.",
+      "alreadyMember": "Already in the lineup (or invite pending).",
+      "lastAdmin": "The band needs at least one admin."
     }
   },
   "editBand": {
@@ -517,6 +522,21 @@
       "curfew": "curfew {time}",
       "indoor": "Indoor",
       "outdoor": "Outdoor"
+    },
+    "musician": {
+      "subInstruments": "Instruments",
+      "subRadius": "Area",
+      "km": "{km} km around {city}",
+      "notice": "Notice needed",
+      "days": "{n, plural, =0 {Same day} one {# day ahead} other {# days ahead}}",
+      "repertoire": "Repertoire",
+      "gear": "Gear",
+      "bandsCount": "{count, plural, one {# band} other {# bands}}",
+      "available": "Available to fill in",
+      "bands": "Bands",
+      "seeBand": "See the band →",
+      "hear": "Hear them play",
+      "subs": "Fill-in"
     }
   },
   "editOrga": {
@@ -582,5 +602,77 @@
     "photo": "Venue photo",
     "delete": "Delete this venue",
     "confirmDelete": "Delete “{name}”?"
+  },
+  "editMusician": {
+    "title": "Edit my musician profile",
+    "back": "My account",
+    "viewPublic": "View public page",
+    "infos": {
+      "title": "You and your instrument",
+      "photo": "Photo",
+      "styles": "Styles you play",
+      "stylesHelp": "Up to 6.",
+      "bio": "Bio",
+      "bioHelp": "Training, influences, past bands."
+    },
+    "videos": {
+      "title": "Hear you play",
+      "intro": "Videos where we can hear you. They only load when a visitor clicks.",
+      "video1": "Video 1",
+      "video2": "Video 2"
+    },
+    "subs": {
+      "title": "Fill-in",
+      "intro": "For bands looking for a sub.",
+      "instruments": "Instruments for fill-ins",
+      "instrumentsPlaceholder": "E.g. drums, percussion",
+      "radius": "Radius (km)",
+      "notice": "Notice needed (days)",
+      "repertoire": "Repertoire",
+      "repertoirePlaceholder": "E.g. learns a one-hour set in a week",
+      "gear": "Gear",
+      "gearPlaceholder": "E.g. own snare and cymbals"
+    }
+  },
+  "lineup": {
+    "title": "Lineup",
+    "intro": "Essential members count for the band's availability. Admins edit the profile, see fees and accept offers.",
+    "requests": "Requests to join the band",
+    "accept": "Accept",
+    "decline": "Decline",
+    "you": "You",
+    "linked": "Linked musician profile",
+    "noAccount": "No account (name only)",
+    "role": "Role",
+    "rolePlaceholder": "E.g. drums",
+    "essential": "Essential",
+    "admin": "Admin",
+    "save": "OK",
+    "remove": "Remove",
+    "confirmRemove": "Remove {name} from the lineup?",
+    "invited": "Invites sent",
+    "invitedTo": "{name}: waiting for an answer",
+    "cancelInvite": "Cancel",
+    "inviteTitle": "Invite a registered musician",
+    "inviteHelp": "They get an email and accept from their account.",
+    "email": "Their email",
+    "invite": "Send invite",
+    "addTitle": "Add a member without an account",
+    "addHelp": "Just a name in the lineup. It can be replaced by their profile later.",
+    "name": "Name",
+    "add": "Add",
+    "inviteFrom": "{band} invites you to its lineup",
+    "myBands": "My bands",
+    "noBands": "No band linked to your profile yet.",
+    "leave": "Leave",
+    "confirmLeave": "Leave {band}?",
+    "requestSent": "Request sent to {band}",
+    "cancelRequest": "Cancel request",
+    "searchLabel": "Is your band already on here?",
+    "searchPlaceholder": "Band name",
+    "search": "Search",
+    "noResults": "No band found.",
+    "alreadyLinked": "Already linked",
+    "askToJoin": "Ask to join"
   }
 }

@@ -6,6 +6,8 @@ import { LogoutButton } from '@/components/auth/LogoutButton'
 import { Link, redirect } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
 import { getAdminBands } from '@/lib/bands'
+import { getMusicianLinks } from '@/lib/lineup'
+import { getMusicianForEdit } from '@/lib/musicians'
 import { getOrgaForEdit } from '@/lib/orgas'
 import { getSession } from '@/lib/session'
 
@@ -33,6 +35,8 @@ export default async function AccountPage({ params, searchParams }: Props) {
   const { verifie } = await searchParams
   const bands = await getAdminBands(user.id)
   const orga = userRole === 'orga' ? await getOrgaForEdit(user.id) : null
+  const mus = userRole === 'musicien' ? await getMusicianForEdit(user.id) : null
+  const invites = mus ? (await getMusicianLinks(user.id)).filter((l) => l.status === 'invited') : []
   const t = await getTranslations('auth.account')
   const role = (ROLE_KEYS as readonly string[]).includes(userRole)
     ? (userRole as (typeof ROLE_KEYS)[number])
@@ -77,7 +81,16 @@ export default async function AccountPage({ params, searchParams }: Props) {
           </dt>
           <dd style={{ margin: 0, fontWeight: 700, overflowWrap: 'anywhere' }}>{user.email}</dd>
         </dl>
-        {(bands.length > 0 || orga) && (
+        {invites.length > 0 && (
+          <Link
+            href="/compte/musicien"
+            className={styles.alert}
+            style={{ display: 'block', color: 'var(--c-text)', borderLeftColor: 'var(--c-red)' }}
+          >
+            {t('invites', { count: invites.length })}
+          </Link>
+        )}
+        {(bands.length > 0 || orga || mus) && (
           <section
             aria-labelledby="my-profiles"
             style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
@@ -121,6 +134,37 @@ export default async function AccountPage({ params, searchParams }: Props) {
                       </Link>
                     )}
                     <Link href="/compte/orga" className="btn btn--amber">
+                      {t('editBand')}
+                    </Link>
+                  </span>
+                </li>
+              )}
+              {mus && (
+                <li
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: 12,
+                    background: 'var(--c-surface)',
+                    borderLeft: '8px solid var(--c-paper)',
+                    padding: '16px 20px',
+                  }}
+                >
+                  <span className="display" style={{ fontSize: 28 }}>
+                    {mus.stageName}
+                  </span>
+                  <span style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                    {mus.slug && (
+                      <Link
+                        href={{ pathname: '/musiciens/[slug]', params: { slug: mus.slug } }}
+                        className="btn btn--ghost"
+                      >
+                        {t('viewPage')}
+                      </Link>
+                    )}
+                    <Link href="/compte/musicien" className="btn btn--paper">
                       {t('editBand')}
                     </Link>
                   </span>
