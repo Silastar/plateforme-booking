@@ -6,7 +6,7 @@ import postgres from 'postgres'
 // Applique les migrations SQL du dossier drizzle/ au démarrage du serveur.
 export async function runMigrations() {
   if (!process.env.DATABASE_URL) return
-  const client = postgres(process.env.DATABASE_URL, { max: 1 })
+  const client = postgres(process.env.DATABASE_URL, { max: 1, onnotice: () => {} })
   try {
     await migrate(drizzle(client), { migrationsFolder: path.join(process.cwd(), 'drizzle') })
     console.info('[db] migrations à jour')

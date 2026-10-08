@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm'
-import { boolean, integer, pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core'
+import { boolean, integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
 const timestamps = {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
@@ -62,61 +62,146 @@ export const verification = pgTable('verification', {
   ...timestamps,
 })
 
-/* ---------- Profils (le minimum de l'inscription ; complétés à l'étape 3) ---------- */
+/* ---------- Profils ---------- */
+
+// Fichiers envoyés (photos, fiche technique) : chemin public « /media/<nom> ».
+const media = (name: string) => text(name)
 
 export const organization = pgTable('organization', {
   id: text('id').primaryKey(),
   ownerId: text('owner_id')
     .notNull()
     .references(() => user.id, { onDelete: 'cascade' }),
+  slug: text('slug').unique(),
   name: text('name').notNull(),
   // salle | bar | festival | association | prive
   type: text('type').notNull(),
   city: text('city').notNull(),
   capacity: integer('capacity'),
   website: text('website'),
+  description: text('description'),
+  logo: media('logo'),
+  cover: media('cover'),
+  since: integer('since'),
+  // Ce qu'on programme
+  genres: text('genres').array().notNull().default([]),
+  eventTypes: text('event_types'),
+  bandsPerNight: text('bands_per_night'),
+  setLength: text('set_length'),
+  rhythm: text('rhythm'),
+  // Conditions habituelles
+  budgetMin: integer('budget_min'),
+  budgetMax: integer('budget_max'),
+  feeTerms: text('fee_terms'),
+  ...timestamps,
+})
+
+// Lieux d'une orga (une salle peut en avoir plusieurs : grande salle, club…).
+export const venue = pgTable('venue', {
+  id: text('id').primaryKey(),
+  organizationId: text('organization_id')
+    .notNull()
+    .references(() => organization.id, { onDelete: 'cascade' }),
+  name: text('name').notNull(),
+  address: text('address'),
+  postalCode: text('postal_code'),
+  city: text('city').notNull(),
+  capacity: integer('capacity'),
+  indoor: boolean('indoor').notNull().default(true),
+  stageSize: text('stage_size'),
+  paProvided: boolean('pa_provided').notNull().default(false),
+  lightsProvided: boolean('lights_provided').notNull().default(false),
+  engineerOnSite: boolean('engineer_on_site').notNull().default(false),
+  backline: text('backline'),
+  greenRoom: boolean('green_room').notNull().default(false),
+  catering: boolean('catering').notNull().default(false),
+  loadIn: text('load_in'),
+  curfew: text('curfew'),
+  photo: media('photo'),
   ...timestamps,
 })
 
 export const band = pgTable('band', {
   id: text('id').primaryKey(),
+  slug: text('slug').unique(),
   name: text('name').notNull(),
   mainGenre: text('main_genre').notNull(),
+  genres: text('genres').array().notNull().default([]),
   city: text('city').notNull(),
   musiciansCount: integer('musicians_count'),
   listenUrl: text('listen_url').notNull(),
+  photo: media('photo'),
+  since: integer('since'),
+  // compos | reprises | mixte
+  repertoire: text('repertoire'),
+  setMin: integer('set_min'),
+  setMax: integer('set_max'),
+  bio: text('bio'),
+  story: text('story'),
+  discography: text('discography'),
+  press: text('press'),
+  // Médias (chargés seulement au clic du visiteur)
+  spotifyUrl: text('spotify_url'),
+  bandcampUrl: text('bandcamp_url'),
+  soundcloudUrl: text('soundcloud_url'),
+  youtubeUrl: text('youtube_url'),
+  // Fiche technique
+  rider: media('rider'),
+  lineupDetail: text('lineup_detail'),
+  backline: text('backline'),
+  ownEngineer: boolean('own_engineer').notNull().default(false),
+  setupMinutes: integer('setup_minutes'),
+  minStage: text('min_stage'),
+  // Zone et cachet
+  radiusKm: integer('radius_km'),
+  regions: text('regions'),
+  feeMin: integer('fee_min'),
+  feeMax: integer('fee_max'),
+  feeNote: text('fee_note'),
   ...timestamps,
 })
 
 // Line-up : un musicien peut être dans plusieurs groupes, avec un rôle par groupe.
-export const bandMember = pgTable(
-  'band_member',
-  {
-    bandId: text('band_id')
-      .notNull()
-      .references(() => band.id, { onDelete: 'cascade' }),
-    userId: text('user_id')
-      .notNull()
-      .references(() => user.id, { onDelete: 'cascade' }),
-    role: text('role'),
-    isAdmin: boolean('is_admin').notNull().default(false),
-    isEssential: boolean('is_essential').notNull().default(true),
-    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [primaryKey({ columns: [t.bandId, t.userId] })],
-)
+// Un membre sans compte reste un simple nom (user_id vide).
+export const bandMember = pgTable('band_member', {
+  id: text('id').primaryKey(),
+  bandId: text('band_id')
+    .notNull()
+    .references(() => band.id, { onDelete: 'cascade' }),
+  userId: text('user_id').references(() => user.id, { onDelete: 'cascade' }),
+  name: text('name'),
+  role: text('role'),
+  isAdmin: boolean('is_admin').notNull().default(false),
+  isEssential: boolean('is_essential').notNull().default(true),
+  // active | invited (le groupe a invité) | requested (le musicien demande)
+  status: text('status').notNull().default('active'),
+  inviteEmail: text('invite_email'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+})
 
 export const musician = pgTable('musician', {
   userId: text('user_id')
     .primaryKey()
     .references(() => user.id, { onDelete: 'cascade' }),
+  slug: text('slug').unique(),
   stageName: text('stage_name').notNull(),
   mainInstrument: text('main_instrument').notNull(),
   otherInstruments: text('other_instruments'),
   city: text('city').notNull(),
   // amateur | semipro | pro
   level: text('level').notNull(),
+  styles: text('styles').array().notNull().default([]),
+  photo: media('photo'),
+  bio: text('bio'),
+  videoUrl: text('video_url'),
+  videoUrl2: text('video_url_2'),
+  // Dépannage
   availableForSubs: boolean('available_for_subs').notNull().default(false),
+  subInstruments: text('sub_instruments'),
+  subRadiusKm: integer('sub_radius_km'),
+  subNoticeDays: integer('sub_notice_days'),
+  repertoireNote: text('repertoire_note'),
+  gearNote: text('gear_note'),
   ...timestamps,
 })
 
@@ -135,6 +220,18 @@ export const bandMemberRelations = relations(bandMember, ({ one }) => ({
   user: one(user, { fields: [bandMember.userId], references: [user.id] }),
 }))
 
-export const organizationRelations = relations(organization, ({ one }) => ({
+export const organizationRelations = relations(organization, ({ one, many }) => ({
   owner: one(user, { fields: [organization.ownerId], references: [user.id] }),
+  venues: many(venue),
+}))
+
+export const venueRelations = relations(venue, ({ one }) => ({
+  organization: one(organization, {
+    fields: [venue.organizationId],
+    references: [organization.id],
+  }),
+}))
+
+export const musicianRelations = relations(musician, ({ one }) => ({
+  user: one(user, { fields: [musician.userId], references: [user.id] }),
 }))

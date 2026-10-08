@@ -342,12 +342,152 @@
       "pendingTitle": "Profil orga en cours de vérification",
       "pendingText": "Notre équipe vérifie ta structure. Tu reçois un e-mail dès que c'est validé.",
       "next": "La suite arrive : profil complet, calendrier, dates.",
-      "logout": "Se déconnecter"
+      "logout": "Se déconnecter",
+      "myProfiles": "Mes profils",
+      "editBand": "Modifier",
+      "viewPage": "Voir la page"
     },
     "onboarding": {
       "title": "Ton profil",
       "heading": "Encore une étape",
       "text": "Choisis ton côté de la scène et remplis l'essentiel."
+    }
+  },
+  "forms": {
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "C'est enregistré.",
+    "fixErrors": "Il y a des champs à corriger (en rouge).",
+    "choose": "Choisir…",
+    "noImage": "Pas encore de photo",
+    "imageHelp": "JPG, PNG ou WebP, 10 Mo max. Les infos cachées de la photo (lieu, appareil) sont retirées.",
+    "errors": {
+      "required": "Champ obligatoire.",
+      "tooLong": "Trop long.",
+      "url": "Lien invalide (il doit commencer par http:// ou https://).",
+      "number": "Nombre invalide.",
+      "range": "Le minimum dépasse le maximum.",
+      "tooMany": "6 au maximum.",
+      "fileType": "Format de fichier non accepté.",
+      "fileSize": "Fichier trop lourd (10 Mo max).",
+      "invalid": "Valeur invalide.",
+      "auth": "Ta session a expiré : reconnecte-toi.",
+      "forbidden": "Tu n'as pas les droits pour modifier ce profil.",
+      "server": "Un problème est survenu de notre côté."
+    }
+  },
+  "editBand": {
+    "title": "Modifier le groupe",
+    "back": "Mon compte",
+    "viewPublic": "Voir la page publique",
+    "infos": {
+      "title": "Le groupe",
+      "name": "Nom du groupe",
+      "city": "Ville d'origine",
+      "since": "Sur scène depuis (année)",
+      "musicians": "Musiciens sur scène",
+      "photo": "Photo du groupe",
+      "mainGenre": "Genre principal",
+      "genres": "Autres genres",
+      "genresHelp": "Jusqu'à 6.",
+      "repertoire": "Répertoire",
+      "repertoires": {
+        "compos": "Compos",
+        "reprises": "Reprises",
+        "mixte": "Compos et reprises"
+      },
+      "setMin": "Set le plus court (min)",
+      "setMax": "Set le plus long (min)",
+      "listenUrl": "Lien principal pour t'écouter",
+      "listenHelp": "Obligatoire : c'est la première chose qu'un orga écoute."
+    },
+    "bio": {
+      "title": "Bio",
+      "short": "En deux phrases",
+      "shortHelp": "Affichée en tête de la bio et dans les résultats de recherche.",
+      "long": "L'histoire du groupe",
+      "discography": "Discographie",
+      "press": "Presse"
+    },
+    "media": {
+      "title": "Écouter",
+      "intro": "Les lecteurs Spotify, YouTube et SoundCloud s'affichent sur ta page. Ils ne se chargent qu'au clic du visiteur.",
+      "youtube": "YouTube (vidéo live)"
+    },
+    "tech": {
+      "title": "Fiche technique",
+      "intro": "Visible par les comptes connectés. Le PDF peut contenir ton plan de scène.",
+      "rider": "Fiche technique (PDF)",
+      "currentRider": "Voir la fiche actuelle",
+      "removeRider": "Retirer la fiche actuelle",
+      "lineup": "Formation",
+      "lineupPlaceholder": "Ex. chant, 2 guitares, basse, batterie",
+      "backline": "Backline",
+      "backlinePlaceholder": "Ex. amplis apportés, batterie à fournir",
+      "setup": "Montage + balance (min)",
+      "minStage": "Scène minimale",
+      "ownEngineer": "On vient avec notre ingé son"
+    },
+    "zone": {
+      "title": "Zone et cachet",
+      "intro": "Le cachet n'est visible que des orgas connectés.",
+      "radius": "Rayon de déplacement (km)",
+      "regions": "Au-delà, avec hébergement",
+      "regionsPlaceholder": "Ex. Suisse romande, Savoie",
+      "feeMin": "Cachet minimum (CHF)",
+      "feeMax": "Cachet maximum (CHF)",
+      "feeNote": "Conditions",
+      "feeNotePlaceholder": "Ex. plus défraiements au-delà de 100 km, repas pour 5"
+    }
+  },
+  "profiles": {
+    "edit": "Modifier le profil",
+    "genres": "Genres",
+    "musicians": "{count, plural, one {# musicien} other {# musiciens}}",
+    "since": "Sur scène depuis {year}",
+    "listenOutside": "Écouter",
+    "listen": "Écouter",
+    "mainLink": "Lien principal",
+    "lineup": "Line-up",
+    "essential": "Indispensable",
+    "profileLink": "Son profil →",
+    "bio": "Bio",
+    "discography": "Discographie",
+    "press": "Presse",
+    "minutes": "{n} min",
+    "setRange": "{min} à {max} min",
+    "repertoire": {
+      "compos": "Compos",
+      "reprises": "Reprises",
+      "mixte": "Compos et reprises"
+    },
+    "tech": {
+      "title": "Fiche technique",
+      "pdf": "PDF + plan de scène",
+      "pdfLocked": "PDF réservé aux comptes connectés",
+      "lineup": "Formation",
+      "backline": "Backline",
+      "sound": "Son",
+      "ownEngineer": "Ingé son du groupe",
+      "setup": "Montage + balance",
+      "set": "Durée de set",
+      "minStage": "Scène minimale"
+    },
+    "fee": {
+      "title": "Cachet",
+      "range": "{min} – {max} CHF",
+      "single": "{amount} CHF",
+      "locked": "Visible par les orgas connectés"
+    },
+    "zone": {
+      "title": "Zone",
+      "radius": "Depuis {city}, {km} km.",
+      "beyond": "Au-delà : {regions}."
+    },
+    "media": {
+      "play": "Écouter sur {service}",
+      "privacy": "Le lecteur vient de {service}, qui peut déposer ses propres cookies.",
+      "load": "Charger le lecteur"
     }
   }
 }

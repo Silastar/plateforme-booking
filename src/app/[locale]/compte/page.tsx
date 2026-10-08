@@ -3,8 +3,9 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import styles from '@/components/auth/auth.module.css'
 import { LogoutButton } from '@/components/auth/LogoutButton'
-import { redirect } from '@/i18n/navigation'
+import { Link, redirect } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
+import { getAdminBands } from '@/lib/bands'
 import { getSession } from '@/lib/session'
 
 type Props = {
@@ -29,6 +30,7 @@ export default async function AccountPage({ params, searchParams }: Props) {
   const userRole = user.role ?? 'none'
   if (userRole === 'none') return redirect({ href: '/inscription/profil', locale })
   const { verifie } = await searchParams
+  const bands = await getAdminBands(user.id)
   const t = await getTranslations('auth.account')
   const role = (ROLE_KEYS as readonly string[]).includes(userRole)
     ? (userRole as (typeof ROLE_KEYS)[number])
@@ -73,6 +75,62 @@ export default async function AccountPage({ params, searchParams }: Props) {
           </dt>
           <dd style={{ margin: 0, fontWeight: 700, overflowWrap: 'anywhere' }}>{user.email}</dd>
         </dl>
+        {bands.length > 0 && (
+          <section
+            aria-labelledby="my-profiles"
+            style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
+          >
+            <h2 id="my-profiles" className="display" style={{ fontSize: 36 }}>
+              {t('myProfiles')}
+            </h2>
+            <ul
+              style={{
+                listStyle: 'none',
+                margin: 0,
+                padding: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 10,
+              }}
+            >
+              {bands.map((b) => (
+                <li
+                  key={b.id}
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: 12,
+                    background: 'var(--c-surface)',
+                    borderLeft: '8px solid var(--c-red)',
+                    padding: '16px 20px',
+                  }}
+                >
+                  <span className="display" style={{ fontSize: 28 }}>
+                    {b.name}
+                  </span>
+                  <span style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                    {b.slug && (
+                      <Link
+                        href={{ pathname: '/groupes/[slug]', params: { slug: b.slug } }}
+                        className="btn btn--ghost"
+                      >
+                        {t('viewPage')}
+                      </Link>
+                    )}
+                    <Link
+                      href={{ pathname: '/compte/groupe/[id]', params: { id: b.id } }}
+                      className="btn btn--red"
+                    >
+                      {t('editBand')}
+                    </Link>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         <p className={styles.muted}>{t('next')}</p>
         <div>
           <LogoutButton label={t('logout')} />

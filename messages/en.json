@@ -342,12 +342,152 @@
       "pendingTitle": "Promoter profile under review",
       "pendingText": "Our team is reviewing your organization. You'll get an email as soon as it's approved.",
       "next": "More is coming: full profile, calendar, dates.",
-      "logout": "Log out"
+      "logout": "Log out",
+      "myProfiles": "My profiles",
+      "editBand": "Edit",
+      "viewPage": "View page"
     },
     "onboarding": {
       "title": "Your profile",
       "heading": "One more step",
       "text": "Pick your side of the stage and fill in the basics."
+    }
+  },
+  "forms": {
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Saved.",
+    "fixErrors": "Some fields need fixing (in red).",
+    "choose": "Choose…",
+    "noImage": "No photo yet",
+    "imageHelp": "JPG, PNG or WebP, 10 MB max. Hidden photo data (location, camera) is removed.",
+    "errors": {
+      "required": "Required field.",
+      "tooLong": "Too long.",
+      "url": "Invalid link (it must start with http:// or https://).",
+      "number": "Invalid number.",
+      "range": "The minimum is above the maximum.",
+      "tooMany": "6 at most.",
+      "fileType": "File type not accepted.",
+      "fileSize": "File too large (10 MB max).",
+      "invalid": "Invalid value.",
+      "auth": "Your session expired: please log in again.",
+      "forbidden": "You're not allowed to edit this profile.",
+      "server": "Something went wrong on our end."
+    }
+  },
+  "editBand": {
+    "title": "Edit band",
+    "back": "My account",
+    "viewPublic": "View public page",
+    "infos": {
+      "title": "The band",
+      "name": "Band name",
+      "city": "Hometown",
+      "since": "Playing live since (year)",
+      "musicians": "Musicians on stage",
+      "photo": "Band photo",
+      "mainGenre": "Main genre",
+      "genres": "Other genres",
+      "genresHelp": "Up to 6.",
+      "repertoire": "Repertoire",
+      "repertoires": {
+        "compos": "Originals",
+        "reprises": "Covers",
+        "mixte": "Originals and covers"
+      },
+      "setMin": "Shortest set (min)",
+      "setMax": "Longest set (min)",
+      "listenUrl": "Main link to hear you",
+      "listenHelp": "Required: it's the first thing a promoter listens to."
+    },
+    "bio": {
+      "title": "Bio",
+      "short": "In two sentences",
+      "shortHelp": "Shown at the top of the bio and in search results.",
+      "long": "The band's story",
+      "discography": "Discography",
+      "press": "Press"
+    },
+    "media": {
+      "title": "Listen",
+      "intro": "Spotify, YouTube and SoundCloud players show on your page. They only load when a visitor clicks.",
+      "youtube": "YouTube (live video)"
+    },
+    "tech": {
+      "title": "Tech rider",
+      "intro": "Visible to logged-in accounts. The PDF can include your stage plot.",
+      "rider": "Tech rider (PDF)",
+      "currentRider": "See the current rider",
+      "removeRider": "Remove the current rider",
+      "lineup": "Lineup",
+      "lineupPlaceholder": "E.g. vocals, 2 guitars, bass, drums",
+      "backline": "Backline",
+      "backlinePlaceholder": "E.g. bring own amps, drum kit needed",
+      "setup": "Setup + soundcheck (min)",
+      "minStage": "Minimum stage",
+      "ownEngineer": "We bring our own sound engineer"
+    },
+    "zone": {
+      "title": "Area and fee",
+      "intro": "Your fee is only visible to logged-in promoters.",
+      "radius": "Travel radius (km)",
+      "regions": "Further, with lodging",
+      "regionsPlaceholder": "E.g. French-speaking Switzerland, Savoie",
+      "feeMin": "Minimum fee (CHF)",
+      "feeMax": "Maximum fee (CHF)",
+      "feeNote": "Terms",
+      "feeNotePlaceholder": "E.g. plus travel expenses beyond 100 km, meals for 5"
+    }
+  },
+  "profiles": {
+    "edit": "Edit profile",
+    "genres": "Genres",
+    "musicians": "{count, plural, one {# musician} other {# musicians}}",
+    "since": "Playing live since {year}",
+    "listenOutside": "Listen",
+    "listen": "Listen",
+    "mainLink": "Main link",
+    "lineup": "Lineup",
+    "essential": "Essential",
+    "profileLink": "Profile →",
+    "bio": "Bio",
+    "discography": "Discography",
+    "press": "Press",
+    "minutes": "{n} min",
+    "setRange": "{min} to {max} min",
+    "repertoire": {
+      "compos": "Originals",
+      "reprises": "Covers",
+      "mixte": "Originals and covers"
+    },
+    "tech": {
+      "title": "Tech rider",
+      "pdf": "PDF + stage plot",
+      "pdfLocked": "PDF for logged-in accounts",
+      "lineup": "Lineup",
+      "backline": "Backline",
+      "sound": "Sound",
+      "ownEngineer": "Band's own sound engineer",
+      "setup": "Setup + soundcheck",
+      "set": "Set length",
+      "minStage": "Minimum stage"
+    },
+    "fee": {
+      "title": "Fee",
+      "range": "CHF {min}–{max}",
+      "single": "CHF {amount}",
+      "locked": "Visible to logged-in promoters"
+    },
+    "zone": {
+      "title": "Area",
+      "radius": "From {city}, {km} km.",
+      "beyond": "Further: {regions}."
+    },
+    "media": {
+      "play": "Listen on {service}",
+      "privacy": "The player comes from {service}, which may set its own cookies.",
+      "load": "Load the player"
     }
   }
 }

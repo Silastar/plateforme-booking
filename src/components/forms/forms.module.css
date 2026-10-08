@@ -1,0 +1,245 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.section {
+  margin: 0;
+  border: 0;
+  border-top: 6px solid var(--accent, var(--c-amber));
+  background: var(--c-surface);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+.legendNumber {
+  color: var(--accent-text, var(--c-amber));
+  margin-right: 8px;
+}
+
+.sectionIntro {
+  margin: 0;
+  color: var(--c-muted);
+  font-size: 15px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-text, var(--c-amber));
+  min-width: 0;
+}
+
+.field input:not([type='checkbox']):not([type='file']),
+.field select,
+.field textarea {
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--c-ink);
+  padding: 12px;
+  border: 2px solid transparent;
+  border-radius: 0;
+  background: var(--c-paper-light);
+  min-height: 50px;
+  width: 100%;
+}
+
+.field textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.field [aria-invalid='true'] {
+  border-color: var(--c-red-bright) !important;
+}
+
+.help {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--c-muted);
+}
+
+.error {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--c-red-text);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
+  font-size: 16px;
+}
+
+.check input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  accent-color: var(--accent, var(--c-amber));
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 2px dashed var(--c-line-strong);
+  color: var(--c-text-soft);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+
+.chip input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+
+.chip:has(input:checked) {
+  background: var(--c-paper);
+  border: 2px solid var(--c-paper);
+  color: var(--c-ink);
+}
+
+.chip:has(input:focus-visible) {
+  outline: 3px solid var(--c-amber);
+  outline-offset: 3px;
+}
+
+.media {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.thumb {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  background: var(--c-ink);
+  border: 1px solid var(--c-line);
+}
+
+.thumbEmpty {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-ink);
+  border: 1px dashed var(--c-line-strong);
+  color: var(--c-faint);
+  font-size: 12px;
+  text-align: center;
+  padding: 8px;
+}
+
+.file {
+  font: inherit;
+  font-size: 15px;
+  color: var(--c-text-soft);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+.status {
+  margin: 0;
+  padding: 14px 16px;
+  border-left: 6px solid var(--c-amber);
+  background: var(--c-surface);
+  font-weight: 700;
+}
+
+.statusError {
+  border-left-color: var(--c-red-bright);
+  background: #2a0f0d;
+}
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.save {
+  background: var(--accent, var(--c-amber));
+  color: var(--accent-on, var(--c-ink));
+  min-height: 54px;
+  padding: 16px 28px;
+  font-size: 16px;
+}
+
+.save:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.accentOrga {
+  --accent: var(--c-amber);
+  --accent-on: var(--c-ink);
+  --accent-text: var(--c-amber);
+}
+
+.accentGroupe {
+  --accent: var(--c-red);
+  --accent-on: #fff;
+  --accent-text: var(--c-red-text);
+}
+
+.accentMusicien {
+  --accent: var(--c-paper);
+  --accent-on: var(--c-ink);
+  --accent-text: var(--c-paper);
+}
