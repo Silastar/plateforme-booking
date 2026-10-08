@@ -2,12 +2,16 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server'
 
+import gigStyles from '@/components/gigs/gigs.module.css'
+import { GigTicket, toTicket } from '@/components/gigs/GigTicket'
 import { StageLights } from '@/components/home/StageLights'
 import { LockIcon } from '@/components/profiles/LockedNote'
 import styles from '@/components/profiles/profile.module.css'
 import { Link } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
+import { todayIso } from '@/lib/calendar'
 import type { Genre } from '@/lib/genres'
+import { getOrgaGigs } from '@/lib/gigs'
 import { getOrgaPage } from '@/lib/orgas'
 import { getSession } from '@/lib/session'
 
@@ -42,6 +46,11 @@ export default async function OrgaPage({ params }: Props) {
     [t('orga.rhythm'), orga.rhythm],
   ].filter(([, v]) => v) as [string, string][]
   const yes = t('orga.yes')
+  const today = todayIso()
+  const openGigs = (await getOrgaGigs(orga.id))
+    .filter((g) => g.status === 'open' && g.visibility === 'open' && g.day >= today)
+    .slice(0, 6)
+  const tgig = await getTranslations('gigs')
 
   return (
     <article className={styles.accentOrga}>
@@ -105,6 +114,24 @@ export default async function OrgaPage({ params }: Props) {
 
       <div className={`container ${styles.body}`}>
         <div className={styles.main}>
+          {openGigs.length > 0 && (
+            <section aria-labelledby="open-dates" className={styles.panel}>
+              <h2 id="open-dates" className={styles.panelTitle}>
+                {tgig('list.title')}
+              </h2>
+              <ul className={gigStyles.tickets}>
+                {openGigs.map((g) => (
+                  <li key={g.id}>
+                    <GigTicket
+                      gig={toTicket({ ...g, organization: orga })}
+                      unlocked={Boolean(session)}
+                      link={session ? 'view' : 'login'}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
           {(orga.genres.length > 0 || program.length > 0) && (
             <section aria-labelledby="program" className={styles.panel}>
               <h2 id="program" className={styles.panelTitle}>

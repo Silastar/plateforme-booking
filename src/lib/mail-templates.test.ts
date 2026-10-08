@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { authMail } from './mail-templates'
+import { authMail, gigMail, mailDate } from './mail-templates'
 
 describe('e-mails de compte', () => {
   it('rédige en anglais pour un compte anglais', () => {
@@ -13,5 +13,32 @@ describe('e-mails de compte', () => {
     const m = authMail('reset', 'fr', '<script>', 'http://x')
     expect(m.html).not.toContain('<script>')
     expect(m.html).toContain('&lt;script&gt;')
+  })
+})
+
+describe('e-mails des dates', () => {
+  it('candidature reçue, en français, avec la date lisible et le lien', () => {
+    const m = gigMail(
+      'application',
+      'fr',
+      'Sam',
+      { band: 'Les Néons Fauves', orga: 'Le Bocal', date: mailDate('2027-03-12', 'fr') },
+      'https://exemple.ch/fr/compte/dates?date=1',
+    )
+    expect(m.subject).toContain('Les Néons Fauves candidate pour ta date du vendredi 12 mars 2027')
+    expect(m.text).toContain('https://exemple.ch/fr/compte/dates?date=1')
+  })
+
+  it('refus en anglais, noms échappés dans le HTML', () => {
+    const m = gigMail(
+      'declined',
+      'en',
+      'Léa',
+      { band: '<Rouille>', orga: 'Le Bocal', date: mailDate('2027-03-12', 'en') },
+      'https://example.com/en/open-dates',
+    )
+    expect(m.subject).toContain('Friday, March 12, 2027')
+    expect(m.html).toContain('&lt;Rouille&gt;')
+    expect(m.html).not.toContain('<Rouille>')
   })
 })

@@ -262,6 +262,66 @@ export const tour = pgTable(
   (t) => [index('tour_band_idx').on(t.bandId)],
 )
 
+/* ---------- Dates à pourvoir et candidatures ---------- */
+
+// Date publiée par une orga. Sans lieu choisi, on reprend la ville et la capacité de l'orga.
+export const gig = pgTable(
+  'gig',
+  {
+    id: text('id').primaryKey(),
+    organizationId: text('organization_id')
+      .notNull()
+      .references(() => organization.id, { onDelete: 'cascade' }),
+    venueId: text('venue_id').references(() => venue.id, { onDelete: 'set null' }),
+    day: date('day', { mode: 'string' }).notNull(),
+    loadIn: text('load_in'),
+    setStart: text('set_start'),
+    curfew: text('curfew'),
+    // Dates créées ensemble par la répétition (chaque semaine, chaque mois)
+    seriesId: text('series_id'),
+    genres: text('genres').array().notNull().default([]),
+    // headline (tête d'affiche) | support (1re partie) | bill (plateau)
+    format: text('format').notNull(),
+    bandsCount: integer('bands_count').notNull().default(1),
+    setLength: integer('set_length'),
+    budgetMin: integer('budget_min'),
+    budgetMax: integer('budget_max'),
+    // meal | drinks | lodging | travel
+    includes: text('includes').array().notNull().default([]),
+    // open (annonce ouverte : les groupes candidatent) | invite (seuls les groupes contactés la voient)
+    visibility: text('visibility').notNull().default('open'),
+    note: text('note'),
+    // open | filled (show calé, étape 7) | cancelled
+    status: text('status').notNull().default('open'),
+    ...timestamps,
+  },
+  (t) => [index('gig_org_idx').on(t.organizationId), index('gig_day_idx').on(t.day)],
+)
+
+// Candidature d'un groupe à une date en annonce ouverte.
+export const application = pgTable(
+  'application',
+  {
+    id: text('id').primaryKey(),
+    gigId: text('gig_id')
+      .notNull()
+      .references(() => gig.id, { onDelete: 'cascade' }),
+    bandId: text('band_id')
+      .notNull()
+      .references(() => band.id, { onDelete: 'cascade' }),
+    userId: text('user_id').references(() => user.id, { onDelete: 'set null' }),
+    message: text('message'),
+    fee: integer('fee'),
+    // pending | declined (par l'orga) | withdrawn (par le groupe) | cancelled (date annulée)
+    status: text('status').notNull().default('pending'),
+    ...timestamps,
+  },
+  (t) => [
+    uniqueIndex('application_gig_band').on(t.gigId, t.bandId),
+    index('application_band_idx').on(t.bandId),
+  ],
+)
+
 export const userRelations = relations(user, ({ many, one }) => ({
   organizations: many(organization),
   memberships: many(bandMember),
@@ -270,6 +330,7 @@ export const userRelations = relations(user, ({ many, one }) => ({
 
 export const bandRelations = relations(band, ({ many }) => ({
   members: many(bandMember),
+  applications: many(application),
 }))
 
 export const bandMemberRelations = relations(bandMember, ({ one }) => ({
@@ -280,6 +341,21 @@ export const bandMemberRelations = relations(bandMember, ({ one }) => ({
 export const organizationRelations = relations(organization, ({ one, many }) => ({
   owner: one(user, { fields: [organization.ownerId], references: [user.id] }),
   venues: many(venue),
+  gigs: many(gig),
+}))
+
+export const gigRelations = relations(gig, ({ one, many }) => ({
+  organization: one(organization, {
+    fields: [gig.organizationId],
+    references: [organization.id],
+  }),
+  venue: one(venue, { fields: [gig.venueId], references: [venue.id] }),
+  applications: many(application),
+}))
+
+export const applicationRelations = relations(application, ({ one }) => ({
+  gig: one(gig, { fields: [application.gigId], references: [gig.id] }),
+  band: one(band, { fields: [application.bandId], references: [band.id] }),
 }))
 
 export const venueRelations = relations(venue, ({ one }) => ({

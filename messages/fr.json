@@ -12,6 +12,7 @@
   "nav": {
     "bands": "Groupes",
     "openDates": "Dates ouvertes",
+    "myDates": "Mes dates",
     "howItWorks": "Comment ça marche",
     "pricing": "Tarifs",
     "login": "Connexion",
@@ -108,11 +109,7 @@
     "dates": {
       "title": "Dates ouvertes",
       "all": "Toutes les dates →",
-      "openDate": "Date ouverte · {weekday}",
-      "capacity": "{count} places",
-      "locked": "Budget et détails réservés aux membres",
-      "login": "Se connecter →",
-      "sample": "Exemples en attendant les vraies dates."
+      "empty": "Pas encore de date ouverte : les premières arrivent bientôt."
     },
     "join": {
       "title": "Monte le son.",
@@ -341,14 +338,15 @@
       "email": "E-mail",
       "pendingTitle": "Profil orga en cours de vérification",
       "pendingText": "Notre équipe vérifie ta structure. Tu reçois un e-mail dès que c'est validé.",
-      "next": "La suite arrive : profil complet, calendrier, dates.",
+      "next": "La suite arrive : recherche, messagerie et offres.",
       "logout": "Se déconnecter",
       "myProfiles": "Mes profils",
       "editBand": "Modifier",
       "viewPage": "Voir la page",
       "invites": "{count, plural, one {Tu as une invitation de groupe en attente →} other {Tu as # invitations de groupe en attente →}}",
       "calendar": "Calendrier",
-      "agenda": "Agenda"
+      "agenda": "Agenda",
+      "myDates": "Mes dates"
     },
     "onboarding": {
       "title": "Ton profil",
@@ -381,7 +379,11 @@
       "noMusician": "Aucun profil musicien avec cette adresse. Ajoute la personne comme simple nom, ou demande-lui de s'inscrire.",
       "alreadyMember": "Déjà dans le line-up (ou invitation en cours).",
       "lastAdmin": "Il faut au moins un admin dans le groupe.",
-      "past": "Cette période est déjà passée."
+      "past": "Cette période est déjà passée.",
+      "time": "Heure au format 17:30.",
+      "tooFar": "Au plus deux ans à l'avance.",
+      "closed": "Cette date n'accepte plus de candidatures.",
+      "alreadyApplied": "Ce groupe a déjà candidaté pour cette date."
     }
   },
   "editBand": {
@@ -723,5 +725,218 @@
       "add": "Ajouter la tournée",
       "delete": "Supprimer"
     }
+  },
+  "gigs": {
+    "format": {
+      "headline": "Tête d'affiche",
+      "support": "1re partie",
+      "bill": "Plateau"
+    },
+    "includes": {
+      "meal": "Repas",
+      "drinks": "Boissons",
+      "lodging": "Hébergement",
+      "travel": "Défraiement transport"
+    },
+    "ticket": {
+      "openDate": "Date ouverte · {weekday}",
+      "capacity": "{count} places",
+      "budget": "Budget",
+      "budgetOpen": "À discuter",
+      "wanted": "Recherché",
+      "minutes": "{n} min",
+      "bands": "{count, plural, one {# groupe} other {# groupes}}",
+      "hours": "Horaires",
+      "loadIn": "Load-in {time}",
+      "setStart": "scène {time}",
+      "curfew": "fin {time}",
+      "included": "Inclus",
+      "locked": "Budget et détails réservés aux membres",
+      "login": "Se connecter →",
+      "apply": "Candidater →",
+      "view": "Voir la date →",
+      "fits": "Ça colle",
+      "applied": "Candidature envoyée",
+      "cancelled": "Annulée",
+      "invite": "Sur invitation"
+    },
+    "list": {
+      "title": "Dates ouvertes",
+      "intro": "Les dates que les orgas cherchent à remplir. Celles qui collent avec ton groupe passent en premier.",
+      "introVisitor": "Les dates que les orgas cherchent à remplir. Connecte-toi pour voir budget et détails, et candidater.",
+      "empty": "Pas encore de date ouverte. Les premières arrivent bientôt.",
+      "fitsCount": "{count, plural, one {# date colle avec ton groupe} other {# dates collent avec ton groupe}}"
+    },
+    "detail": {
+      "back": "Dates ouvertes",
+      "by": "Proposée par",
+      "seeOrga": "Voir la page de l'orga",
+      "gear": "Matériel sur place",
+      "gearItems": {
+        "pa": "Sono",
+        "lights": "Lumières",
+        "engineer": "Ingé son sur place",
+        "greenRoom": "Loges",
+        "catering": "Catering"
+      },
+      "backline": "Backline : {list}",
+      "stage": "Scène : {size}",
+      "note": "Le mot de l'orga",
+      "match": {
+        "title": "Avec {band}",
+        "genre": "Genre en commun",
+        "noGenre": "Pas de genre en commun",
+        "money": "Budget et cachet se rejoignent",
+        "noMoney": "Budget en dessous de ton cachet",
+        "moneyUnknown": "Budget ou cachet pas renseigné",
+        "night": "Soir coché dispo dans ton calendrier",
+        "noNight": "Soir pas coché dispo (ou un membre est pris)",
+        "place": "Zone du groupe : vérifiée avec la recherche (bientôt)"
+      },
+      "manage": "Gérer dans Mes dates",
+      "status": {
+        "cancelled": "Cette date a été annulée.",
+        "filled": "Cette date est pourvue.",
+        "past": "Cette date est passée."
+      },
+      "inviteOnly": "Sur invitation : seuls les groupes que tu contactes voient cette date.",
+      "pendingOrga": "Ta structure n'est pas encore validée : cette date n'est visible que de toi."
+    },
+    "apply": {
+      "title": "Candidater",
+      "band": "Groupe",
+      "fee": "Cachet demandé (CHF)",
+      "feeHelp": "Repris de ta fourchette, ajuste si besoin.",
+      "message": "Un mot pour l'orga",
+      "messagePlaceholder": "Pourquoi ce soir-là, ce que vous apportez…",
+      "send": "Envoyer la candidature",
+      "sending": "Envoi…",
+      "loginTitle": "Tu joues dans un groupe ?",
+      "loginText": "Connecte-toi avec le compte admin du groupe pour candidater.",
+      "login": "Se connecter",
+      "noBand": "Seuls les admins d'un groupe inscrit peuvent candidater.",
+      "sent": "Candidature envoyée. L'orga est prévenue par e-mail.",
+      "yours": "Ta candidature · {band}",
+      "withdraw": "Retirer la candidature",
+      "status": {
+        "pending": "En attente de réponse",
+        "declined": "Pas retenue",
+        "withdrawn": "Retirée",
+        "cancelled": "Date annulée"
+      }
+    },
+    "mine": {
+      "title": "Mes dates",
+      "publish": "Publier une date",
+      "published": "{count, plural, one {Ta date est en ligne.} other {# dates en ligne.}}",
+      "publishedText": "Les groupes la voient dans les dates ouvertes et peuvent candidater.",
+      "publishedInvite": "En annonce sur invitation, elle reste visible de toi seul.",
+      "pending": "Ta structure est en cours de vérification : tes dates seront visibles des groupes dès qu'elle est validée.",
+      "counters": {
+        "open": "à pourvoir",
+        "applications": "candidatures en attente"
+      },
+      "tabs": {
+        "open": "À pourvoir",
+        "past": "Passées",
+        "cancelled": "Annulées"
+      },
+      "empty": {
+        "open": "Aucune date à pourvoir. Publie ta première date !",
+        "past": "Aucune date passée.",
+        "cancelled": "Aucune date annulée."
+      },
+      "applications": "{count, plural, =0 {Aucune candidature} one {# candidature} other {# candidatures}}",
+      "compatible": "{count, plural, =0 {Aucun groupe compatible pour l'instant} one {# groupe compatible} other {# groupes compatibles}}",
+      "seeApplications": "Voir les candidatures",
+      "hideApplications": "Masquer les candidatures",
+      "edit": "Modifier",
+      "view": "Voir côté groupes",
+      "cancel": "Annuler la date",
+      "cancelConfirm": "Annuler cette date ? Les groupes qui ont candidaté seront prévenus.",
+      "candidates": {
+        "title": "Candidatures",
+        "sorted": "Triées par compatibilité",
+        "none": "Pas encore de candidature.",
+        "fee": "Cachet demandé",
+        "feeOpen": "À discuter",
+        "profile": "Profil",
+        "decline": "Décliner",
+        "declineConfirm": "Décliner cette candidature ? Le groupe sera prévenu.",
+        "offerSoon": "Faire une offre arrive avec la messagerie.",
+        "fits": "Ça colle",
+        "status": {
+          "declined": "Déclinée",
+          "withdrawn": "Retirée",
+          "cancelled": "Close"
+        },
+        "listen": "Écouter ↗"
+      },
+      "suggest": {
+        "title": "Groupes compatibles",
+        "intro": "Genre, budget et soir dispo : ils collent, mais n'ont pas candidaté.",
+        "more": "et {count} autres"
+      }
+    },
+    "form": {
+      "titleNew": "Publie une date",
+      "titleEdit": "Modifier la date",
+      "back": "Mes dates",
+      "when": {
+        "title": "Quand et où",
+        "venue": "Lieu",
+        "venueNone": "{name} ({city})",
+        "venueHelp": "Ajoute tes lieux (grande salle, club…) dans ta fiche structure.",
+        "day": "Date",
+        "loadIn": "Load-in",
+        "setStart": "Début du set",
+        "curfew": "Couvre-feu",
+        "repeat": "Répéter",
+        "repeatModes": {
+          "none": "Une seule fois",
+          "weekly": "Chaque semaine",
+          "monthly": "Chaque mois, même jour (ex. dernier samedi)"
+        },
+        "repeatCount": "Nombre de dates",
+        "repeatHelp": "Jusqu'à 12. Chaque date se gère ensuite séparément."
+      },
+      "what": {
+        "title": "Ce que tu cherches",
+        "genres": "Genres",
+        "genresHelp": "Au moins un, jusqu'à 6.",
+        "format": "Format",
+        "bandsCount": "Nombre de groupes",
+        "setLength": "Durée de set",
+        "setLengthNone": "À définir"
+      },
+      "terms": {
+        "title": "Conditions",
+        "budgetMin": "Budget min (CHF)",
+        "budgetMax": "Budget max (CHF)",
+        "includes": "Inclus pour le groupe",
+        "gear": "Matériel repris de la fiche du lieu : {list}.",
+        "gearNone": "Le matériel fourni se renseigne dans la fiche du lieu.",
+        "editVenue": "Modifier la fiche"
+      },
+      "who": {
+        "title": "Qui la voit",
+        "open": "Annonce ouverte",
+        "openText": "Les groupes la voient dans les dates ouvertes et peuvent candidater.",
+        "invite": "Sur invitation",
+        "inviteText": "Seuls les groupes à qui tu fais une offre la voient.",
+        "note": "Un mot pour les groupes (facultatif)"
+      },
+      "publish": "Publier la date",
+      "publishing": "Publication…",
+      "preview": "Aperçu côté groupes",
+      "save": "Enregistrer"
+    },
+    "account": {
+      "applications": "Mes candidatures",
+      "none": "Aucune candidature pour l'instant.",
+      "browse": "Voir les dates ouvertes",
+      "myDates": "Mes dates"
+    },
+    "quote": "« {text} »"
   }
 }

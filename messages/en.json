@@ -12,6 +12,7 @@
   "nav": {
     "bands": "Bands",
     "openDates": "Open dates",
+    "myDates": "My dates",
     "howItWorks": "How it works",
     "pricing": "Pricing",
     "login": "Log in",
@@ -108,11 +109,7 @@
     "dates": {
       "title": "Open dates",
       "all": "All dates →",
-      "openDate": "Open date · {weekday}",
-      "capacity": "{count} capacity",
-      "locked": "Budget and details for members only",
-      "login": "Log in →",
-      "sample": "Examples until real dates come in."
+      "empty": "No open dates yet: the first ones are coming soon."
     },
     "join": {
       "title": "Turn it up.",
@@ -341,14 +338,15 @@
       "email": "Email",
       "pendingTitle": "Promoter profile under review",
       "pendingText": "Our team is reviewing your organization. You'll get an email as soon as it's approved.",
-      "next": "More is coming: full profile, calendar, dates.",
+      "next": "Coming next: search, messaging and offers.",
       "logout": "Log out",
       "myProfiles": "My profiles",
       "editBand": "Edit",
       "viewPage": "View page",
       "invites": "{count, plural, one {You have a band invite waiting →} other {You have # band invites waiting →}}",
       "calendar": "Calendar",
-      "agenda": "Calendar"
+      "agenda": "Calendar",
+      "myDates": "My dates"
     },
     "onboarding": {
       "title": "Your profile",
@@ -381,7 +379,11 @@
       "noMusician": "No musician profile with this email. Add the person as a name only, or ask them to sign up.",
       "alreadyMember": "Already in the lineup (or invite pending).",
       "lastAdmin": "The band needs at least one admin.",
-      "past": "This period is already over."
+      "past": "This period is already over.",
+      "time": "Time as 17:30.",
+      "tooFar": "At most two years ahead.",
+      "closed": "This date no longer takes applications.",
+      "alreadyApplied": "This band already applied for this date."
     }
   },
   "editBand": {
@@ -723,5 +725,218 @@
       "add": "Add tour",
       "delete": "Delete"
     }
+  },
+  "gigs": {
+    "format": {
+      "headline": "Headliner",
+      "support": "Opener",
+      "bill": "Bill"
+    },
+    "includes": {
+      "meal": "Meal",
+      "drinks": "Drinks",
+      "lodging": "Lodging",
+      "travel": "Travel expenses"
+    },
+    "ticket": {
+      "openDate": "Open date · {weekday}",
+      "capacity": "{count} capacity",
+      "budget": "Budget",
+      "budgetOpen": "Negotiable",
+      "wanted": "Looking for",
+      "minutes": "{n} min",
+      "bands": "{count, plural, one {# band} other {# bands}}",
+      "hours": "Times",
+      "loadIn": "Load-in {time}",
+      "setStart": "on stage {time}",
+      "curfew": "ends {time}",
+      "included": "Included",
+      "locked": "Budget and details for members only",
+      "login": "Log in →",
+      "apply": "Apply →",
+      "view": "See the date →",
+      "fits": "Match",
+      "applied": "Application sent",
+      "cancelled": "Cancelled",
+      "invite": "Invite only"
+    },
+    "list": {
+      "title": "Open dates",
+      "intro": "Dates promoters want to fill. The ones that match your band come first.",
+      "introVisitor": "Dates promoters want to fill. Log in to see budget and details, and to apply.",
+      "empty": "No open dates yet. The first ones are coming soon.",
+      "fitsCount": "{count, plural, one {# date matches your band} other {# dates match your band}}"
+    },
+    "detail": {
+      "back": "Open dates",
+      "by": "Posted by",
+      "seeOrga": "See the promoter's page",
+      "gear": "Gear on site",
+      "gearItems": {
+        "pa": "PA",
+        "lights": "Lights",
+        "engineer": "Sound engineer on site",
+        "greenRoom": "Green room",
+        "catering": "Catering"
+      },
+      "backline": "Backline: {list}",
+      "stage": "Stage: {size}",
+      "note": "Note from the promoter",
+      "match": {
+        "title": "With {band}",
+        "genre": "Genre in common",
+        "noGenre": "No genre in common",
+        "money": "Budget and fee overlap",
+        "noMoney": "Budget below your fee",
+        "moneyUnknown": "Budget or fee not set",
+        "night": "Night checked available in your calendar",
+        "noNight": "Night not checked available (or a member is busy)",
+        "place": "Band area: checked by search (coming soon)"
+      },
+      "manage": "Manage in My dates",
+      "status": {
+        "cancelled": "This date was cancelled.",
+        "filled": "This date is booked.",
+        "past": "This date is over."
+      },
+      "inviteOnly": "Invite only: only the bands you contact see this date.",
+      "pendingOrga": "Your organization isn't approved yet: only you can see this date."
+    },
+    "apply": {
+      "title": "Apply",
+      "band": "Band",
+      "fee": "Fee asked (CHF)",
+      "feeHelp": "Taken from your range, adjust if needed.",
+      "message": "A note for the promoter",
+      "messagePlaceholder": "Why this night, what you bring…",
+      "send": "Send application",
+      "sending": "Sending…",
+      "loginTitle": "Do you play in a band?",
+      "loginText": "Log in with the band's admin account to apply.",
+      "login": "Log in",
+      "noBand": "Only admins of a registered band can apply.",
+      "sent": "Application sent. The promoter gets an email.",
+      "yours": "Your application · {band}",
+      "withdraw": "Withdraw application",
+      "status": {
+        "pending": "Waiting for an answer",
+        "declined": "Not selected",
+        "withdrawn": "Withdrawn",
+        "cancelled": "Date cancelled"
+      }
+    },
+    "mine": {
+      "title": "My dates",
+      "publish": "Post a date",
+      "published": "{count, plural, one {Your date is live.} other {# dates are live.}}",
+      "publishedText": "Bands see it in open dates and can apply.",
+      "publishedInvite": "As an invite-only date, only you can see it.",
+      "pending": "Your organization is being reviewed: bands will see your dates once it's approved.",
+      "counters": {
+        "open": "open",
+        "applications": "pending applications"
+      },
+      "tabs": {
+        "open": "Open",
+        "past": "Past",
+        "cancelled": "Cancelled"
+      },
+      "empty": {
+        "open": "No open dates. Post your first one!",
+        "past": "No past dates.",
+        "cancelled": "No cancelled dates."
+      },
+      "applications": "{count, plural, =0 {No applications} one {# application} other {# applications}}",
+      "compatible": "{count, plural, =0 {No matching bands yet} one {# matching band} other {# matching bands}}",
+      "seeApplications": "See applications",
+      "hideApplications": "Hide applications",
+      "edit": "Edit",
+      "view": "See as bands do",
+      "cancel": "Cancel date",
+      "cancelConfirm": "Cancel this date? Bands that applied will be notified.",
+      "candidates": {
+        "title": "Applications",
+        "sorted": "Sorted by match",
+        "none": "No applications yet.",
+        "fee": "Fee asked",
+        "feeOpen": "Negotiable",
+        "profile": "Profile",
+        "decline": "Decline",
+        "declineConfirm": "Decline this application? The band will be notified.",
+        "offerSoon": "Making an offer comes with messaging.",
+        "fits": "Match",
+        "status": {
+          "declined": "Declined",
+          "withdrawn": "Withdrawn",
+          "cancelled": "Closed"
+        },
+        "listen": "Listen ↗"
+      },
+      "suggest": {
+        "title": "Matching bands",
+        "intro": "Genre, budget and available night: they match, but haven't applied.",
+        "more": "and {count} more"
+      }
+    },
+    "form": {
+      "titleNew": "Post a date",
+      "titleEdit": "Edit date",
+      "back": "My dates",
+      "when": {
+        "title": "When and where",
+        "venue": "Venue",
+        "venueNone": "{name} ({city})",
+        "venueHelp": "Add your venues (main room, club…) in your organization profile.",
+        "day": "Date",
+        "loadIn": "Load-in",
+        "setStart": "Set start",
+        "curfew": "Curfew",
+        "repeat": "Repeat",
+        "repeatModes": {
+          "none": "Just once",
+          "weekly": "Every week",
+          "monthly": "Every month, same day (e.g. last Saturday)"
+        },
+        "repeatCount": "Number of dates",
+        "repeatHelp": "Up to 12. Each date is then managed on its own."
+      },
+      "what": {
+        "title": "What you're looking for",
+        "genres": "Genres",
+        "genresHelp": "At least one, up to 6.",
+        "format": "Format",
+        "bandsCount": "Number of bands",
+        "setLength": "Set length",
+        "setLengthNone": "To be decided"
+      },
+      "terms": {
+        "title": "Terms",
+        "budgetMin": "Min budget (CHF)",
+        "budgetMax": "Max budget (CHF)",
+        "includes": "Included for the band",
+        "gear": "Gear from the venue sheet: {list}.",
+        "gearNone": "Gear provided is set in the venue sheet.",
+        "editVenue": "Edit the sheet"
+      },
+      "who": {
+        "title": "Who sees it",
+        "open": "Open call",
+        "openText": "Bands see it in open dates and can apply.",
+        "invite": "Invite only",
+        "inviteText": "Only bands you make an offer to can see it.",
+        "note": "A note for bands (optional)"
+      },
+      "publish": "Post the date",
+      "publishing": "Posting…",
+      "preview": "Preview for bands",
+      "save": "Save"
+    },
+    "account": {
+      "applications": "My applications",
+      "none": "No applications yet.",
+      "browse": "See open dates",
+      "myDates": "My dates"
+    },
+    "quote": "“{text}”"
   }
 }

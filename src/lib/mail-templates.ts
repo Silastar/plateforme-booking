@@ -121,3 +121,79 @@ export function lineupMail(
 </div>`
   return { subject, text, html }
 }
+
+const GIG = {
+  fr: {
+    application: {
+      subject: '{band} candidate pour ta date du {date}',
+      intro:
+        '{band} a candidaté pour ta date du {date}. Écoute-les et réponds depuis « Mes dates » :',
+      cta: 'Voir la candidature',
+    },
+    declined: {
+      subject: 'Réponse de {orga} pour le {date}',
+      intro:
+        '{orga} n’a pas retenu {band} pour sa date du {date}. Ça arrive : d’autres dates t’attendent.',
+      cta: 'Voir les dates ouvertes',
+    },
+    cancelled: {
+      subject: 'Date annulée : {orga}, {date}',
+      intro: '{orga} a annulé sa date du {date}. La candidature de {band} est close.',
+      cta: 'Voir les dates ouvertes',
+    },
+  },
+  en: {
+    application: {
+      subject: '{band} applied for your {date} date',
+      intro: '{band} applied for your open date on {date}. Listen and answer from “My dates”:',
+      cta: 'See the application',
+    },
+    declined: {
+      subject: 'Answer from {orga} for {date}',
+      intro:
+        '{orga} didn’t pick {band} for its {date} date. It happens: other dates are waiting for you.',
+      cta: 'See open dates',
+    },
+    cancelled: {
+      subject: 'Date cancelled: {orga}, {date}',
+      intro: '{orga} cancelled its {date} date. The {band} application is closed.',
+      cta: 'See open dates',
+    },
+  },
+} as const
+
+// Candidature reçue (pour l'orga), refusée ou close par l'annulation de la date (pour le groupe).
+export function gigMail(
+  kind: 'application' | 'declined' | 'cancelled',
+  locale: string,
+  name: string,
+  vars: { band: string; orga: string; date: string },
+  url: string,
+) {
+  const l: Locale = locale === 'en' ? 'en' : 'fr'
+  const fill = (s: string) =>
+    s.replace('{band}', vars.band).replace('{orga}', vars.orga).replace('{date}', vars.date)
+  const k = GIG[l][kind]
+  const c = COPY[l]
+  const subject = `${fill(k.subject)} · ${c.site}`
+  const intro = fill(k.intro)
+  const text = `${c.hello} ${name},\n\n${intro}\n${url}\n\n${c.site}`
+  const html = `<div style="font-family:Arial,sans-serif;background:#0c0b0a;color:#f4efe4;padding:32px">
+<p style="font-size:22px;font-weight:bold;text-transform:uppercase;margin:0 0 24px">${escape(c.site)}</p>
+<p>${escape(c.hello)} ${escape(name)},</p>
+<p>${escape(intro)}</p>
+<p><a href="${escape(url)}" style="display:inline-block;background:#f5b82e;color:#0c0b0a;padding:14px 20px;font-weight:bold;text-transform:uppercase;text-decoration:none">${escape(k.cta)}</a></p>
+</div>`
+  return { subject, text, html }
+}
+
+// Date lisible dans un e-mail (« samedi 14 mars 2027 »).
+export function mailDate(day: string, locale: string) {
+  return new Intl.DateTimeFormat(locale === 'en' ? 'en-US' : 'fr', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(`${day}T12:00:00Z`))
+}

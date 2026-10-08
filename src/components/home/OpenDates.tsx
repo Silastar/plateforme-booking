@@ -1,23 +1,16 @@
-import { getFormatter, getTranslations } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
+import { GigTicket, toTicket } from '@/components/gigs/GigTicket'
 import { Link } from '@/i18n/navigation'
-import type { Genre } from '@/lib/genres'
+import { getOpenGigs } from '@/lib/gigs'
+import { getSession } from '@/lib/session'
 
 import styles from './home.module.css'
 
-type SampleDate = { date: string; genre: Genre; venue: string; city: string; capacity: number }
-
-// Exemples affichés tant que la base ne contient pas de vraies dates (étape 5 du plan).
-const SAMPLE_DATES: SampleDate[] = [
-  { date: '2027-03-14', genre: 'rock', venue: 'Le Bocal', city: 'Fribourg', capacity: 250 },
-  { date: '2027-03-22', genre: 'jazz', venue: 'Cave du Port', city: 'Neuchâtel', capacity: 90 },
-  { date: '2027-04-05', genre: 'electro', venue: 'Hangar 12', city: 'Lausanne', capacity: 600 },
-]
-
+// Les prochaines dates ouvertes. Budget et détails seulement pour les membres connectés.
 export async function OpenDates() {
   const t = await getTranslations('home.dates')
-  const tg = await getTranslations('genres')
-  const format = await getFormatter()
+  const [gigs, session] = await Promise.all([getOpenGigs(3), getSession()])
 
   return (
     <section aria-labelledby="dates-title" className={styles.section}>
@@ -30,59 +23,22 @@ export async function OpenDates() {
             {t('all')}
           </Link>
         </div>
-        <ul className={styles.tickets}>
-          {SAMPLE_DATES.map((d) => {
-            const day = new Date(`${d.date}T12:00:00`)
-            return (
-              <li key={d.date + d.venue} className={styles.ticket}>
-                <div className={styles.ticketMain}>
-                  <span className={`label ${styles.ticketKicker}`}>
-                    {t('openDate', { weekday: format.dateTime(day, { weekday: 'long' }) })}
-                  </span>
-                  <span className={`display ${styles.ticketDate}`}>
-                    {format.dateTime(day, { day: 'numeric', month: 'long' })}
-                  </span>
-                  <span className={styles.ticketVenue}>{d.venue}</span>
-                  <span className={styles.ticketMeta}>
-                    {d.city} · {t('capacity', { count: format.number(d.capacity) })}
-                  </span>
-                  <p className={styles.locked}>
-                    <LockIcon />
-                    {t('locked')}
-                  </p>
-                </div>
-                <div aria-hidden="true" className={styles.perforation} />
-                <div className={styles.ticketStubRow}>
-                  <span className={styles.ticketGenre}>{tg(d.genre)}</span>
-                  <Link href="/connexion" className={styles.ticketLink}>
-                    {t('login')}
-                  </Link>
-                </div>
+        {gigs.length === 0 ? (
+          <p className={styles.note}>{t('empty')}</p>
+        ) : (
+          <ul className={styles.tickets}>
+            {gigs.map((g) => (
+              <li key={g.id}>
+                <GigTicket
+                  gig={toTicket(g)}
+                  unlocked={Boolean(session)}
+                  link={session ? 'view' : 'login'}
+                />
               </li>
-            )
-          })}
-        </ul>
-        <p className={styles.note}>{t('sample')}</p>
+            ))}
+          </ul>
+        )}
       </div>
     </section>
-  )
-}
-
-function LockIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <rect x="5" y="11" width="14" height="10" rx="2" />
-      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-    </svg>
   )
 }

@@ -18,9 +18,15 @@ export async function SiteHeader() {
         <Link href="/groupes" className={styles.navLink}>
           {t('nav.bands')}
         </Link>
-        <Link href="/dates" className={styles.navLink}>
-          {t('nav.openDates')}
-        </Link>
+        {session?.user.role === 'orga' ? (
+          <Link href="/compte/dates" className={styles.navLink}>
+            {t('nav.myDates')}
+          </Link>
+        ) : (
+          <Link href="/dates" className={styles.navLink}>
+            {t('nav.openDates')}
+          </Link>
+        )}
         <Link href={{ pathname: '/', hash: 'setlist' }} className={styles.navLink}>
           {t('nav.howItWorks')}
         </Link>

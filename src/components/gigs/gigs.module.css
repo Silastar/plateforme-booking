@@ -1,0 +1,505 @@
+/* ---------- Billet d'une date ouverte ---------- */
+.tickets {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ticket {
+  position: relative;
+  background: var(--c-paper);
+  color: var(--c-ink);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ticketMain {
+  padding: 24px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.kicker {
+  color: var(--c-red-dark);
+}
+
+.date {
+  font-size: 56px;
+  line-height: 1;
+}
+
+.venue {
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.meta {
+  color: var(--c-on-paper-soft);
+}
+
+.details {
+  margin: 10px 0 0;
+  padding-top: 12px;
+  border-top: 2px solid var(--c-ink);
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 14px;
+  font-size: 15px;
+}
+
+.details dt {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--c-on-paper-soft);
+  padding-top: 2px;
+}
+
+.details dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.locked {
+  margin: 10px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 2px solid var(--c-ink);
+  padding-top: 12px;
+  color: var(--c-on-paper-soft);
+  font-size: 15px;
+}
+
+.perforation {
+  position: relative;
+  border-top: 3px dashed var(--c-ink);
+  margin: 0 16px;
+}
+
+.perforation::before,
+.perforation::after {
+  content: '';
+  position: absolute;
+  top: -15px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--hole, var(--c-ink));
+}
+
+.perforation::before {
+  left: -30px;
+}
+
+.perforation::after {
+  right: -30px;
+}
+
+.stub {
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+
+.genre {
+  font-family: var(--font-display);
+  font-size: 22px;
+  text-transform: uppercase;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.stubLink {
+  color: var(--c-ink);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 14px;
+  padding: 10px 0;
+  white-space: nowrap;
+}
+
+.stubLink:hover {
+  color: var(--c-red-dark);
+}
+
+.badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: 2px solid var(--c-ink);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  background: var(--c-amber);
+  transform: rotate(3deg);
+}
+
+.badgeMuted {
+  background: transparent;
+}
+
+/* ---------- Pages ---------- */
+.page {
+  padding: 44px var(--gutter) 72px;
+}
+
+.pageTitle {
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 0.95;
+}
+
+.intro {
+  margin: 10px 0 0;
+  color: var(--c-text-soft);
+  max-width: 680px;
+}
+
+.empty {
+  margin: 0;
+  padding: 24px;
+  background: var(--c-surface);
+  color: var(--c-muted);
+}
+
+.banner {
+  margin: 0;
+  padding: 16px 18px;
+  background: var(--c-surface);
+  border-left: 6px solid var(--c-amber);
+}
+
+.bannerRed {
+  border-left-color: var(--c-red-bright);
+}
+
+.panel {
+  background: var(--c-surface);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.panelTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 32px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.muted {
+  margin: 0;
+  color: var(--c-muted);
+}
+
+.checks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checks li {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.yes {
+  color: var(--c-amber);
+  font-weight: 800;
+}
+
+.no {
+  color: var(--c-red-text);
+  font-weight: 800;
+}
+
+.unknown {
+  color: var(--c-faint);
+  font-weight: 800;
+}
+
+/* ---------- Mes dates ---------- */
+.counters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.counter {
+  background: var(--c-surface);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.counterValue {
+  font-family: var(--font-display);
+  font-size: 48px;
+  line-height: 1;
+  color: var(--c-amber);
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-bottom: 2px solid var(--c-line);
+}
+
+.tab {
+  padding: 12px 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 14px;
+  color: var(--c-muted);
+  text-decoration: none;
+  border-bottom: 4px solid transparent;
+  margin-bottom: -2px;
+}
+
+.tab[aria-current='page'] {
+  color: var(--c-text);
+  border-bottom-color: var(--c-amber);
+}
+
+.dateCard {
+  background: var(--c-surface);
+  border-left: 8px solid var(--c-amber);
+  display: flex;
+  flex-direction: column;
+}
+
+.dateRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 24px;
+  padding: 20px;
+  align-items: center;
+}
+
+.dateBlock {
+  background: var(--c-paper);
+  color: var(--c-ink);
+  width: 92px;
+  padding: 10px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+}
+
+.dateBlockDay {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 1;
+}
+
+.dateInfo {
+  flex: 1 1 260px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dateTitle {
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.pill {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 8px;
+  border: 2px solid var(--c-line-strong);
+  color: var(--c-text-soft);
+}
+
+.pillAmber {
+  border-color: var(--c-amber);
+  color: var(--c-amber);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.candidates {
+  border-top: 1px solid var(--c-line);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.candidate {
+  background: var(--c-ink);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.candidateHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+  align-items: baseline;
+}
+
+.candidateName {
+  font-family: var(--font-display);
+  font-size: 28px;
+  text-transform: uppercase;
+  color: var(--c-text);
+}
+
+.quote {
+  margin: 0;
+  font-style: italic;
+  color: var(--c-text-soft);
+}
+
+.linkButton {
+  font: inherit;
+  background: none;
+  border: 0;
+  padding: 10px 0;
+  color: var(--c-red-text);
+  text-decoration: underline;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+/* ---------- Formulaire « Publier une date » ---------- */
+.formLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 32px;
+  align-items: start;
+}
+
+.previewCol {
+  position: sticky;
+  top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  --hole: var(--c-ink);
+}
+
+.radioCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.radioCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  background: var(--c-ink);
+  border: 2px solid var(--c-line);
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1.4;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+  color: var(--c-text);
+}
+
+.radioCard:has(input:checked) {
+  border-color: var(--c-amber);
+}
+
+.radioCard input {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  flex: 0 0 20px;
+  accent-color: var(--c-amber);
+}
+
+.radioCard strong {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 14px;
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+/* ---------- Fiche d'une date ---------- */
+.detailLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .formLayout,
+  .detailLayout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .previewCol {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .date {
+    font-size: 44px;
+  }
+
+  .dateRow,
+  .candidates,
+  .panel {
+    padding: 16px;
+  }
+}

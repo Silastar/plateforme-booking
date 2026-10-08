@@ -3,9 +3,12 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import styles from '@/components/auth/auth.module.css'
 import { LogoutButton } from '@/components/auth/LogoutButton'
+import { DayFormat } from '@/components/gigs/DayFormat'
+import gigStyles from '@/components/gigs/gigs.module.css'
 import { Link, redirect } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
 import { getAdminBands } from '@/lib/bands'
+import { getBandApplications } from '@/lib/gigs'
 import { getMusicianLinks } from '@/lib/lineup'
 import { getMusicianForEdit } from '@/lib/musicians'
 import { getOrgaForEdit } from '@/lib/orgas'
@@ -37,7 +40,9 @@ export default async function AccountPage({ params, searchParams }: Props) {
   const orga = userRole === 'orga' ? await getOrgaForEdit(user.id) : null
   const mus = userRole === 'musicien' ? await getMusicianForEdit(user.id) : null
   const invites = mus ? (await getMusicianLinks(user.id)).filter((l) => l.status === 'invited') : []
+  const applications = (await getBandApplications(bands.map((b) => b.id))).slice(0, 10)
   const t = await getTranslations('auth.account')
+  const tg = await getTranslations('gigs')
   const role = (ROLE_KEYS as readonly string[]).includes(userRole)
     ? (userRole as (typeof ROLE_KEYS)[number])
     : 'none'
@@ -133,6 +138,9 @@ export default async function AccountPage({ params, searchParams }: Props) {
                         {t('viewPage')}
                       </Link>
                     )}
+                    <Link href="/compte/dates" className="btn btn--ghost">
+                      {t('myDates')}
+                    </Link>
                     <Link href="/compte/orga" className="btn btn--amber">
                       {t('editBand')}
                     </Link>
@@ -215,6 +223,45 @@ export default async function AccountPage({ params, searchParams }: Props) {
                 </li>
               ))}
             </ul>
+          </section>
+        )}
+        {bands.length > 0 && (
+          <section
+            aria-labelledby="my-applications"
+            style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
+          >
+            <h2 id="my-applications" className="display" style={{ fontSize: 36 }}>
+              {tg('account.applications')}
+            </h2>
+            {applications.length === 0 && <p className={styles.muted}>{tg('account.none')}</p>}
+            {applications.map((a) => (
+              <Link
+                key={a.id}
+                href={{ pathname: '/dates/[id]', params: { id: a.gigId } }}
+                className={gigStyles.dateRow}
+                style={{
+                  background: 'var(--c-surface)',
+                  color: 'var(--c-text)',
+                  textDecoration: 'none',
+                  borderLeft: '8px solid var(--c-red)',
+                  padding: 14,
+                }}
+              >
+                <DayFormat day={a.gig.day} className={gigStyles.dateBlock} />
+                <span className={gigStyles.dateInfo}>
+                  <span className={gigStyles.dateTitle}>{a.gig.organization.name}</span>
+                  <span className={gigStyles.muted}>
+                    {a.band.name} · {a.gig.venue?.city ?? a.gig.organization.city}
+                  </span>
+                </span>
+                <span className="label">{tg(`apply.status.${a.status}` as never)}</span>
+              </Link>
+            ))}
+            <div>
+              <Link href="/dates" className="btn btn--red">
+                {tg('account.browse')}
+              </Link>
+            </div>
           </section>
         )}
         <p className={styles.muted}>{t('next')}</p>
