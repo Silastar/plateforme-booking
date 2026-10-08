@@ -164,6 +164,9 @@ export default async function AccountPage({ params, searchParams }: Props) {
                         {t('viewPage')}
                       </Link>
                     )}
+                    <Link href="/compte/musicien/agenda" className="btn btn--ghost">
+                      {t('agenda')}
+                    </Link>
                     <Link href="/compte/musicien" className="btn btn--paper">
                       {t('editBand')}
                     </Link>
@@ -196,6 +199,12 @@ export default async function AccountPage({ params, searchParams }: Props) {
                         {t('viewPage')}
                       </Link>
                     )}
+                    <Link
+                      href={{ pathname: '/compte/groupe/[id]/calendrier', params: { id: b.id } }}
+                      className="btn btn--ghost"
+                    >
+                      {t('calendar')}
+                    </Link>
                     <Link
                       href={{ pathname: '/compte/groupe/[id]', params: { id: b.id } }}
                       className="btn btn--red"

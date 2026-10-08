@@ -216,7 +216,7 @@ export function Section({
   intro,
   children,
 }: {
-  n: number
+  n?: number
   title: string
   intro?: string
   children: React.ReactNode
@@ -224,7 +224,9 @@ export function Section({
   return (
     <fieldset className={styles.section}>
       <legend className={styles.legend}>
-        <span className={styles.legendNumber}>{String(n).padStart(2, '0')}</span>
+        {n !== undefined && (
+          <span className={styles.legendNumber}>{String(n).padStart(2, '0')}</span>
+        )}
         {title}
       </legend>
       {intro && <p className={styles.sectionIntro}>{intro}</p>}

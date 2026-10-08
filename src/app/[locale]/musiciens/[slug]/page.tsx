@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { StageLights } from '@/components/home/StageLights'
 import { MediaPlayer } from '@/components/profiles/MediaPlayer'
 import styles from '@/components/profiles/profile.module.css'
 import { Link } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
+import { musicianBusyDays } from '@/lib/availability'
+import { addDays, todayIso } from '@/lib/calendar'
 import { embedFor } from '@/lib/embeds'
 import type { Genre } from '@/lib/genres'
 import { getMusicianPage } from '@/lib/musicians'
@@ -30,6 +32,13 @@ export default async function MusicianPage({ params }: Props) {
   const t = await getTranslations('profiles')
   const ti = await getTranslations('auth.signup.profile.musicien')
   const tg = await getTranslations('genres')
+  const format = await getFormatter()
+  // Agenda : 14 prochains jours, « libre / occupé » seulement, pour les comptes connectés.
+  const today = todayIso()
+  const next14 = Array.from({ length: 14 }, (_, i) => addDays(today, i))
+  const busy = session
+    ? new Set((await musicianBusyDays(m.userId, next14[0], next14[13])).map((b) => b.day))
+    : new Set<string>()
   const videos = [m.videoUrl, m.videoUrl2].map((u) => embedFor(u)).filter((e) => e !== null)
   const subFacts = [
     [t('musician.subInstruments'), m.subInstruments],
@@ -163,6 +172,61 @@ export default async function MusicianPage({ params }: Props) {
                 {t('bio')}
               </h2>
               <p className={styles.prose}>{m.bio}</p>
+            </section>
+          )}
+          {session && (
+            <section aria-labelledby="agenda" className={styles.panel}>
+              <h2 id="agenda" className={styles.panelTitle}>
+                {t('musician.agenda')}
+              </h2>
+              <p className={styles.muted}>
+                {isMe ? t('musician.agendaMine') : t('musician.agendaOthers')}
+              </p>
+              <ul
+                style={{
+                  listStyle: 'none',
+                  margin: 0,
+                  padding: 0,
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+                  gap: 6,
+                }}
+              >
+                {next14.map((d) => (
+                  <li
+                    key={d}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      gap: 8,
+                      padding: '10px 12px',
+                      border: busy.has(d) ? '1px solid var(--c-line)' : '2px solid var(--c-amber)',
+                      color: busy.has(d) ? 'var(--c-faint)' : 'var(--c-amber)',
+                    }}
+                  >
+                    <span style={{ fontWeight: 800, color: 'var(--c-text)' }}>
+                      {format.dateTime(new Date(`${d}T12:00:00Z`), {
+                        weekday: 'short',
+                        day: 'numeric',
+                        month: 'short',
+                        timeZone: 'UTC',
+                      })}
+                    </span>
+                    <span className="label">
+                      {busy.has(d) ? t('dispos.busy') : t('dispos.free')}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              {isMe && (
+                <Link
+                  href="/compte/musicien/agenda"
+                  className="btn btn--ghost"
+                  style={{ alignSelf: 'flex-start' }}
+                >
+                  {t('musician.manageAgenda')}
+                </Link>
+              )}
             </section>
           )}
           {m.availableForSubs && subFacts.length > 0 && (

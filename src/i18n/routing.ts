@@ -13,6 +13,11 @@ export const routing = defineRouting({
     '/orgas/[slug]': { fr: '/orgas/[slug]', en: '/promoters/[slug]' },
     '/musiciens/[slug]': { fr: '/musiciens/[slug]', en: '/musicians/[slug]' },
     '/compte/groupe/[id]': { fr: '/compte/groupe/[id]', en: '/account/band/[id]' },
+    '/compte/groupe/[id]/calendrier': {
+      fr: '/compte/groupe/[id]/calendrier',
+      en: '/account/band/[id]/calendar',
+    },
+    '/compte/musicien/agenda': { fr: '/compte/musicien/agenda', en: '/account/musician/calendar' },
     '/compte/orga': { fr: '/compte/orga', en: '/account/promoter' },
     '/compte/musicien': { fr: '/compte/musicien', en: '/account/musician' },
     '/tarifs': { fr: '/tarifs', en: '/pricing' },

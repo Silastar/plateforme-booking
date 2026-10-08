@@ -1,0 +1,170 @@
+.wrap {
+  background: var(--c-surface);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.month {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 40px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 2px solid var(--c-text);
+  color: var(--c-text);
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.weekday {
+  text-align: center;
+  color: var(--c-faint);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.day {
+  font: inherit;
+  min-height: 84px;
+  border-radius: 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4px;
+  text-align: left;
+  cursor: pointer;
+  background: transparent;
+  border: 2px solid var(--c-amber);
+  color: var(--c-amber);
+  min-width: 0;
+}
+
+.day:disabled {
+  cursor: default;
+}
+
+.dayNumber {
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.dayLabel {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.free {
+  border: 2px solid var(--c-amber);
+  color: var(--c-amber);
+}
+
+.blocked {
+  background: var(--c-ink);
+  border: 1px solid var(--c-line);
+  color: var(--c-faint);
+}
+
+.members {
+  background: #2a0f0d;
+  border: 2px dashed var(--c-red-bright);
+  color: var(--c-red-text);
+}
+
+.past {
+  opacity: 0.35;
+}
+
+.today {
+  outline: 3px solid var(--c-paper);
+  outline-offset: 2px;
+}
+
+.empty {
+  min-height: 84px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding-top: 12px;
+  border-top: 1px solid var(--c-line);
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.swatch {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 12px;
+  }
+
+  .grid {
+    gap: 3px;
+  }
+
+  .day,
+  .empty {
+    min-height: 58px;
+    padding: 5px;
+  }
+
+  .dayNumber {
+    font-size: 18px;
+  }
+
+  /* Cases trop étroites pour un mot : la couleur et la légende suffisent (le détail reste lu par les lecteurs d'écran). */
+  .dayLabel {
+    display: none;
+  }
+
+  .month {
+    font-size: 28px;
+  }
+}

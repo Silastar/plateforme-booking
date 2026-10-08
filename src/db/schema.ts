@@ -1,5 +1,14 @@
-import { relations } from 'drizzle-orm'
-import { boolean, integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
+import { relations, sql } from 'drizzle-orm'
+import {
+  boolean,
+  date,
+  index,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uniqueIndex,
+} from 'drizzle-orm/pg-core'
 
 const timestamps = {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
@@ -204,6 +213,46 @@ export const musician = pgTable('musician', {
   gearNote: text('gear_note'),
   ...timestamps,
 })
+
+/* ---------- Calendriers ---------- */
+
+// Jour indisponible : pour un groupe (band_id) ou dans l'agenda perso d'un musicien (user_id).
+// La note n'est visible que de son auteur ; les autres voient seulement « occupé ».
+export const unavailability = pgTable(
+  'unavailability',
+  {
+    id: text('id').primaryKey(),
+    bandId: text('band_id').references(() => band.id, { onDelete: 'cascade' }),
+    userId: text('user_id').references(() => user.id, { onDelete: 'cascade' }),
+    day: date('day', { mode: 'string' }).notNull(),
+    note: text('note'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex('unavailability_band_day')
+      .on(t.bandId, t.day)
+      .where(sql`band_id is not null`),
+    uniqueIndex('unavailability_user_day')
+      .on(t.userId, t.day)
+      .where(sql`user_id is not null`),
+  ],
+)
+
+// Période de tournée d'un groupe : les orgas de la région voient qu'il passe près de chez eux.
+export const tour = pgTable(
+  'tour',
+  {
+    id: text('id').primaryKey(),
+    bandId: text('band_id')
+      .notNull()
+      .references(() => band.id, { onDelete: 'cascade' }),
+    startDate: date('start_date', { mode: 'string' }).notNull(),
+    endDate: date('end_date', { mode: 'string' }).notNull(),
+    region: text('region').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index('tour_band_idx').on(t.bandId)],
+)
 
 export const userRelations = relations(user, ({ many, one }) => ({
   organizations: many(organization),

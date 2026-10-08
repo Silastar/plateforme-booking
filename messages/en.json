@@ -346,7 +346,9 @@
       "myProfiles": "My profiles",
       "editBand": "Edit",
       "viewPage": "View page",
-      "invites": "{count, plural, one {You have a band invite waiting →} other {You have # band invites waiting →}}"
+      "invites": "{count, plural, one {You have a band invite waiting →} other {You have # band invites waiting →}}",
+      "calendar": "Calendar",
+      "agenda": "Calendar"
     },
     "onboarding": {
       "title": "Your profile",
@@ -378,7 +380,8 @@
       "email": "Invalid email address.",
       "noMusician": "No musician profile with this email. Add the person as a name only, or ask them to sign up.",
       "alreadyMember": "Already in the lineup (or invite pending).",
-      "lastAdmin": "The band needs at least one admin."
+      "lastAdmin": "The band needs at least one admin.",
+      "past": "This period is already over."
     }
   },
   "editBand": {
@@ -443,7 +446,8 @@
       "feeMax": "Maximum fee (CHF)",
       "feeNote": "Terms",
       "feeNotePlaceholder": "E.g. plus travel expenses beyond 100 km, meals for 5"
-    }
+    },
+    "calendar": "Calendar"
   },
   "profiles": {
     "edit": "Edit profile",
@@ -536,7 +540,18 @@
       "bands": "Bands",
       "seeBand": "See the band →",
       "hear": "Hear them play",
-      "subs": "Fill-in"
+      "subs": "Fill-in",
+      "agenda": "Calendar",
+      "agendaMine": "What your bands and logged-in promoters see.",
+      "agendaOthers": "Only free nights are shown. Everything else shows as “taken”, with no details.",
+      "manageAgenda": "Manage my calendar →"
+    },
+    "calendar": "Calendar",
+    "dispos": {
+      "title": "Availability",
+      "free": "Free",
+      "busy": "Taken",
+      "tour": "On tour {from} to {to}"
     }
   },
   "editOrga": {
@@ -632,7 +647,8 @@
       "repertoirePlaceholder": "E.g. learns a one-hour set in a week",
       "gear": "Gear",
       "gearPlaceholder": "E.g. own snare and cymbals"
-    }
+    },
+    "agenda": "My calendar"
   },
   "lineup": {
     "title": "Lineup",
@@ -674,5 +690,31 @@
     "noResults": "No band found.",
     "alreadyLinked": "Already linked",
     "askToJoin": "Ask to join"
+  },
+  "calendar": {
+    "bandTitle": "Band calendar",
+    "bandIntro": "Click a day to mark it free or unavailable. A night when an essential member is busy turns red automatically: promoters only see nights that are really free.",
+    "musicianTitle": "My calendar",
+    "musicianIntro": "Click a day to mark it busy. Your bands only see “busy”, never the reason, and won't offer you those nights.",
+    "free": "Free",
+    "freeOnTour": "Free · on tour",
+    "blocked": "Unavailable",
+    "busy": "Busy",
+    "busyMembers": "Busy: {names}",
+    "legendMembers": "Essential member busy",
+    "prev": "Previous month",
+    "next": "Next month",
+    "dayLabel": "{date}: {state}",
+    "tours": {
+      "title": "Tours",
+      "intro": "Promoters in the area see you're passing through.",
+      "range": "{from} to {to}",
+      "from": "From",
+      "to": "To",
+      "region": "Region",
+      "regionPlaceholder": "E.g. French-speaking Switzerland",
+      "add": "Add tour",
+      "delete": "Delete"
+    }
   }
 }

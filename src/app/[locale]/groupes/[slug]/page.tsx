@@ -8,7 +8,9 @@ import { MediaPlayer } from '@/components/profiles/MediaPlayer'
 import styles from '@/components/profiles/profile.module.css'
 import { Link } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
+import { bandAvailability, bandTours } from '@/lib/availability'
 import { getBandPage } from '@/lib/bands'
+import { addDays, todayIso, weekdayIndex } from '@/lib/calendar'
 import { embedFor } from '@/lib/embeds'
 import type { Genre } from '@/lib/genres'
 import { getSession } from '@/lib/session'
@@ -38,6 +40,22 @@ export default async function BandPage({ params }: Props) {
   // Cachet : orgas connectés, équipe et membres du groupe. Fiche technique : tout compte connecté.
   const canSeeFee = isMember || viewerRole === 'orga' || viewerRole === 'admin'
   const canSeeRider = Boolean(session)
+  // Dispos : prochains vendredis et samedis sur 8 semaines, pour les orgas connectés et le groupe.
+  const today = todayIso()
+  const weekends = Array.from({ length: 56 }, (_, i) => addDays(today, i)).filter((d) =>
+    [4, 5].includes(weekdayIndex(d)),
+  )
+  const [dispos, tours] = canSeeFee
+    ? await Promise.all([bandAvailability(band.id, weekends), bandTours(band.id)])
+    : [[], []]
+  const upcomingTours = tours.filter((x) => x.endDate >= today).slice(0, 3)
+  const dayFmt = (d: string) =>
+    format.dateTime(new Date(`${d}T12:00:00Z`), {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      timeZone: 'UTC',
+    })
 
   const genres = [band.mainGenre, ...band.genres.filter((g) => g !== band.mainGenre)] as Genre[]
   const players = [band.spotifyUrl, band.youtubeUrl, band.soundcloudUrl]
@@ -245,6 +263,55 @@ export default async function BandPage({ params }: Props) {
               </div>
               <div aria-hidden="true" className={styles.perforation} />
               <p className={styles.ticketStub}>{band.name}</p>
+            </section>
+          )}
+
+          {canSeeFee && (dispos.length > 0 || upcomingTours.length > 0) && (
+            <section aria-labelledby="dispos" className={styles.panel}>
+              <h2 id="dispos" className={styles.asideTitle}>
+                {t('dispos.title')}
+              </h2>
+              <ul
+                style={{
+                  listStyle: 'none',
+                  margin: 0,
+                  padding: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 8,
+                }}
+              >
+                {dispos.slice(0, 6).map((d) => (
+                  <li
+                    key={d.day}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      gap: 8,
+                      padding: '10px 12px',
+                      border:
+                        d.state === 'free' ? '2px solid var(--c-amber)' : '1px solid var(--c-line)',
+                      color: d.state === 'free' ? 'var(--c-amber)' : 'var(--c-faint)',
+                    }}
+                  >
+                    <span style={{ fontWeight: 800, color: 'var(--c-text)' }}>{dayFmt(d.day)}</span>
+                    <span className="label">
+                      {d.state === 'free' ? t('dispos.free') : t('dispos.busy')}
+                    </span>
+                  </li>
+                ))}
+                {upcomingTours.map((x) => (
+                  <li
+                    key={x.id}
+                    style={{ padding: '10px 12px', border: '2px dashed var(--c-faint)' }}
+                  >
+                    <strong>
+                      {t('dispos.tour', { from: dayFmt(x.startDate), to: dayFmt(x.endDate) })}
+                    </strong>
+                    <div className={styles.muted}>{x.region}</div>
+                  </li>
+                ))}
+              </ul>
             </section>
           )}
 

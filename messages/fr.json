@@ -346,7 +346,9 @@
       "myProfiles": "Mes profils",
       "editBand": "Modifier",
       "viewPage": "Voir la page",
-      "invites": "{count, plural, one {Tu as une invitation de groupe en attente →} other {Tu as # invitations de groupe en attente →}}"
+      "invites": "{count, plural, one {Tu as une invitation de groupe en attente →} other {Tu as # invitations de groupe en attente →}}",
+      "calendar": "Calendrier",
+      "agenda": "Agenda"
     },
     "onboarding": {
       "title": "Ton profil",
@@ -378,7 +380,8 @@
       "email": "Adresse e-mail invalide.",
       "noMusician": "Aucun profil musicien avec cette adresse. Ajoute la personne comme simple nom, ou demande-lui de s'inscrire.",
       "alreadyMember": "Déjà dans le line-up (ou invitation en cours).",
-      "lastAdmin": "Il faut au moins un admin dans le groupe."
+      "lastAdmin": "Il faut au moins un admin dans le groupe.",
+      "past": "Cette période est déjà passée."
     }
   },
   "editBand": {
@@ -443,7 +446,8 @@
       "feeMax": "Cachet maximum (CHF)",
       "feeNote": "Conditions",
       "feeNotePlaceholder": "Ex. plus défraiements au-delà de 100 km, repas pour 5"
-    }
+    },
+    "calendar": "Calendrier"
   },
   "profiles": {
     "edit": "Modifier le profil",
@@ -536,7 +540,18 @@
       "bands": "Ses groupes",
       "seeBand": "Voir le groupe →",
       "hear": "L'entendre jouer",
-      "subs": "Dépannage"
+      "subs": "Dépannage",
+      "agenda": "Agenda",
+      "agendaMine": "Ce que voient tes groupes et les orgas connectés.",
+      "agendaOthers": "Seuls ses soirs libres sont visibles. Le reste apparaît « pris », sans détail.",
+      "manageAgenda": "Gérer mon agenda →"
+    },
+    "calendar": "Calendrier",
+    "dispos": {
+      "title": "Dispos",
+      "free": "Libre",
+      "busy": "Pris",
+      "tour": "En tournée du {from} au {to}"
     }
   },
   "editOrga": {
@@ -632,7 +647,8 @@
       "repertoirePlaceholder": "Ex. apprend un set d'une heure en une semaine",
       "gear": "Matos",
       "gearPlaceholder": "Ex. caisse claire et cymbales perso"
-    }
+    },
+    "agenda": "Mon agenda"
   },
   "lineup": {
     "title": "Line-up",
@@ -674,5 +690,31 @@
     "noResults": "Aucun groupe trouvé.",
     "alreadyLinked": "Déjà lié",
     "askToJoin": "Demander à rejoindre"
+  },
+  "calendar": {
+    "bandTitle": "Calendrier du groupe",
+    "bandIntro": "Clique sur un jour pour le passer libre ou indispo. Un soir où un membre indispensable est pris apparaît automatiquement en rouge : les orgas ne voient que les soirs vraiment libres.",
+    "musicianTitle": "Mon agenda",
+    "musicianIntro": "Clique sur un jour pour le marquer occupé. Tes groupes voient seulement « occupé », jamais la raison, et ne te proposent pas ces soirs-là.",
+    "free": "Libre",
+    "freeOnTour": "Libre · tournée",
+    "blocked": "Indispo",
+    "busy": "Occupé",
+    "busyMembers": "Pris : {names}",
+    "legendMembers": "Membre indispensable pris",
+    "prev": "Mois précédent",
+    "next": "Mois suivant",
+    "dayLabel": "{date} : {state}",
+    "tours": {
+      "title": "Tournées",
+      "intro": "Les orgas de la région voient que tu passes près de chez eux.",
+      "range": "Du {from} au {to}",
+      "from": "Du",
+      "to": "Au",
+      "region": "Région",
+      "regionPlaceholder": "Ex. Suisse romande",
+      "add": "Ajouter la tournée",
+      "delete": "Supprimer"
+    }
   }
 }
