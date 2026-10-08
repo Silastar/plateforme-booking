@@ -39,7 +39,10 @@ export function SaveButton({ pending }: { pending: boolean }) {
 
 // Envoi sans remise à zéro du formulaire (comportement par défaut de React 19 avec <form action>) :
 // les champs gardent ce que la personne a saisi, la page se rafraîchit pour afficher les nouveaux fichiers.
-export function useEditForm(action: (state: FormState, fd: FormData) => Promise<FormState>) {
+export function useEditForm(
+  action: (state: FormState, fd: FormData) => Promise<FormState>,
+  { resetOnSave = false }: { resetOnSave?: boolean } = {},
+) {
   const router = useRouter()
   const [state, dispatch, pending] = useActionState(action, IDLE)
   const [, startTransition] = useTransition()
@@ -47,11 +50,12 @@ export function useEditForm(action: (state: FormState, fd: FormData) => Promise<
 
   useEffect(() => {
     if (state.status !== 'saved') return
+    if (resetOnSave) formRef.current?.reset()
     formRef.current
       ?.querySelectorAll<HTMLInputElement>('input[type=file]')
       .forEach((input) => (input.value = ''))
     router.refresh()
-  }, [state, router])
+  }, [state, router, resetOnSave])
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()

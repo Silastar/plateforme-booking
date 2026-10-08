@@ -6,6 +6,7 @@ import { LogoutButton } from '@/components/auth/LogoutButton'
 import { Link, redirect } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
 import { getAdminBands } from '@/lib/bands'
+import { getOrgaForEdit } from '@/lib/orgas'
 import { getSession } from '@/lib/session'
 
 type Props = {
@@ -31,6 +32,7 @@ export default async function AccountPage({ params, searchParams }: Props) {
   if (userRole === 'none') return redirect({ href: '/inscription/profil', locale })
   const { verifie } = await searchParams
   const bands = await getAdminBands(user.id)
+  const orga = userRole === 'orga' ? await getOrgaForEdit(user.id) : null
   const t = await getTranslations('auth.account')
   const role = (ROLE_KEYS as readonly string[]).includes(userRole)
     ? (userRole as (typeof ROLE_KEYS)[number])
@@ -75,7 +77,7 @@ export default async function AccountPage({ params, searchParams }: Props) {
           </dt>
           <dd style={{ margin: 0, fontWeight: 700, overflowWrap: 'anywhere' }}>{user.email}</dd>
         </dl>
-        {bands.length > 0 && (
+        {(bands.length > 0 || orga) && (
           <section
             aria-labelledby="my-profiles"
             style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
@@ -93,6 +95,37 @@ export default async function AccountPage({ params, searchParams }: Props) {
                 gap: 10,
               }}
             >
+              {orga && (
+                <li
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: 12,
+                    background: 'var(--c-surface)',
+                    borderLeft: '8px solid var(--c-amber)',
+                    padding: '16px 20px',
+                  }}
+                >
+                  <span className="display" style={{ fontSize: 28 }}>
+                    {orga.name}
+                  </span>
+                  <span style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                    {orga.slug && (
+                      <Link
+                        href={{ pathname: '/orgas/[slug]', params: { slug: orga.slug } }}
+                        className="btn btn--ghost"
+                      >
+                        {t('viewPage')}
+                      </Link>
+                    )}
+                    <Link href="/compte/orga" className="btn btn--amber">
+                      {t('editBand')}
+                    </Link>
+                  </span>
+                </li>
+              )}
               {bands.map((b) => (
                 <li
                   key={b.id}
