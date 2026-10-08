@@ -1,12 +1,14 @@
 import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
+import { getSession } from '@/lib/session'
 
 import styles from './layout.module.css'
 import { LocaleSwitcher } from './LocaleSwitcher'
 
 export async function SiteHeader() {
   const t = await getTranslations()
+  const session = await getSession()
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.logo}>
@@ -25,12 +27,20 @@ export async function SiteHeader() {
         <Link href="/tarifs" className={styles.navLink}>
           {t('nav.pricing')}
         </Link>
-        <Link href="/connexion" className={styles.navLink}>
-          {t('nav.login')}
-        </Link>
-        <Link href="/inscription" className={`btn btn--red ${styles.navCta}`}>
-          {t('nav.signup')}
-        </Link>
+        {session ? (
+          <Link href="/compte" className={`btn btn--paper ${styles.navCta}`}>
+            {t('nav.account')}
+          </Link>
+        ) : (
+          <>
+            <Link href="/connexion" className={styles.navLink}>
+              {t('nav.login')}
+            </Link>
+            <Link href="/inscription" className={`btn btn--red ${styles.navCta}`}>
+              {t('nav.signup')}
+            </Link>
+          </>
+        )}
         <LocaleSwitcher label={t('a11y.language')} />
       </nav>
     </header>

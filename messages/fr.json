@@ -15,7 +15,8 @@
     "howItWorks": "Comment ça marche",
     "pricing": "Tarifs",
     "login": "Connexion",
-    "signup": "Monter sur scène"
+    "signup": "Monter sur scène",
+    "account": "Mon compte"
   },
   "footer": {
     "terms": "Conditions d'utilisation",
@@ -62,9 +63,18 @@
     "criteria": {
       "titleLine1": "Quatre critères.",
       "titleLine2": "Une date qui tient.",
-      "genre": { "title": "Genre", "text": "Le son que l'orga cherche croise celui du groupe." },
-      "place": { "title": "Lieu", "text": "La salle est dans la zone où le groupe peut rouler." },
-      "date": { "title": "Date", "text": "La date tombe un soir où le groupe est libre." },
+      "genre": {
+        "title": "Genre",
+        "text": "Le son que l'orga cherche croise celui du groupe."
+      },
+      "place": {
+        "title": "Lieu",
+        "text": "La salle est dans la zone où le groupe peut rouler."
+      },
+      "date": {
+        "title": "Date",
+        "text": "La date tombe un soir où le groupe est libre."
+      },
       "fee": {
         "title": "Cachet",
         "text": "Le budget de l'orga et la fourchette du groupe se rejoignent."
@@ -115,5 +125,229 @@
     "title": "Pas de show ici.",
     "text": "Cette page n'existe pas, ou pas encore.",
     "back": "Retour à l'accueil"
+  },
+  "auth": {
+    "errors": {
+      "required": "Champ obligatoire.",
+      "tooLong": "Trop long.",
+      "email": "Adresse e-mail invalide.",
+      "password": "Au moins 12 caractères.",
+      "url": "Lien invalide (il doit commencer par http:// ou https://).",
+      "terms": "Il faut accepter les conditions pour continuer.",
+      "number": "Nombre invalide.",
+      "invalid": "Valeur invalide.",
+      "exists": "Un compte existe déjà avec cette adresse.",
+      "server": "Un problème est survenu de notre côté. Réessaie dans un instant.",
+      "credentials": "E-mail ou mot de passe incorrect.",
+      "notVerified": "Ton e-mail n'est pas encore confirmé. Clique sur le lien reçu, ou demande-en un nouveau.",
+      "tokenInvalid": "Ce lien n'est plus valable.",
+      "mismatch": "Les deux mots de passe ne correspondent pas.",
+      "role": "Choisis ton côté de la scène."
+    },
+    "poster": {
+      "tag": "Inscription",
+      "line1": "Monte",
+      "line2": "sur",
+      "line3": "scène.",
+      "photo": "[Photo live : public de dos, scène éclairée]",
+      "caption": "Ta prochaine date commence ici"
+    },
+    "steps": {
+      "label": "Étapes de l'inscription",
+      "role": "Rôle",
+      "account": "Compte",
+      "profile": "Profil",
+      "done": "Validation"
+    },
+    "signup": {
+      "title": "Inscription",
+      "alreadyAccount": "Déjà un compte ?",
+      "login": "Connexion",
+      "back": "Retour",
+      "next": "Continuer",
+      "create": "Créer mon profil",
+      "sending": "Envoi…",
+      "role": {
+        "title": "Tu es de quel côté de la scène ?",
+        "orga": {
+          "line1": "J'organise",
+          "line2": "des concerts",
+          "text": "Salle, bar, festival, association. Tu publies tes dates et tu trouves tes groupes."
+        },
+        "groupe": {
+          "line1": "Je joue dans",
+          "line2": "un groupe",
+          "text": "Groupe, artiste solo ou booker. Tu montres ta musique et tu reçois des offres."
+        },
+        "musicien": {
+          "line1": "Je joue",
+          "line2": "d'un instrument",
+          "text": "Dans un ou plusieurs groupes, en remplacement ou en session. Ton agenda à toi, partagé avec tes groupes."
+        }
+      },
+      "account": {
+        "title": "Ton compte",
+        "orEmail": "ou avec ton e-mail",
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "email": "E-mail",
+        "password": "Mot de passe",
+        "passwordHelp": "Au moins 12 caractères.",
+        "terms": "J'accepte les <terms>conditions d'utilisation</terms> et la <privacy>politique de confidentialité</privacy>.",
+        "newsletter": "Je veux recevoir les nouvelles dates ouvertes par e-mail (facultatif)."
+      },
+      "profile": {
+        "title": {
+          "orga": "Ta structure",
+          "groupe": "Ton groupe",
+          "musicien": "Toi et ton instrument"
+        },
+        "intro": "Juste l'essentiel pour commencer. Tu compléteras le reste après : {later}.",
+        "later": {
+          "orga": "tes lieux, tes dates à pourvoir, ton budget, la fiche de la salle",
+          "groupe": "ton cachet, tes dispos, ta zone, ta fiche tech, ton line-up",
+          "musicien": "tes groupes, ton agenda, tes vidéos, ta fiche dépannage"
+        },
+        "orga": {
+          "name": "Nom de la structure",
+          "namePlaceholder": "Ex. Le Bocal",
+          "type": "Type",
+          "types": {
+            "salle": "Salle de concert",
+            "bar": "Bar, café-concert",
+            "festival": "Festival",
+            "association": "Association",
+            "prive": "Événement privé"
+          },
+          "city": "Ville",
+          "capacity": "Capacité (places)",
+          "website": "Site ou réseau social",
+          "websitePlaceholder": "https://"
+        },
+        "groupe": {
+          "name": "Nom du groupe",
+          "namePlaceholder": "Ex. Les Néons Fauves",
+          "genre": "Genre principal",
+          "city": "Ville d'origine",
+          "musicians": "Musiciens sur scène",
+          "listen": "Un lien pour t'écouter",
+          "listenPlaceholder": "Spotify, Bandcamp, YouTube, SoundCloud…",
+          "listenHelp": "Obligatoire : c'est la première chose qu'un orga écoute."
+        },
+        "musicien": {
+          "stageName": "Nom ou nom de scène",
+          "stageNamePlaceholder": "Ex. Léa Rochat",
+          "instrument": "Instrument principal",
+          "instruments": {
+            "batterie": "Batterie",
+            "basse": "Basse",
+            "guitare": "Guitare",
+            "chant": "Chant",
+            "claviers": "Claviers",
+            "cuivres": "Cuivres",
+            "autre": "Autre"
+          },
+          "other": "Autres instruments",
+          "otherPlaceholder": "Ex. percussions, chœurs",
+          "city": "Ville",
+          "level": "Niveau",
+          "levels": {
+            "amateur": "Amateur",
+            "semipro": "Semi-pro",
+            "pro": "Pro"
+          },
+          "subs": "Je suis dispo pour dépanner d'autres groupes"
+        },
+        "choose": "Choisir…"
+      },
+      "done": {
+        "stamp": {
+          "orga": "Bientôt en ligne",
+          "groupe": "Bienvenue !",
+          "musicien": "Bienvenue !"
+        },
+        "title": {
+          "orga": "Ton profil orga est presque prêt",
+          "groupe": "Ton groupe est presque sur scène",
+          "musicien": "Ton profil musicien est presque prêt"
+        },
+        "checkEmail": "On t'a envoyé un lien à {email}. Clique dessus pour activer ton compte.",
+        "next": {
+          "orga": [
+            "Confirme ton e-mail (lien envoyé)",
+            "Notre équipe vérifie ta structure",
+            "On te prévient par e-mail dès que c'est validé"
+          ],
+          "groupe": [
+            "Confirme ton e-mail (lien envoyé)",
+            "Ajoute ton cachet, ta zone et tes dispos",
+            "Invite tes musiciens dans le line-up"
+          ],
+          "musicien": [
+            "Confirme ton e-mail (lien envoyé)",
+            "Rejoins tes groupes ou attends leur invitation",
+            "Remplis ton agenda perso : tes groupes voient « occupé »"
+          ]
+        },
+        "login": "Aller à la connexion"
+      }
+    },
+    "social": {
+      "continueWith": "Continuer avec {provider}"
+    },
+    "login": {
+      "title": "Connexion",
+      "heading": "Content de te revoir.",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "submit": "Se connecter",
+      "forgot": "Mot de passe oublié ?",
+      "noAccount": "Pas encore de compte ?",
+      "signup": "Monter sur scène",
+      "resend": "Renvoyer l'e-mail de confirmation",
+      "resent": "C'est reparti : vérifie ta boîte mail."
+    },
+    "forgot": {
+      "title": "Mot de passe oublié",
+      "heading": "Mot de passe oublié ?",
+      "text": "Indique ton e-mail : on t'envoie un lien pour en choisir un nouveau.",
+      "email": "E-mail",
+      "submit": "Envoyer le lien",
+      "sent": "Si un compte existe pour cette adresse, un e-mail vient de partir.",
+      "back": "Retour à la connexion"
+    },
+    "reset": {
+      "title": "Nouveau mot de passe",
+      "heading": "Nouveau mot de passe",
+      "password": "Nouveau mot de passe",
+      "confirm": "Confirme le mot de passe",
+      "submit": "Changer le mot de passe",
+      "done": "Mot de passe changé. Tu peux te connecter.",
+      "login": "Se connecter",
+      "again": "Demander un nouveau lien"
+    },
+    "account": {
+      "title": "Mon compte",
+      "heading": "Salut {name} !",
+      "verified": "E-mail confirmé : ton compte est actif.",
+      "role": "Profil",
+      "roles": {
+        "orga": "Orga",
+        "groupe": "Groupe",
+        "musicien": "Musicien",
+        "admin": "Équipe",
+        "none": "À compléter"
+      },
+      "email": "E-mail",
+      "pendingTitle": "Profil orga en cours de vérification",
+      "pendingText": "Notre équipe vérifie ta structure. Tu reçois un e-mail dès que c'est validé.",
+      "next": "La suite arrive : profil complet, calendrier, dates.",
+      "logout": "Se déconnecter"
+    },
+    "onboarding": {
+      "title": "Ton profil",
+      "heading": "Encore une étape",
+      "text": "Choisis ton côté de la scène et remplis l'essentiel."
+    }
   }
 }

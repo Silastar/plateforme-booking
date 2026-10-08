@@ -15,7 +15,8 @@
     "howItWorks": "How it works",
     "pricing": "Pricing",
     "login": "Log in",
-    "signup": "Get on stage"
+    "signup": "Get on stage",
+    "account": "My account"
   },
   "footer": {
     "terms": "Terms of use",
@@ -62,13 +63,22 @@
     "criteria": {
       "titleLine1": "Four criteria.",
       "titleLine2": "One solid booking.",
-      "genre": { "title": "Genre", "text": "The sound the promoter wants matches the band's." },
+      "genre": {
+        "title": "Genre",
+        "text": "The sound the promoter wants matches the band's."
+      },
       "place": {
         "title": "Location",
         "text": "The venue is within the area the band can travel to."
       },
-      "date": { "title": "Date", "text": "The date falls on a night the band is free." },
-      "fee": { "title": "Fee", "text": "The promoter's budget and the band's fee range overlap." }
+      "date": {
+        "title": "Date",
+        "text": "The date falls on a night the band is free."
+      },
+      "fee": {
+        "title": "Fee",
+        "text": "The promoter's budget and the band's fee range overlap."
+      }
     },
     "setlist": {
       "title": "The setlist",
@@ -115,5 +125,229 @@
     "title": "No show here.",
     "text": "This page doesn't exist, or not yet.",
     "back": "Back to home"
+  },
+  "auth": {
+    "errors": {
+      "required": "Required field.",
+      "tooLong": "Too long.",
+      "email": "Invalid email address.",
+      "password": "At least 12 characters.",
+      "url": "Invalid link (it must start with http:// or https://).",
+      "terms": "You need to accept the terms to continue.",
+      "number": "Invalid number.",
+      "invalid": "Invalid value.",
+      "exists": "An account already exists with this email.",
+      "server": "Something went wrong on our end. Try again in a moment.",
+      "credentials": "Wrong email or password.",
+      "notVerified": "Your email isn't confirmed yet. Click the link you received, or ask for a new one.",
+      "tokenInvalid": "This link is no longer valid.",
+      "mismatch": "The two passwords don't match.",
+      "role": "Pick your side of the stage."
+    },
+    "poster": {
+      "tag": "Sign up",
+      "line1": "Get",
+      "line2": "on",
+      "line3": "stage.",
+      "photo": "[Live photo: crowd from behind, lit stage]",
+      "caption": "Your next gig starts here"
+    },
+    "steps": {
+      "label": "Sign-up steps",
+      "role": "Role",
+      "account": "Account",
+      "profile": "Profile",
+      "done": "Approval"
+    },
+    "signup": {
+      "title": "Sign up",
+      "alreadyAccount": "Already have an account?",
+      "login": "Log in",
+      "back": "Back",
+      "next": "Continue",
+      "create": "Create my profile",
+      "sending": "Sending…",
+      "role": {
+        "title": "Which side of the stage are you on?",
+        "orga": {
+          "line1": "I book",
+          "line2": "shows",
+          "text": "Venue, bar, festival, nonprofit. You post your dates and find your bands."
+        },
+        "groupe": {
+          "line1": "I play in",
+          "line2": "a band",
+          "text": "Band, solo artist or booking agent. You show your music and get offers."
+        },
+        "musicien": {
+          "line1": "I play",
+          "line2": "an instrument",
+          "text": "In one band or several, as a sub or session player. Your own calendar, shared with your bands."
+        }
+      },
+      "account": {
+        "title": "Your account",
+        "orEmail": "or with your email",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "password": "Password",
+        "passwordHelp": "At least 12 characters.",
+        "terms": "I accept the <terms>terms of use</terms> and the <privacy>privacy policy</privacy>.",
+        "newsletter": "Email me new open dates (optional)."
+      },
+      "profile": {
+        "title": {
+          "orga": "Your organization",
+          "groupe": "Your band",
+          "musicien": "You and your instrument"
+        },
+        "intro": "Just the basics to get started. You'll fill in the rest later: {later}.",
+        "later": {
+          "orga": "your venues, your open dates, your budget, the venue sheet",
+          "groupe": "your fee, your availability, your area, your tech rider, your lineup",
+          "musicien": "your bands, your calendar, your videos, your fill-in sheet"
+        },
+        "orga": {
+          "name": "Organization name",
+          "namePlaceholder": "E.g. Le Bocal",
+          "type": "Type",
+          "types": {
+            "salle": "Music venue",
+            "bar": "Bar, live music café",
+            "festival": "Festival",
+            "association": "Nonprofit",
+            "prive": "Private event"
+          },
+          "city": "City",
+          "capacity": "Capacity",
+          "website": "Website or social media",
+          "websitePlaceholder": "https://"
+        },
+        "groupe": {
+          "name": "Band name",
+          "namePlaceholder": "E.g. Les Néons Fauves",
+          "genre": "Main genre",
+          "city": "Hometown",
+          "musicians": "Musicians on stage",
+          "listen": "A link to hear you",
+          "listenPlaceholder": "Spotify, Bandcamp, YouTube, SoundCloud…",
+          "listenHelp": "Required: it's the first thing a promoter listens to."
+        },
+        "musicien": {
+          "stageName": "Name or stage name",
+          "stageNamePlaceholder": "E.g. Léa Rochat",
+          "instrument": "Main instrument",
+          "instruments": {
+            "batterie": "Drums",
+            "basse": "Bass",
+            "guitare": "Guitar",
+            "chant": "Vocals",
+            "claviers": "Keys",
+            "cuivres": "Horns",
+            "autre": "Other"
+          },
+          "other": "Other instruments",
+          "otherPlaceholder": "E.g. percussion, backing vocals",
+          "city": "City",
+          "level": "Level",
+          "levels": {
+            "amateur": "Amateur",
+            "semipro": "Semi-pro",
+            "pro": "Pro"
+          },
+          "subs": "I'm available to fill in for other bands"
+        },
+        "choose": "Choose…"
+      },
+      "done": {
+        "stamp": {
+          "orga": "Almost live",
+          "groupe": "Welcome!",
+          "musicien": "Welcome!"
+        },
+        "title": {
+          "orga": "Your promoter profile is almost ready",
+          "groupe": "Your band is almost on stage",
+          "musicien": "Your musician profile is almost ready"
+        },
+        "checkEmail": "We sent a link to {email}. Click it to activate your account.",
+        "next": {
+          "orga": [
+            "Confirm your email (link sent)",
+            "Our team reviews your organization",
+            "We'll email you as soon as it's approved"
+          ],
+          "groupe": [
+            "Confirm your email (link sent)",
+            "Add your fee, your area and your availability",
+            "Invite your musicians to the lineup"
+          ],
+          "musicien": [
+            "Confirm your email (link sent)",
+            "Join your bands or wait for their invite",
+            "Fill in your personal calendar: your bands just see “busy”"
+          ]
+        },
+        "login": "Go to log in"
+      }
+    },
+    "social": {
+      "continueWith": "Continue with {provider}"
+    },
+    "login": {
+      "title": "Log in",
+      "heading": "Good to see you again.",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Log in",
+      "forgot": "Forgot your password?",
+      "noAccount": "No account yet?",
+      "signup": "Get on stage",
+      "resend": "Resend the confirmation email",
+      "resent": "Sent again: check your inbox."
+    },
+    "forgot": {
+      "title": "Forgot password",
+      "heading": "Forgot your password?",
+      "text": "Enter your email and we'll send you a link to choose a new one.",
+      "email": "Email",
+      "submit": "Send the link",
+      "sent": "If an account exists for this address, an email is on its way.",
+      "back": "Back to log in"
+    },
+    "reset": {
+      "title": "New password",
+      "heading": "New password",
+      "password": "New password",
+      "confirm": "Confirm the password",
+      "submit": "Change password",
+      "done": "Password changed. You can log in now.",
+      "login": "Log in",
+      "again": "Ask for a new link"
+    },
+    "account": {
+      "title": "My account",
+      "heading": "Hey {name}!",
+      "verified": "Email confirmed: your account is active.",
+      "role": "Profile",
+      "roles": {
+        "orga": "Promoter",
+        "groupe": "Band",
+        "musicien": "Musician",
+        "admin": "Team",
+        "none": "To complete"
+      },
+      "email": "Email",
+      "pendingTitle": "Promoter profile under review",
+      "pendingText": "Our team is reviewing your organization. You'll get an email as soon as it's approved.",
+      "next": "More is coming: full profile, calendar, dates.",
+      "logout": "Log out"
+    },
+    "onboarding": {
+      "title": "Your profile",
+      "heading": "One more step",
+      "text": "Pick your side of the stage and fill in the basics."
+    }
   }
 }

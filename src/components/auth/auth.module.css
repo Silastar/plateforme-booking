@@ -1,0 +1,442 @@
+/* ---------- Mise en page : affiche à gauche, formulaire à droite ---------- */
+.shell {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  min-height: calc(100vh - 70px);
+}
+
+.poster {
+  flex: 1 1 380px;
+  position: relative;
+  overflow: hidden;
+  background: var(--c-surface-2);
+  padding: 64px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.posterLights {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.posterText {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.posterTitle {
+  font-size: clamp(64px, 8vw, 116px);
+  line-height: 0.88;
+}
+
+.posterTitle span {
+  display: block;
+}
+
+.red {
+  color: var(--c-red-bright);
+}
+
+.posterPhoto {
+  position: relative;
+  align-self: flex-start;
+  background: var(--c-paper);
+  padding: 12px 12px 44px;
+  transform: rotate(-2deg);
+  width: 100%;
+  max-width: 320px;
+}
+
+.posterPhoto div {
+  height: 220px;
+  background: var(--c-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #a39c8f;
+  font-weight: 700;
+  padding: 16px;
+}
+
+.posterPhoto p {
+  margin: 10px 0 0;
+  font-family: var(--font-marker);
+  color: var(--c-ink);
+  font-size: 20px;
+  text-align: center;
+}
+
+.tapePiece {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  width: 110px;
+  height: 28px;
+  margin-left: -55px;
+  background: var(--c-tape);
+  opacity: 0.9;
+  transform: rotate(5deg);
+}
+
+.content {
+  flex: 999 1 560px;
+  min-width: 0;
+  padding: 48px var(--gutter) 64px;
+}
+
+.contentInner {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.contentNarrow {
+  max-width: 480px;
+}
+
+.title {
+  font-size: clamp(40px, 5vw, 60px);
+  line-height: 0.95;
+}
+
+.intro {
+  margin: 0;
+  color: var(--c-text-soft);
+}
+
+/* ---------- Étapes ---------- */
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px solid var(--c-line);
+  color: var(--c-faint);
+}
+
+.stepNumber {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 1;
+}
+
+.stepLabel {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.stepDone {
+  background: var(--c-line);
+  border-color: var(--c-line);
+  color: var(--c-text);
+}
+
+.stepCurrent {
+  background: var(--accent, var(--c-paper-light));
+  border-color: var(--accent, var(--c-paper-light));
+  color: var(--accent-on, var(--c-ink));
+}
+
+/* Couleur du parcours selon le rôle choisi : ambre = orga, rouge = groupe, papier = musicien. */
+.accentOrga {
+  --accent: var(--c-amber);
+  --accent-on: var(--c-ink);
+  --accent-text: var(--c-amber);
+}
+
+.accentGroupe {
+  --accent: var(--c-red);
+  --accent-on: #fff;
+  --accent-text: var(--c-red-text);
+}
+
+.accentMusicien {
+  --accent: var(--c-paper);
+  --accent-on: var(--c-ink);
+  --accent-text: var(--c-paper);
+}
+
+/* ---------- Cartes de rôle ---------- */
+.roles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.roleCard {
+  font: inherit;
+  text-align: left;
+  padding: 24px;
+  min-height: 190px;
+  border-radius: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--c-surface);
+  color: var(--c-text);
+  border: 3px solid var(--c-line-strong);
+}
+
+.roleCard[aria-pressed='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-on);
+}
+
+.roleTitle {
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.roleText {
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+/* ---------- Champs ---------- */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-text, var(--c-amber));
+}
+
+.field input,
+.field select {
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--c-ink);
+  padding: 12px;
+  border: 2px solid transparent;
+  border-radius: 0;
+  background: var(--c-paper-light);
+  min-height: 50px;
+  width: 100%;
+}
+
+.field input[aria-invalid='true'],
+.field select[aria-invalid='true'] {
+  border-color: var(--c-red-bright);
+}
+
+.help {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--c-muted);
+}
+
+.error {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--c-red-text);
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.45;
+  min-height: 36px;
+}
+
+.check input {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  flex: 0 0 20px;
+  accent-color: var(--c-red);
+}
+
+.check a {
+  color: var(--c-text);
+}
+
+.checks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--c-line);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.submit {
+  background: var(--accent, var(--c-amber));
+  color: var(--accent-on, var(--c-ink));
+  min-height: 52px;
+  padding: 16px 26px;
+}
+
+.submit:disabled {
+  background: var(--c-line);
+  color: var(--c-faint);
+  cursor: not-allowed;
+}
+
+.alert {
+  margin: 0;
+  padding: 14px 16px;
+  background: #2a0f0d;
+  border-left: 6px solid var(--c-red-bright);
+  color: var(--c-text);
+}
+
+.success {
+  margin: 0;
+  padding: 14px 16px;
+  background: var(--c-surface);
+  border-left: 6px solid var(--c-amber);
+}
+
+.linkButton {
+  font: inherit;
+  background: none;
+  border: 0;
+  padding: 10px 0;
+  color: var(--c-amber);
+  text-decoration: underline;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.muted {
+  margin: 0;
+  color: var(--c-muted);
+  font-size: 15px;
+}
+
+/* ---------- Connexion par un compte existant ---------- */
+.social {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+}
+
+.socialButton {
+  font: inherit;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 12px 16px;
+  min-height: 52px;
+  border: 2px solid var(--c-text);
+  border-radius: 0;
+  background: transparent;
+  color: var(--c-text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--c-faint);
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-top: 1px solid var(--c-line);
+}
+
+/* ---------- Fiche de confirmation (papier scotché) ---------- */
+.paper {
+  position: relative;
+  background: var(--c-paper);
+  color: var(--c-ink);
+  padding: 36px 32px 32px;
+  transform: rotate(-0.6deg);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.paper .tapePiece {
+  left: 20%;
+  transform: rotate(-5deg);
+}
+
+.stamp {
+  align-self: flex-start;
+  font-family: var(--font-marker);
+  font-size: 30px;
+  color: var(--c-red-dark);
+  border: 3px solid var(--c-red-dark);
+  padding: 2px 14px;
+  transform: rotate(-4deg);
+}
+
+.paperTitle {
+  font-size: clamp(32px, 4.5vw, 48px);
+  line-height: 0.95;
+}
+
+.markerList {
+  margin: 0;
+  padding-left: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: var(--font-marker);
+  font-size: 20px;
+  line-height: 1.35;
+}
