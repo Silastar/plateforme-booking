@@ -1,8 +1,9 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { useState } from 'react'
 
-import { Input, Select, TextArea } from '@/components/forms/fields'
+import { formStyles, Input, Select, TextArea } from '@/components/forms/fields'
 import { FormStatus, useEditForm } from '@/components/profiles/SaveBar'
 import { applyToGig } from '@/lib/actions/gigs'
 
@@ -14,9 +15,17 @@ export function ApplyForm({
   bands,
 }: {
   gigId: string
-  bands: { id: string; name: string; feeMin: number | null }[]
+  bands: {
+    id: string
+    name: string
+    feeMin: number | null
+    riders: { id: string; name: string }[]
+  }[]
 }) {
   const t = useTranslations('gigs.apply')
+  const tr = useTranslations('rider.apply')
+  const [bandId, setBandId] = useState(bands[0].id)
+  const riders = bands.find((b) => b.id === bandId)?.riders ?? []
   const { state, pending, onSubmit, formRef } = useEditForm(applyToGig, { resetOnSave: true })
   const errors = state.errors
 
@@ -25,15 +34,31 @@ export function ApplyForm({
       <h2 className={styles.panelTitle}>{t('title')}</h2>
       <input type="hidden" name="gigId" value={gigId} />
       {bands.length > 1 ? (
-        <Select
-          name="bandId"
-          label={t('band')}
-          errors={errors}
-          defaultValue={bands[0].id}
-          options={bands.map((b) => ({ value: b.id, label: b.name }))}
-        />
+        <label className={formStyles.field}>
+          {t('band')}
+          <select name="bandId" value={bandId} onChange={(e) => setBandId(e.target.value)}>
+            {bands.map((b) => (
+              <option key={b.id} value={b.id}>
+                {b.name}
+              </option>
+            ))}
+          </select>
+        </label>
       ) : (
         <input type="hidden" name="bandId" value={bands[0].id} />
+      )}
+      {riders.length > 0 && (
+        <Select
+          key={bandId}
+          name="riderId"
+          label={tr('rider')}
+          errors={errors}
+          defaultValue={riders[0].id}
+          options={[
+            ...riders.map((r) => ({ value: r.id, label: r.name })),
+            { value: '', label: tr('riderNone') },
+          ]}
+        />
       )}
       <Input
         name="fee"

@@ -7,7 +7,13 @@ import { db } from '@/db'
 import { organization, venue } from '@/db/schema'
 import { orNull, readForm } from '@/lib/form-data'
 import { getOrgaForEdit } from '@/lib/orgas'
-import { ORGA_FIELDS, orgaEditSchema, VENUE_FIELDS, venueSchema } from '@/lib/profile-edit'
+import {
+  ORGA_FIELDS,
+  orgaEditSchema,
+  parseVenueGear,
+  VENUE_FIELDS,
+  venueSchema,
+} from '@/lib/profile-edit'
 import { getSession } from '@/lib/session'
 import { pickFile, removeMedia, saveImage, UploadError } from '@/lib/uploads'
 import { fieldErrors } from '@/lib/validation'
@@ -110,6 +116,7 @@ export async function saveVenue(_prev: FormState, fd: FormData): Promise<FormSta
     catering: v.catering,
     loadIn: orNull(v.loadIn),
     curfew: orNull(v.curfew),
+    gear: parseVenueGear(fd),
     photo,
   }
   if (existing) {

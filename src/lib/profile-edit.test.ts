@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { readForm } from './form-data'
-import { BAND_FIELDS, bandEditSchema } from './profile-edit'
+import { BAND_FIELDS, bandEditSchema, parseVenueGear } from './profile-edit'
 import { fieldErrors } from './validation'
 
 function bandForm(extra: Record<string, string | string[]> = {}) {
@@ -51,5 +51,24 @@ describe('édition du profil groupe', () => {
       expect(e.spotifyUrl).toBe('url')
       expect(e.genres).toBe('tooMany')
     }
+  })
+})
+
+describe('matériel détaillé du lieu', () => {
+  it('garde les nombres valides, oui / non, la liste de micros ; vide = pas renseigné', () => {
+    const fd = new FormData()
+    fd.set('gear_consoleInputs', '24')
+    fd.set('gear_wedges', '')
+    fd.set('gear_diBoxes', '-3')
+    fd.set('gear_drumKit', 'yes')
+    fd.set('gear_riser', 'no')
+    fd.set('gear_bassAmp', '')
+    fd.set('gear_micList', '  SM58 ×8, Beta 91  ')
+    expect(parseVenueGear(fd)).toEqual({
+      consoleInputs: 24,
+      drumKit: true,
+      riser: false,
+      micList: 'SM58 ×8, Beta 91',
+    })
   })
 })

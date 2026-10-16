@@ -13,6 +13,7 @@ import { getAdminBands } from '@/lib/bands'
 import { todayIso } from '@/lib/calendar'
 import { matchGig } from '@/lib/gig-rules'
 import { bandsOpenOn, canSeeGig, getBandApplications, getGigPage } from '@/lib/gigs'
+import { getBandRiders } from '@/lib/riders'
 import { getSession } from '@/lib/session'
 
 type Props = { params: Promise<{ locale: Locale; id: string }> }
@@ -191,7 +192,14 @@ export default async function GigPage({ params }: Props) {
             {accepting && canApply.length > 0 && (
               <ApplyForm
                 gigId={g.id}
-                bands={canApply.map((b) => ({ id: b.id, name: b.name, feeMin: b.feeMin }))}
+                bands={await Promise.all(
+                  canApply.map(async (b) => ({
+                    id: b.id,
+                    name: b.name,
+                    feeMin: b.feeMin,
+                    riders: (await getBandRiders(b.id)).map((r) => ({ id: r.id, name: r.name })),
+                  })),
+                )}
               />
             )}
             {accepting && !session && (

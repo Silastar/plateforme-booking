@@ -205,3 +205,45 @@ export const MUSICIAN_FIELDS = {
   repertoireNote: 'text',
   gearNote: 'text',
 } as const
+
+/* ---------- Matériel détaillé d'un lieu ---------- */
+
+export const GEAR_COUNTS = [
+  'consoleInputs',
+  'monitorMixes',
+  'wedges',
+  'iemSystems',
+  'diBoxes',
+  'vocalMics',
+  'outlets',
+] as const
+export const GEAR_FLAGS = [
+  'instrumentMics',
+  'drumKit',
+  'bassAmp',
+  'guitarAmp',
+  'keyboard',
+  'keyboardStand',
+  'riser',
+  'sidefill',
+] as const
+
+// Champs « gear_<clé> » : nombre (vide = pas renseigné), oui / non / vide, liste de micros.
+export function parseVenueGear(fd: FormData) {
+  const gear: Record<string, number | boolean | string> = {}
+  for (const k of GEAR_COUNTS) {
+    const raw = String(fd.get(`gear_${k}`) ?? '').trim()
+    const n = Number(raw)
+    if (raw !== '' && Number.isInteger(n) && n >= 0 && n <= 999) gear[k] = n
+  }
+  for (const k of GEAR_FLAGS) {
+    const raw = String(fd.get(`gear_${k}`) ?? '')
+    if (raw === 'yes') gear[k] = true
+    else if (raw === 'no') gear[k] = false
+  }
+  const micList = String(fd.get('gear_micList') ?? '')
+    .trim()
+    .slice(0, 300)
+  if (micList) gear.micList = micList
+  return gear
+}

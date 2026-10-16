@@ -9,7 +9,9 @@ import {
   Input,
   Section,
 } from '@/components/forms/fields'
+import type { VenueGear } from '@/db/schema'
 import { deleteVenue, saveVenue } from '@/lib/actions/orga'
+import { GEAR_COUNTS, GEAR_FLAGS } from '@/lib/profile-edit'
 
 import { FormStatus, SaveButton, useEditForm } from './SaveBar'
 
@@ -31,6 +33,7 @@ export type VenueValues = {
   loadIn: string | null
   curfew: string | null
   photo: string | null
+  gear: VenueGear
 }
 
 // Un lieu existant (modifier / supprimer) ou un nouveau lieu (venue absent).
@@ -138,6 +141,7 @@ export function VenueForm({ venue, n }: { venue?: VenueValues; n: number }) {
             <Checkbox name="greenRoom" label={t('greenRoom')} defaultChecked={v?.greenRoom} />
             <Checkbox name="catering" label={t('catering')} defaultChecked={v?.catering} />
           </div>
+          <VenueGearFields gear={v?.gear ?? {}} />
           <ImageInput
             name="photo"
             label={t('photo')}
@@ -168,5 +172,58 @@ export function VenueForm({ venue, n }: { venue?: VenueValues; n: number }) {
         </form>
       )}
     </div>
+  )
+}
+
+// Matériel détaillé, comparé aux fiches techniques des groupes. Vide = pas renseigné.
+function VenueGearFields({ gear }: { gear: VenueGear }) {
+  const t = useTranslations('editOrga.gear')
+  const tv = useTranslations('venues')
+  const g = gear as Record<string, number | boolean | string | undefined>
+  return (
+    <fieldset className={styles.section} style={{ background: 'var(--c-ink)', borderTopWidth: 3 }}>
+      <legend className={styles.legend} style={{ fontSize: 22 }}>
+        {t('title')}
+      </legend>
+      <p className={styles.sectionIntro}>{t('intro')}</p>
+      <div className={styles.grid}>
+        {GEAR_COUNTS.map((k) => (
+          <label key={k} className={styles.field}>
+            {t(k)}
+            <input
+              type="number"
+              name={`gear_${k}`}
+              min={0}
+              max={999}
+              defaultValue={typeof g[k] === 'number' ? (g[k] as number) : ''}
+            />
+          </label>
+        ))}
+      </div>
+      <div className={styles.grid}>
+        {GEAR_FLAGS.map((k) => (
+          <label key={k} className={styles.field}>
+            {t(k)}
+            <select
+              name={`gear_${k}`}
+              defaultValue={g[k] === true ? 'yes' : g[k] === false ? 'no' : ''}
+            >
+              <option value="">—</option>
+              <option value="yes">{tv('yes')}</option>
+              <option value="no">{tv('no')}</option>
+            </select>
+          </label>
+        ))}
+      </div>
+      <label className={styles.field}>
+        {t('micList')}
+        <input
+          name="gear_micList"
+          maxLength={300}
+          defaultValue={typeof g.micList === 'string' ? g.micList : ''}
+          placeholder={t('micListPlaceholder')}
+        />
+      </label>
+    </fieldset>
   )
 }

@@ -1,13 +1,18 @@
+import { asc, eq } from 'drizzle-orm'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { MusicianEditor } from '@/components/profiles/MusicianEditor'
 import { MusicianLinks } from '@/components/profiles/MusicianLinks'
+import { GearEditor } from '@/components/rider/GearEditor'
+import { db } from '@/db'
+import { customObject, musicianGear } from '@/db/schema'
 import { Link, redirect } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
 import { getMusicianLinks, searchBands } from '@/lib/lineup'
 import { getMusicianForEdit } from '@/lib/musicians'
+import { catalogGroups, objectDefs } from '@/lib/riders'
 import { getSession } from '@/lib/session'
 
 type Props = { params: Promise<{ locale: Locale }>; searchParams: Promise<{ q?: string }> }
@@ -28,6 +33,19 @@ export default async function EditMusicianPage({ params, searchParams }: Props) 
   const { q = '' } = await searchParams
   const [links, results] = await Promise.all([getMusicianLinks(session.user.id), searchBands(q)])
   const t = await getTranslations('editMusician')
+  const [gear, customs] = await Promise.all([
+    db
+      .select()
+      .from(musicianGear)
+      .where(eq(musicianGear.userId, m.userId))
+      .orderBy(asc(musicianGear.position)),
+    db
+      .select()
+      .from(customObject)
+      .where(eq(customObject.userId, m.userId))
+      .orderBy(asc(customObject.createdAt)),
+  ])
+  const gearDefs = await objectDefs(customs)
 
   return (
     <section style={{ padding: '44px var(--gutter) 72px' }}>
@@ -62,6 +80,23 @@ export default async function EditMusicianPage({ params, searchParams }: Props) 
           )}
         </div>
         <MusicianLinks links={links} results={results} query={q} />
+        <GearEditor
+          name={m.stageName}
+          defs={gearDefs}
+          groups={[
+            ...catalogGroups(),
+            { id: 'custom', keys: customs.map((c) => `custom:${c.id}`) },
+          ]}
+          items={gear.map((g) => ({
+            id: g.id,
+            memberId: null,
+            objectKey: g.objectKey,
+            provider: 'band',
+            qty: g.qty,
+            mic: g.mic,
+            note: g.note,
+          }))}
+        />
         <MusicianEditor
           musician={{
             stageName: m.stageName,

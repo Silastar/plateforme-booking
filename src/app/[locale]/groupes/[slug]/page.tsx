@@ -13,6 +13,7 @@ import { getBandPage } from '@/lib/bands'
 import { addDays, todayIso } from '@/lib/calendar'
 import { embedFor } from '@/lib/embeds'
 import type { Genre } from '@/lib/genres'
+import { getBandRiders } from '@/lib/riders'
 import { getSession } from '@/lib/session'
 
 type Props = { params: Promise<{ locale: Locale; slug: string }> }
@@ -56,6 +57,8 @@ export default async function BandPage({ params }: Props) {
       timeZone: 'UTC',
     })
 
+  const riderCount = (await getBandRiders(band.id)).length
+  const tr = await getTranslations('rider')
   const genres = [band.mainGenre, ...band.genres.filter((g) => g !== band.mainGenre)] as Genre[]
   const players = [band.spotifyUrl, band.youtubeUrl, band.soundcloudUrl]
     .map((u) => embedFor(u))
@@ -198,7 +201,7 @@ export default async function BandPage({ params }: Props) {
             </section>
           )}
 
-          {(techFacts.length > 0 || band.rider) && (
+          {(techFacts.length > 0 || band.rider || riderCount > 0) && (
             <section aria-labelledby="tech" className={styles.paper}>
               <span aria-hidden="true" className={`${styles.tape} ${styles.tapeLeft}`} />
               <span aria-hidden="true" className={`${styles.tape} ${styles.tapeRight}`} />
@@ -223,6 +226,21 @@ export default async function BandPage({ params }: Props) {
                     </span>
                   ))}
               </div>
+              {riderCount > 0 &&
+                (canSeeRider ? (
+                  <Link
+                    href={{ pathname: '/groupes/[slug]/fiche-technique', params: { slug } }}
+                    className={styles.paperLink}
+                    style={{ alignSelf: 'flex-start' }}
+                  >
+                    {tr('public.link')} →
+                  </Link>
+                ) : (
+                  <span className={styles.locked}>
+                    <LockIcon />
+                    {tr('public.locked')}
+                  </span>
+                ))}
               {techFacts.length > 0 && (
                 <dl className={styles.facts}>
                   {techFacts.map(([k, v]) => (

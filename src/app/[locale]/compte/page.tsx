@@ -214,6 +214,15 @@ export default async function AccountPage({ params, searchParams }: Props) {
                       {t('calendar')}
                     </Link>
                     <Link
+                      href={{
+                        pathname: '/compte/groupe/[id]/fiche-technique',
+                        params: { id: b.id },
+                      }}
+                      className="btn btn--ghost"
+                    >
+                      {t('rider')}
+                    </Link>
+                    <Link
                       href={{ pathname: '/compte/groupe/[id]', params: { id: b.id } }}
                       className="btn btn--red"
                     >

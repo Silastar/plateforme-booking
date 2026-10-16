@@ -346,7 +346,8 @@
       "invites": "{count, plural, one {You have a band invite waiting →} other {You have # band invites waiting →}}",
       "calendar": "Calendar",
       "agenda": "Calendar",
-      "myDates": "My dates"
+      "myDates": "My dates",
+      "rider": "Tech rider"
     },
     "onboarding": {
       "title": "Your profile",
@@ -598,6 +599,27 @@
       "budgetMax": "Maximum budget (CHF)",
       "feeTerms": "Terms",
       "feeTermsPlaceholder": "E.g. flat fee, meals and drinks, lodging on request"
+    },
+    "gear": {
+      "title": "Detailed gear",
+      "intro": "Used to compare your venue with bands’ tech riders. Leave blank what you don’t know.",
+      "consoleInputs": "Desk inputs",
+      "monitorMixes": "Monitor mixes",
+      "wedges": "Wedges",
+      "iemSystems": "In-ear systems",
+      "diBoxes": "DI boxes",
+      "vocalMics": "Vocal mics",
+      "outlets": "230 V outlets on stage",
+      "instrumentMics": "Instrument mics (drums, amps)",
+      "micList": "Mic list",
+      "micListPlaceholder": "E.g. SM58 ×8, SM57 ×6, Beta 91, e604 ×4",
+      "drumKit": "Drum shells",
+      "bassAmp": "Bass amp",
+      "guitarAmp": "Guitar amp",
+      "keyboard": "Keyboard",
+      "keyboardStand": "Keyboard stand",
+      "riser": "Drum riser",
+      "sidefill": "Side-fill"
     }
   },
   "venues": {
@@ -621,7 +643,9 @@
     "catering": "Catering",
     "photo": "Venue photo",
     "delete": "Delete this venue",
-    "confirmDelete": "Delete “{name}”?"
+    "confirmDelete": "Delete “{name}”?",
+    "yes": "Yes",
+    "no": "No"
   },
   "editMusician": {
     "title": "Edit my musician profile",
@@ -653,7 +677,13 @@
       "gear": "Gear",
       "gearPlaceholder": "E.g. own snare and cymbals"
     },
-    "agenda": "My calendar"
+    "agenda": "My calendar",
+    "gear": {
+      "title": "My gear",
+      "intro": "Your own gear. Your bands import it into their tech rider in one click.",
+      "empty": "No items yet.",
+      "add": "Add"
+    }
   },
   "lineup": {
     "title": "Lineup",
@@ -938,5 +968,423 @@
       "myDates": "My dates"
     },
     "quote": "“{text}”"
+  },
+  "rider": {
+    "objects": {
+      "vocal": {
+        "name": "Vocal mic",
+        "detail": "SM58 on boom stand",
+        "inputs": ["Lead vocal"]
+      },
+      "backing": {
+        "name": "Backing vocal mic",
+        "detail": "SM58 on boom stand",
+        "inputs": ["Backing vocal"]
+      },
+      "vocalHf": {
+        "name": "Wireless vocal mic",
+        "detail": "Own system, receiver on stage",
+        "inputs": ["Vocal RF"]
+      },
+      "voxFx": {
+        "name": "Vocal effect",
+        "detail": "Pedal between mic and desk",
+        "inputs": ["Vocal FX"]
+      },
+      "drumKit": {
+        "name": "Standard drum kit",
+        "detail": "9 inputs, drum shells",
+        "inputs": [
+          "Kick",
+          "Snare top",
+          "Snare bottom",
+          "Hi-hat",
+          "Tom 1",
+          "Tom 2",
+          "Floor tom",
+          "Overhead L",
+          "Overhead R"
+        ]
+      },
+      "kick": {
+        "name": "Kick drum",
+        "detail": "Inside mic",
+        "inputs": ["Kick"]
+      },
+      "snare": {
+        "name": "Snare",
+        "detail": "Top mic",
+        "inputs": ["Snare"]
+      },
+      "hihat": {
+        "name": "Hi-hat",
+        "detail": "Condenser",
+        "inputs": ["Hi-hat"]
+      },
+      "toms": {
+        "name": "Toms (3)",
+        "detail": "Three clip mics",
+        "inputs": ["Tom 1", "Tom 2", "Floor tom"]
+      },
+      "overheads": {
+        "name": "Overheads (pair)",
+        "detail": "Two condensers",
+        "inputs": ["Overhead L", "Overhead R"]
+      },
+      "edrums": {
+        "name": "Electronic pad",
+        "detail": "Stereo out",
+        "inputs": ["Pad L", "Pad R"]
+      },
+      "cajon": {
+        "name": "Cajon",
+        "detail": "Two mics",
+        "inputs": ["Cajon front", "Cajon back"]
+      },
+      "percussion": {
+        "name": "Percussion",
+        "detail": "Pair of condensers",
+        "inputs": ["Perc L", "Perc R"]
+      },
+      "riser": {
+        "name": "Drum riser",
+        "detail": "2 × 2 m, 40 cm high",
+        "inputs": []
+      },
+      "gtrAmp": {
+        "name": "Miked guitar amp",
+        "detail": "Mic on the cab",
+        "inputs": ["Guitar (amp)"]
+      },
+      "modeler": {
+        "name": "Amp modeler",
+        "detail": "Stereo out, no amp",
+        "inputs": ["Guitar L", "Guitar R"]
+      },
+      "acoustic": {
+        "name": "Acoustic guitar",
+        "detail": "Jack out",
+        "inputs": ["Acoustic guitar"]
+      },
+      "bassAmp": {
+        "name": "Bass amp",
+        "detail": "DI + mic",
+        "inputs": ["Bass DI", "Bass mic"]
+      },
+      "bassDi": {
+        "name": "Bass via DI",
+        "detail": "Straight to the desk",
+        "inputs": ["Bass DI"]
+      },
+      "doubleBass": {
+        "name": "Double bass",
+        "detail": "Pickup via DI",
+        "inputs": ["Double bass"]
+      },
+      "keys": {
+        "name": "Keyboard",
+        "detail": "Stereo out",
+        "inputs": ["Keys L", "Keys R"]
+      },
+      "piano": {
+        "name": "Digital piano",
+        "detail": "Stereo out",
+        "inputs": ["Piano L", "Piano R"]
+      },
+      "synth": {
+        "name": "Synth",
+        "detail": "Mono out",
+        "inputs": ["Synth"]
+      },
+      "laptop": {
+        "name": "Laptop, backing tracks",
+        "detail": "Stereo tracks, click to in-ears",
+        "inputs": ["Tracks L", "Tracks R"]
+      },
+      "horn": {
+        "name": "Horn",
+        "detail": "Trumpet, trombone…",
+        "inputs": ["Horn"]
+      },
+      "sax": {
+        "name": "Saxophone",
+        "detail": "Mic on stand",
+        "inputs": ["Sax"]
+      },
+      "violin": {
+        "name": "Violin",
+        "detail": "Pickup via DI",
+        "inputs": ["Violin"]
+      },
+      "wedge": {
+        "name": "Wedge monitor",
+        "detail": "One mix",
+        "inputs": []
+      },
+      "iemWired": {
+        "name": "Wired in-ear",
+        "detail": "Own beltpack, one mix",
+        "inputs": []
+      },
+      "iemHf": {
+        "name": "Wireless in-ear",
+        "detail": "Own system, one mix",
+        "inputs": []
+      },
+      "sidefill": {
+        "name": "Side-fill",
+        "detail": "Pair at stage side",
+        "inputs": []
+      },
+      "power": {
+        "name": "230 V outlet",
+        "detail": "At the musician’s feet",
+        "inputs": []
+      },
+      "multi": {
+        "name": "Power strip",
+        "detail": "6 outlets",
+        "inputs": []
+      },
+      "stand": {
+        "name": "Mic stand",
+        "detail": "Boom, extra",
+        "inputs": []
+      },
+      "kbStand": {
+        "name": "Keyboard stand",
+        "detail": "Two tiers",
+        "inputs": []
+      }
+    },
+    "groups": {
+      "voice": "Vocals",
+      "drums": "Drums",
+      "guitar": "Guitar",
+      "bass": "Bass",
+      "keys": "Keys",
+      "other": "Horns, strings",
+      "monitors": "Monitors",
+      "power": "Power",
+      "misc": "Misc",
+      "custom": "Custom items"
+    },
+    "stands": {
+      "none": "—",
+      "short": "Short stand",
+      "tall": "Tall boom",
+      "clip": "Clip"
+    },
+    "mics": {
+      "di": "DI",
+      "di2": "Stereo DI",
+      "diActive": "Active DI",
+      "own": "Own RF"
+    },
+    "monitors": {
+      "wedge": "Wedge",
+      "iemWired": "Wired in-ear (own beltpack)",
+      "iemHf": "Wireless in-ear (own system)",
+      "sidefill": "Side-fill"
+    },
+    "title": "Tech rider",
+    "back": "Back to the band",
+    "intro": "Build your rider item by item, member by member. The input list, monitors, stage plot and PDF are generated for you.",
+    "empty": {
+      "title": "No tech rider yet",
+      "text": "Create a first setup. It can be pre-filled from the lineup’s instruments, then adjusted.",
+      "create": "Create the rider",
+      "prefill": "Pre-fill from instruments"
+    },
+    "configs": {
+      "label": "Setups",
+      "new": "New setup",
+      "name": "Name",
+      "namePlaceholder": "E.g. Stripped acoustic",
+      "duplicate": "Start from",
+      "blank": "Empty rider",
+      "create": "Create",
+      "rename": "Rename",
+      "delete": "Delete this setup",
+      "deleteConfirm": "Delete this setup and all its items?",
+      "defaultName": "Main setup",
+      "inputs": "{count, plural, =0 {no inputs} one {# input} other {# inputs}}"
+    },
+    "stats": {
+      "inputs": "inputs",
+      "mixes": "monitor mixes",
+      "power": "230 V outlets",
+      "venue": "items the venue provides",
+      "people": "people on the road"
+    },
+    "members": {
+      "title": "By member",
+      "hint": "Pick a member, then add items from the catalog.",
+      "common": "Whole band",
+      "commonRole": "Shared items",
+      "select": "Add items",
+      "selected": "Catalog open here",
+      "import": "Import their gear",
+      "importDone": "Gear imported.",
+      "empty": "No items yet.",
+      "inputs": "{count, plural, =0 {no inputs} one {# input} other {# inputs}}"
+    },
+    "item": {
+      "band": "We bring",
+      "venue": "Venue provides",
+      "flip": "Switch who provides:",
+      "remove": "Remove",
+      "qty": "Quantity",
+      "mic": "Mic",
+      "micPlaceholder": "Default",
+      "note": "Note",
+      "notePlaceholder": "Model, details…",
+      "inputsShort": "{count, plural, one {# in.} other {# in.}}",
+      "monitorShort": "monitor",
+      "edit": "Details",
+      "save": "OK"
+    },
+    "catalog": {
+      "title": "Catalog",
+      "addTo": "Add to",
+      "add": "Add {obj} to {who}",
+      "custom": "Create a custom item",
+      "customHint": "A custom item goes under “Custom items” and can be reused in all your setups."
+    },
+    "custom": {
+      "title": "Custom item",
+      "name": "Name",
+      "namePlaceholder": "E.g. Theremin",
+      "inputs": "Inputs (one per line, empty if none)",
+      "inputsPlaceholder": "Theremin",
+      "mic": "Mic or DI",
+      "micPlaceholder": "E.g. DI",
+      "stand": "Stand",
+      "monitor": "Monitor",
+      "monitorNone": "Not a monitor",
+      "create": "Create and add",
+      "cancel": "Cancel"
+    },
+    "patch": {
+      "title": "Input list",
+      "hint": "Built from the items. Reorder with the arrows.",
+      "source": "Source",
+      "mic": "Mic / DI",
+      "stand": "Stand",
+      "member": "Member",
+      "up": "Move {src} up",
+      "down": "Move {src} down",
+      "empty": "Add items with inputs (mics, DI) to fill the list."
+    },
+    "plot": {
+      "title": "Stage plot",
+      "hint": "Click an item, then a cell to move it.",
+      "hintPlace": "Click a cell to drop “{obj}”.",
+      "audience": "Audience",
+      "cell": "Cell {x}, row {y}",
+      "select": "Select {obj} to move it",
+      "reset": "Auto-arrange",
+      "add": "Add",
+      "addWedge": "Wedge",
+      "addPower": "Outlet",
+      "addRiser": "Riser",
+      "addNote": "Text",
+      "notePlaceholder": "E.g. Merch",
+      "remove": "Remove item",
+      "save": "Save plot",
+      "saved": "Plot saved.",
+      "riser": "Drums",
+      "amp": "Amp",
+      "wedge": "Wedge",
+      "power": "230 V"
+    },
+    "monitorsSection": {
+      "title": "Monitors",
+      "mix": "Mix {n}",
+      "notePlaceholder": "What you want to hear",
+      "iem": "In-ears: systems, frequencies, split",
+      "iemPlaceholder": "E.g. 2 Sennheiser EW IEM G4, 626–668 MHz; XLR split needed",
+      "empty": "Add monitors (wedge, in-ear) to members.",
+      "save": "Save monitors"
+    },
+    "hosp": {
+      "title": "Hospitality",
+      "people": "People on the road",
+      "meals": "Meals",
+      "mealsPlaceholder": "E.g. 6 hot meals, 1 vegetarian",
+      "greenRoom": "Green room",
+      "greenRoomPlaceholder": "E.g. One lockable room",
+      "drinks": "Drinks",
+      "drinksPlaceholder": "E.g. Water on stage",
+      "parking": "Parking",
+      "parkingPlaceholder": "E.g. 1 van (6 m)",
+      "lodging": "Lodging",
+      "lodgingPlaceholder": "E.g. Beyond 150 km"
+    },
+    "general": {
+      "title": "At a glance",
+      "engineer": "Sound engineer",
+      "engineerPlaceholder": "E.g. Our own (Max); empty = the venue’s",
+      "setup": "Load-in (min)",
+      "soundcheck": "Soundcheck (min)",
+      "changeover": "Changeover (min)",
+      "minStage": "Minimum stage",
+      "minStagePlaceholder": "E.g. 6 × 4 m",
+      "venueEngineer": "The venue’s",
+      "minutes": "{n} min"
+    },
+    "infoSave": "Save hospitality and summary",
+    "pdf": "Download PDF",
+    "view": "See it as a promoter",
+    "public": {
+      "link": "See the full tech rider",
+      "locked": "Log in to see the tech rider.",
+      "by": "Tech rider",
+      "bring": "The band brings",
+      "nothing": "Nothing special.",
+      "none": "This band hasn’t filled in its tech rider yet.",
+      "edit": "Edit the rider"
+    },
+    "match": {
+      "title": "{ok} of {total} provided",
+      "unknownTitle": "Venue gear to fill in",
+      "with": "With {venue}",
+      "pickVenue": "Compare with",
+      "note": "Compared with the venue sheet. Missing gear can often be rented or brought: check with the band.",
+      "unknown": "Detail your venue’s gear to see what fits.",
+      "fillVenue": "Detail the venue gear",
+      "console": "{need} desk inputs",
+      "mixes": "{need} monitor mixes",
+      "di": "{need} DI boxes",
+      "vocalMic": "{need} vocal mics",
+      "wedge": "{need} wedges",
+      "iem": "{need} in-ear systems",
+      "power": "{need} 230 V outlets",
+      "drumKit": "Drum shells",
+      "bassAmp": "Bass amp",
+      "guitarAmp": "Guitar amp",
+      "keyboard": "Keyboard",
+      "keyboardStand": "Keyboard stand",
+      "riser": "Drum riser",
+      "sidefill": "Side-fill",
+      "instrumentMics": "Instrument mics ({need})",
+      "micModel": "{model} mic ({need})",
+      "ok": "venue provides it",
+      "okCount": "venue has {have}",
+      "missing": "not on the venue sheet",
+      "missingCount": "venue has {have}",
+      "sub": "another model on site",
+      "unknownStatus": "not filled in",
+      "short": "Gear: {ok}/{total}"
+    },
+    "apply": {
+      "rider": "Tech rider offered",
+      "riderNone": "No rider"
+    },
+    "candidates": {
+      "rider": "“{name}” rider",
+      "gear": "gear {ok}/{total}"
+    },
+    "pdfGenerated": "Generated on {date}"
   }
 }

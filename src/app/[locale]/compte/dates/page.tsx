@@ -12,6 +12,8 @@ import { todayIso } from '@/lib/calendar'
 import { matchGig } from '@/lib/gig-rules'
 import { bandsOpenOn, compatibleBands, getOrgaGigs } from '@/lib/gigs'
 import { getOrgaForEdit } from '@/lib/orgas'
+import { compareWithVenue } from '@/lib/rider-core'
+import { itemData, loadBandRiders } from '@/lib/riders'
 import { getSession } from '@/lib/session'
 
 type Props = {
@@ -82,6 +84,27 @@ export default async function MyDatesPage({ params, searchParams }: Props) {
           )
       })()
     : []
+  // Fiche technique proposée par chaque candidat, comparée au lieu de la date.
+  const riderInfo = new Map<
+    string,
+    { name: string; id: string; ok: number; total: number; known: boolean }
+  >()
+  if (selected)
+    for (const a of candidates) {
+      if (!a.riderId) continue
+      const { riders, defs } = await loadBandRiders(a.bandId)
+      const r = riders.find((x) => x.id === a.riderId)
+      if (!r) continue
+      const cmp = compareWithVenue(r.items.map(itemData), defs, selected.venue?.gear ?? {})
+      riderInfo.set(a.id, {
+        id: r.id,
+        name: r.name,
+        ok: cmp.ok,
+        total: cmp.total,
+        known: cmp.known,
+      })
+    }
+  const tr = await getTranslations('rider.candidates')
   const published = Number(sp.publie) || 0
 
   return (
@@ -262,6 +285,23 @@ export default async function MyDatesPage({ params, searchParams }: Props) {
                           <MoneyOrOpen value={a.fee} open={t('mine.candidates.feeOpen')} />
                         </strong>
                       </span>
+                      {riderInfo.get(a.id) && a.band.slug && (
+                        <Link
+                          href={{
+                            pathname: '/groupes/[slug]/fiche-technique',
+                            params: { slug: a.band.slug },
+                            query: selected?.venueId
+                              ? { config: riderInfo.get(a.id)!.id, lieu: selected.venueId }
+                              : { config: riderInfo.get(a.id)!.id },
+                          }}
+                          style={{ fontWeight: 700 }}
+                        >
+                          {tr('rider', { name: riderInfo.get(a.id)!.name })}
+                          {riderInfo.get(a.id)!.known &&
+                            ` · ${tr('gear', { ok: riderInfo.get(a.id)!.ok, total: riderInfo.get(a.id)!.total })}`}{' '}
+                          →
+                        </Link>
+                      )}
                       <div className={styles.actions}>
                         {a.band.slug && (
                           <Link

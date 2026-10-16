@@ -26,6 +26,7 @@ export default async function EditBandPage({ params }: Props) {
   const band = await getBandForEdit(id, session.user.id)
   if (!band) notFound()
   const t = await getTranslations('editBand')
+  const tr = await getTranslations('rider')
   const lineup = await getLineup(band.id, session.user.id)
 
   return (
@@ -51,14 +52,22 @@ export default async function EditBandPage({ params }: Props) {
               {band.name}
             </h1>
           </div>
-          {band.slug && (
+          <span style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
             <Link
-              href={{ pathname: '/groupes/[slug]', params: { slug: band.slug } }}
-              className="btn btn--ghost"
+              href={{ pathname: '/compte/groupe/[id]/fiche-technique', params: { id: band.id } }}
+              className="btn btn--red"
             >
-              {t('viewPublic')}
+              {tr('title')}
             </Link>
-          )}
+            {band.slug && (
+              <Link
+                href={{ pathname: '/groupes/[slug]', params: { slug: band.slug } }}
+                className="btn btn--ghost"
+              >
+                {t('viewPublic')}
+              </Link>
+            )}
+          </span>
         </div>
         <BandEditor
           band={{

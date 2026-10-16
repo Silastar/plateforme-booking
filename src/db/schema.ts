@@ -4,6 +4,7 @@ import {
   date,
   index,
   integer,
+  jsonb,
   pgTable,
   text,
   timestamp,
@@ -76,6 +77,37 @@ export const verification = pgTable('verification', {
 // Fichiers envoyés (photos, fiche technique) : chemin public « /media/<nom> ».
 const media = (name: string) => text(name)
 
+export type VenueGear = {
+  consoleInputs?: number
+  monitorMixes?: number
+  wedges?: number
+  iemSystems?: number
+  diBoxes?: number
+  vocalMics?: number
+  instrumentMics?: boolean
+  micList?: string
+  drumKit?: boolean
+  bassAmp?: boolean
+  guitarAmp?: boolean
+  keyboard?: boolean
+  keyboardStand?: boolean
+  riser?: boolean
+  sidefill?: boolean
+  outlets?: number
+}
+
+export type PlotItem = {
+  id: string
+  // member (un musicien), object (ampli, clavier…), riser, wedge, power, note (texte libre)
+  kind: 'member' | 'object' | 'riser' | 'wedge' | 'power' | 'note'
+  label: string
+  memberId?: string
+  x: number
+  y: number
+  w: number
+  h: number
+}
+
 export const organization = pgTable('organization', {
   id: text('id').primaryKey(),
   ownerId: text('owner_id')
@@ -127,6 +159,8 @@ export const venue = pgTable('venue', {
   loadIn: text('load_in'),
   curfew: text('curfew'),
   photo: media('photo'),
+  // Matériel détaillé (catalogue), comparé aux fiches techniques des groupes
+  gear: jsonb('gear').$type<VenueGear>().notNull().default({}),
   ...timestamps,
 })
 
@@ -262,6 +296,96 @@ export const tour = pgTable(
   (t) => [index('tour_band_idx').on(t.bandId)],
 )
 
+/* ---------- Fiche technique ---------- */
+
+// Une configuration de fiche technique (« Électrique complet », « Acoustique réduit »…).
+export const rider = pgTable(
+  'rider',
+  {
+    id: text('id').primaryKey(),
+    bandId: text('band_id')
+      .notNull()
+      .references(() => band.id, { onDelete: 'cascade' }),
+    name: text('name').notNull(),
+    position: integer('position').notNull().default(0),
+    // En bref
+    engineer: text('engineer'),
+    setupMinutes: integer('setup_minutes'),
+    soundcheckMinutes: integer('soundcheck_minutes'),
+    changeoverMinutes: integer('changeover_minutes'),
+    minStage: text('min_stage'),
+    // Accueil
+    people: integer('people'),
+    meals: text('meals'),
+    greenRoom: text('green_room'),
+    drinks: text('drinks'),
+    parking: text('parking'),
+    lodging: text('lodging'),
+    // Retours : note in-ear (systèmes, fréquences, split) et ce que chacun veut entendre (par membre)
+    iemNote: text('iem_note'),
+    monitorNotes: jsonb('monitor_notes').$type<Record<string, string>>().notNull().default({}),
+    // Ordre de la liste des entrées (clés « objet:entrée ») et plan de scène
+    patchOrder: text('patch_order').array().notNull().default([]),
+    plot: jsonb('plot').$type<PlotItem[]>().notNull().default([]),
+    ...timestamps,
+  },
+  (t) => [index('rider_band_idx').on(t.bandId)],
+)
+
+// Objet d'une configuration, rattaché à un membre (ou au groupe entier si member_id est vide).
+// object_key : clé du catalogue, ou « custom:<id> » pour un objet perso.
+export const riderItem = pgTable(
+  'rider_item',
+  {
+    id: text('id').primaryKey(),
+    riderId: text('rider_id')
+      .notNull()
+      .references(() => rider.id, { onDelete: 'cascade' }),
+    memberId: text('member_id').references(() => bandMember.id, { onDelete: 'set null' }),
+    objectKey: text('object_key').notNull(),
+    // band (apporté) | venue (à fournir par la salle)
+    provider: text('provider').notNull().default('band'),
+    qty: integer('qty').notNull().default(1),
+    mic: text('mic'),
+    note: text('note'),
+    position: integer('position').notNull().default(0),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index('rider_item_rider_idx').on(t.riderId)],
+)
+
+// Objet perso, créé par un groupe (réutilisable dans ses configs) ou par un musicien (son matériel).
+export const customObject = pgTable('custom_object', {
+  id: text('id').primaryKey(),
+  bandId: text('band_id').references(() => band.id, { onDelete: 'cascade' }),
+  userId: text('user_id').references(() => user.id, { onDelete: 'cascade' }),
+  name: text('name').notNull(),
+  inputs: text('inputs').array().notNull().default([]),
+  mic: text('mic'),
+  stand: text('stand'),
+  // wedge | iemWired | iemHf | sidefill, ou vide
+  monitor: text('monitor'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+})
+
+// Matériel perso d'un musicien, importable dans les fiches de ses groupes.
+export const musicianGear = pgTable(
+  'musician_gear',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    objectKey: text('object_key').notNull(),
+    qty: integer('qty').notNull().default(1),
+    mic: text('mic'),
+    note: text('note'),
+    position: integer('position').notNull().default(0),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index('musician_gear_user_idx').on(t.userId)],
+)
+
 /* ---------- Dates à pourvoir et candidatures ---------- */
 
 // Date publiée par une orga. Sans lieu choisi, on reprend la ville et la capacité de l'orga.
@@ -314,6 +438,8 @@ export const application = pgTable(
     fee: integer('fee'),
     // pending | declined (par l'orga) | withdrawn (par le groupe) | cancelled (date annulée)
     status: text('status').notNull().default('pending'),
+    // Configuration de fiche technique proposée avec la candidature
+    riderId: text('rider_id').references(() => rider.id, { onDelete: 'set null' }),
     ...timestamps,
   },
   (t) => [
@@ -331,6 +457,17 @@ export const userRelations = relations(user, ({ many, one }) => ({
 export const bandRelations = relations(band, ({ many }) => ({
   members: many(bandMember),
   applications: many(application),
+  riders: many(rider),
+}))
+
+export const riderRelations = relations(rider, ({ one, many }) => ({
+  band: one(band, { fields: [rider.bandId], references: [band.id] }),
+  items: many(riderItem),
+}))
+
+export const riderItemRelations = relations(riderItem, ({ one }) => ({
+  rider: one(rider, { fields: [riderItem.riderId], references: [rider.id] }),
+  member: one(bandMember, { fields: [riderItem.memberId], references: [bandMember.id] }),
 }))
 
 export const bandMemberRelations = relations(bandMember, ({ one }) => ({
@@ -356,6 +493,7 @@ export const gigRelations = relations(gig, ({ one, many }) => ({
 export const applicationRelations = relations(application, ({ one }) => ({
   gig: one(gig, { fields: [application.gigId], references: [gig.id] }),
   band: one(band, { fields: [application.bandId], references: [band.id] }),
+  rider: one(rider, { fields: [application.riderId], references: [rider.id] }),
 }))
 
 export const venueRelations = relations(venue, ({ one }) => ({

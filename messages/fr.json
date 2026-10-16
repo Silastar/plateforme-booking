@@ -346,7 +346,8 @@
       "invites": "{count, plural, one {Tu as une invitation de groupe en attente →} other {Tu as # invitations de groupe en attente →}}",
       "calendar": "Calendrier",
       "agenda": "Agenda",
-      "myDates": "Mes dates"
+      "myDates": "Mes dates",
+      "rider": "Fiche technique"
     },
     "onboarding": {
       "title": "Ton profil",
@@ -598,6 +599,27 @@
       "budgetMax": "Budget maximum (CHF)",
       "feeTerms": "Conditions",
       "feeTermsPlaceholder": "Ex. cachet fixe, repas et boissons, hébergement sur demande"
+    },
+    "gear": {
+      "title": "Matériel détaillé",
+      "intro": "Sert à comparer ton lieu aux fiches techniques des groupes. Laisse vide ce que tu ne sais pas.",
+      "consoleInputs": "Entrées console",
+      "monitorMixes": "Mixes retours",
+      "wedges": "Wedges",
+      "iemSystems": "Systèmes in-ear",
+      "diBoxes": "Boîtiers DI",
+      "vocalMics": "Micros chant",
+      "outlets": "Prises 230 V sur scène",
+      "instrumentMics": "Micros d’instrument (batterie, amplis)",
+      "micList": "Liste des micros",
+      "micListPlaceholder": "Ex. SM58 ×8, SM57 ×6, Beta 91, e604 ×4",
+      "drumKit": "Corps de batterie",
+      "bassAmp": "Ampli basse",
+      "guitarAmp": "Ampli guitare",
+      "keyboard": "Clavier",
+      "keyboardStand": "Stand clavier",
+      "riser": "Praticable batterie",
+      "sidefill": "Side-fill"
     }
   },
   "venues": {
@@ -621,7 +643,9 @@
     "catering": "Catering",
     "photo": "Photo du lieu",
     "delete": "Supprimer ce lieu",
-    "confirmDelete": "Supprimer « {name} » ?"
+    "confirmDelete": "Supprimer « {name} » ?",
+    "yes": "Oui",
+    "no": "Non"
   },
   "editMusician": {
     "title": "Modifier mon profil musicien",
@@ -653,7 +677,13 @@
       "gear": "Matos",
       "gearPlaceholder": "Ex. caisse claire et cymbales perso"
     },
-    "agenda": "Mon agenda"
+    "agenda": "Mon agenda",
+    "gear": {
+      "title": "Mon matériel",
+      "intro": "Ton matériel perso. Tes groupes l’importent en un clic dans leur fiche technique.",
+      "empty": "Aucun objet pour l’instant.",
+      "add": "Ajouter"
+    }
   },
   "lineup": {
     "title": "Line-up",
@@ -938,5 +968,423 @@
       "myDates": "Mes dates"
     },
     "quote": "« {text} »"
+  },
+  "rider": {
+    "objects": {
+      "vocal": {
+        "name": "Micro chant",
+        "detail": "SM58 sur pied perche",
+        "inputs": ["Chant lead"]
+      },
+      "backing": {
+        "name": "Micro chœur",
+        "detail": "SM58 sur pied perche",
+        "inputs": ["Chœur"]
+      },
+      "vocalHf": {
+        "name": "Micro chant sans fil",
+        "detail": "Système perso, récepteur au plateau",
+        "inputs": ["Chant HF"]
+      },
+      "voxFx": {
+        "name": "Effet voix",
+        "detail": "Pédale entre micro et console",
+        "inputs": ["Voix FX"]
+      },
+      "drumKit": {
+        "name": "Kit batterie standard",
+        "detail": "9 entrées, corps de batterie",
+        "inputs": [
+          "Grosse caisse",
+          "Caisse claire haut",
+          "Caisse claire bas",
+          "Charley",
+          "Tom 1",
+          "Tom 2",
+          "Tom basse",
+          "Overhead G",
+          "Overhead D"
+        ]
+      },
+      "kick": {
+        "name": "Grosse caisse",
+        "detail": "Micro intérieur",
+        "inputs": ["Grosse caisse"]
+      },
+      "snare": {
+        "name": "Caisse claire",
+        "detail": "Micro haut",
+        "inputs": ["Caisse claire"]
+      },
+      "hihat": {
+        "name": "Charley",
+        "detail": "Micro statique",
+        "inputs": ["Charley"]
+      },
+      "toms": {
+        "name": "Toms (3)",
+        "detail": "Trois micros à pince",
+        "inputs": ["Tom 1", "Tom 2", "Tom basse"]
+      },
+      "overheads": {
+        "name": "Overheads (paire)",
+        "detail": "Deux statiques",
+        "inputs": ["Overhead G", "Overhead D"]
+      },
+      "edrums": {
+        "name": "Pad électronique",
+        "detail": "Sortie stéréo",
+        "inputs": ["Pad G", "Pad D"]
+      },
+      "cajon": {
+        "name": "Cajon",
+        "detail": "Deux micros",
+        "inputs": ["Cajon avant", "Cajon arrière"]
+      },
+      "percussion": {
+        "name": "Percussions",
+        "detail": "Paire de statiques",
+        "inputs": ["Percus G", "Percus D"]
+      },
+      "riser": {
+        "name": "Praticable batterie",
+        "detail": "2 × 2 m, 40 cm de haut",
+        "inputs": []
+      },
+      "gtrAmp": {
+        "name": "Ampli guitare repris",
+        "detail": "Micro devant le baffle",
+        "inputs": ["Guitare (ampli)"]
+      },
+      "modeler": {
+        "name": "Simulateur d’ampli",
+        "detail": "Sortie stéréo, pas d’ampli",
+        "inputs": ["Guitare G", "Guitare D"]
+      },
+      "acoustic": {
+        "name": "Guitare acoustique",
+        "detail": "Sortie jack",
+        "inputs": ["Guitare acoustique"]
+      },
+      "bassAmp": {
+        "name": "Ampli basse",
+        "detail": "DI + micro",
+        "inputs": ["Basse DI", "Basse micro"]
+      },
+      "bassDi": {
+        "name": "Basse en DI",
+        "detail": "Directe console",
+        "inputs": ["Basse DI"]
+      },
+      "doubleBass": {
+        "name": "Contrebasse",
+        "detail": "Capteur en DI",
+        "inputs": ["Contrebasse"]
+      },
+      "keys": {
+        "name": "Clavier",
+        "detail": "Sortie stéréo",
+        "inputs": ["Clavier G", "Clavier D"]
+      },
+      "piano": {
+        "name": "Piano numérique",
+        "detail": "Sortie stéréo",
+        "inputs": ["Piano G", "Piano D"]
+      },
+      "synth": {
+        "name": "Synthé",
+        "detail": "Sortie mono",
+        "inputs": ["Synthé"]
+      },
+      "laptop": {
+        "name": "Ordinateur, pistes",
+        "detail": "Pistes stéréo, click vers les in-ear",
+        "inputs": ["Pistes G", "Pistes D"]
+      },
+      "horn": {
+        "name": "Cuivre",
+        "detail": "Trompette, trombone…",
+        "inputs": ["Cuivre"]
+      },
+      "sax": {
+        "name": "Saxophone",
+        "detail": "Micro sur pied",
+        "inputs": ["Sax"]
+      },
+      "violin": {
+        "name": "Violon",
+        "detail": "Capteur en DI",
+        "inputs": ["Violon"]
+      },
+      "wedge": {
+        "name": "Retour wedge",
+        "detail": "Un mix",
+        "inputs": []
+      },
+      "iemWired": {
+        "name": "In-ear filaire",
+        "detail": "Boîtier perso, un mix",
+        "inputs": []
+      },
+      "iemHf": {
+        "name": "In-ear sans fil",
+        "detail": "Système perso, un mix",
+        "inputs": []
+      },
+      "sidefill": {
+        "name": "Side-fill",
+        "detail": "Paire de côté de scène",
+        "inputs": []
+      },
+      "power": {
+        "name": "Prise 230 V",
+        "detail": "Au pied du musicien",
+        "inputs": []
+      },
+      "multi": {
+        "name": "Multiprise",
+        "detail": "6 prises",
+        "inputs": []
+      },
+      "stand": {
+        "name": "Pied de micro",
+        "detail": "Perche, en plus",
+        "inputs": []
+      },
+      "kbStand": {
+        "name": "Stand clavier",
+        "detail": "Double étage",
+        "inputs": []
+      }
+    },
+    "groups": {
+      "voice": "Voix",
+      "drums": "Batterie",
+      "guitar": "Guitare",
+      "bass": "Basse",
+      "keys": "Claviers",
+      "other": "Cuivres, cordes",
+      "monitors": "Retours",
+      "power": "Électricité",
+      "misc": "Divers",
+      "custom": "Objets perso"
+    },
+    "stands": {
+      "none": "—",
+      "short": "Petit pied",
+      "tall": "Grand pied perche",
+      "clip": "Pince"
+    },
+    "mics": {
+      "di": "DI",
+      "di2": "DI stéréo",
+      "diActive": "DI active",
+      "own": "HF perso"
+    },
+    "monitors": {
+      "wedge": "Wedge",
+      "iemWired": "In-ear filaire (boîtier perso)",
+      "iemHf": "In-ear sans fil (système perso)",
+      "sidefill": "Side-fill"
+    },
+    "title": "Fiche technique",
+    "back": "Retour au groupe",
+    "intro": "Compose ta fiche objet par objet, membre par membre. La liste des entrées, les retours, le plan de scène et le PDF se font tout seuls.",
+    "empty": {
+      "title": "Pas encore de fiche technique",
+      "text": "Crée une première configuration. On peut la pré-remplir selon les instruments du line-up, puis tout ajuster.",
+      "create": "Créer la fiche",
+      "prefill": "Pré-remplir selon les instruments"
+    },
+    "configs": {
+      "label": "Configurations",
+      "new": "Nouvelle config",
+      "name": "Nom",
+      "namePlaceholder": "Ex. Acoustique réduit",
+      "duplicate": "Partir de",
+      "blank": "Fiche vide",
+      "create": "Créer",
+      "rename": "Renommer",
+      "delete": "Supprimer cette config",
+      "deleteConfirm": "Supprimer cette configuration et tous ses objets ?",
+      "defaultName": "Configuration principale",
+      "inputs": "{count, plural, =0 {aucune entrée} one {# entrée} other {# entrées}}"
+    },
+    "stats": {
+      "inputs": "entrées",
+      "mixes": "mixes retours",
+      "power": "prises 230 V",
+      "venue": "objets à fournir par la salle",
+      "people": "personnes en tournée"
+    },
+    "members": {
+      "title": "Par membre",
+      "hint": "Choisis un membre, puis ajoute des objets depuis le catalogue.",
+      "common": "Tout le groupe",
+      "commonRole": "Objets partagés",
+      "select": "Ajouter des objets",
+      "selected": "Catalogue ouvert ici",
+      "import": "Importer son matériel",
+      "importDone": "Matériel importé.",
+      "empty": "Aucun objet pour l’instant.",
+      "inputs": "{count, plural, =0 {aucune entrée} one {# entrée} other {# entrées}}"
+    },
+    "item": {
+      "band": "Apporté",
+      "venue": "À fournir",
+      "flip": "Changer qui fournit :",
+      "remove": "Retirer",
+      "qty": "Quantité",
+      "mic": "Micro",
+      "micPlaceholder": "Par défaut",
+      "note": "Note",
+      "notePlaceholder": "Modèle, précision…",
+      "inputsShort": "{count, plural, one {# entr.} other {# entr.}}",
+      "monitorShort": "retour",
+      "edit": "Détails",
+      "save": "OK"
+    },
+    "catalog": {
+      "title": "Catalogue",
+      "addTo": "Ajouter à",
+      "add": "Ajouter {obj} à {who}",
+      "custom": "Créer un objet perso",
+      "customHint": "Un objet perso se range dans « Objets perso » et se réutilise dans toutes tes configs."
+    },
+    "custom": {
+      "title": "Objet perso",
+      "name": "Nom",
+      "namePlaceholder": "Ex. Theremin",
+      "inputs": "Entrées (une par ligne, vide si aucune)",
+      "inputsPlaceholder": "Theremin",
+      "mic": "Micro ou DI",
+      "micPlaceholder": "Ex. DI",
+      "stand": "Pied",
+      "monitor": "Retour",
+      "monitorNone": "Pas un retour",
+      "create": "Créer et ajouter",
+      "cancel": "Annuler"
+    },
+    "patch": {
+      "title": "Liste des entrées",
+      "hint": "Générée depuis les objets. Réordonne avec les flèches.",
+      "source": "Source",
+      "mic": "Micro / DI",
+      "stand": "Pied",
+      "member": "Membre",
+      "up": "Monter {src}",
+      "down": "Descendre {src}",
+      "empty": "Ajoute des objets avec des entrées (micros, DI) pour remplir la liste."
+    },
+    "plot": {
+      "title": "Plan de scène",
+      "hint": "Clique un élément, puis une case pour le déplacer.",
+      "hintPlace": "Clique une case pour poser « {obj} ».",
+      "audience": "Public",
+      "cell": "Case {x}, rangée {y}",
+      "select": "Sélectionner {obj} pour le déplacer",
+      "reset": "Replacer automatiquement",
+      "add": "Ajouter",
+      "addWedge": "Retour",
+      "addPower": "Prise",
+      "addRiser": "Praticable",
+      "addNote": "Texte",
+      "notePlaceholder": "Ex. Merch",
+      "remove": "Retirer l’élément",
+      "save": "Enregistrer le plan",
+      "saved": "Plan enregistré.",
+      "riser": "Batterie",
+      "amp": "Ampli",
+      "wedge": "Retour",
+      "power": "230 V"
+    },
+    "monitorsSection": {
+      "title": "Retours",
+      "mix": "Mix {n}",
+      "notePlaceholder": "Ce que tu veux entendre",
+      "iem": "In-ear : systèmes, fréquences, split",
+      "iemPlaceholder": "Ex. 2 Sennheiser EW IEM G4, 626–668 MHz ; split XLR nécessaire",
+      "empty": "Ajoute des retours (wedge, in-ear) aux membres.",
+      "save": "Enregistrer les retours"
+    },
+    "hosp": {
+      "title": "Accueil",
+      "people": "Personnes en tournée",
+      "meals": "Repas",
+      "mealsPlaceholder": "Ex. 6 repas chauds, dont 1 végétarien",
+      "greenRoom": "Loge",
+      "greenRoomPlaceholder": "Ex. Une loge fermant à clé",
+      "drinks": "Boissons",
+      "drinksPlaceholder": "Ex. Eau sur scène",
+      "parking": "Parking",
+      "parkingPlaceholder": "Ex. 1 utilitaire (6 m)",
+      "lodging": "Hébergement",
+      "lodgingPlaceholder": "Ex. Au-delà de 150 km"
+    },
+    "general": {
+      "title": "En bref",
+      "engineer": "Ingé son",
+      "engineerPlaceholder": "Ex. Le nôtre (Max) ; vide = celui de la salle",
+      "setup": "Montage (min)",
+      "soundcheck": "Balance (min)",
+      "changeover": "Changement de plateau (min)",
+      "minStage": "Scène minimum",
+      "minStagePlaceholder": "Ex. 6 × 4 m",
+      "venueEngineer": "Celui de la salle",
+      "minutes": "{n} min"
+    },
+    "infoSave": "Enregistrer l’accueil et l’en bref",
+    "pdf": "Télécharger le PDF",
+    "view": "Voir comme un orga",
+    "public": {
+      "link": "Voir la fiche technique complète",
+      "locked": "Connecte-toi pour voir la fiche technique.",
+      "by": "Fiche technique",
+      "bring": "Le groupe apporte",
+      "nothing": "Rien de particulier.",
+      "none": "Ce groupe n’a pas encore rempli sa fiche technique.",
+      "edit": "Modifier la fiche"
+    },
+    "match": {
+      "title": "{ok} sur {total} fournis",
+      "unknownTitle": "Matériel du lieu à compléter",
+      "with": "Avec {venue}",
+      "pickVenue": "Comparer avec",
+      "note": "Comparé à la fiche du lieu. Ce qui manque se loue ou s’apporte souvent : à voir avec le groupe.",
+      "unknown": "Détaille le matériel de ton lieu pour voir ce qui colle.",
+      "fillVenue": "Détailler le matériel du lieu",
+      "console": "{need} entrées console",
+      "mixes": "{need} mixes retours",
+      "di": "{need} boîtiers DI",
+      "vocalMic": "{need} micros chant",
+      "wedge": "{need} wedges",
+      "iem": "{need} systèmes in-ear",
+      "power": "{need} prises 230 V",
+      "drumKit": "Corps de batterie",
+      "bassAmp": "Ampli basse",
+      "guitarAmp": "Ampli guitare",
+      "keyboard": "Clavier",
+      "keyboardStand": "Stand clavier",
+      "riser": "Praticable batterie",
+      "sidefill": "Side-fill",
+      "instrumentMics": "Micros d’instrument ({need})",
+      "micModel": "Micro {model} ({need})",
+      "ok": "le lieu le fournit",
+      "okCount": "le lieu en a {have}",
+      "missing": "pas dans la fiche du lieu",
+      "missingCount": "le lieu en a {have}",
+      "sub": "autre modèle sur place",
+      "unknownStatus": "pas renseigné",
+      "short": "Matériel : {ok}/{total}"
+    },
+    "apply": {
+      "rider": "Fiche technique proposée",
+      "riderNone": "Sans fiche"
+    },
+    "candidates": {
+      "rider": "Fiche « {name} »",
+      "gear": "matériel {ok}/{total}"
+    },
+    "pdfGenerated": "Générée le {date}"
   }
 }

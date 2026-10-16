@@ -18,6 +18,14 @@ export const routing = defineRouting({
       fr: '/compte/groupe/[id]/calendrier',
       en: '/account/band/[id]/calendar',
     },
+    '/compte/groupe/[id]/fiche-technique': {
+      fr: '/compte/groupe/[id]/fiche-technique',
+      en: '/account/band/[id]/tech-rider',
+    },
+    '/groupes/[slug]/fiche-technique': {
+      fr: '/groupes/[slug]/fiche-technique',
+      en: '/bands/[slug]/tech-rider',
+    },
     '/compte/musicien/agenda': { fr: '/compte/musicien/agenda', en: '/account/musician/calendar' },
     '/compte/orga': { fr: '/compte/orga', en: '/account/promoter' },
     '/compte/dates': { fr: '/compte/dates', en: '/account/dates' },

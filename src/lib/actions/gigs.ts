@@ -5,7 +5,7 @@ import { getLocale } from 'next-intl/server'
 import { randomUUID } from 'node:crypto'
 
 import { db } from '@/db'
-import { application, bandMember, gig, user } from '@/db/schema'
+import { application, bandMember, gig, rider, user } from '@/db/schema'
 import { getPathname, redirect } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
 import { getBandForEdit } from '@/lib/bands'
@@ -146,7 +146,11 @@ export async function applyToGig(_prev: FormState, fd: FormData): Promise<FormSt
     where: and(eq(application.gigId, g.id), eq(application.bandId, b.id)),
   })
   if (prior && prior.status !== 'withdrawn') return fail({ form: 'alreadyApplied' })
+  const riderId = String(fd.get('riderId') ?? '')
+  const chosen = riderId ? await db.query.rider.findFirst({ where: eq(rider.id, riderId) }) : null
+  if (riderId && chosen?.bandId !== b.id) return fail({ riderId: 'invalid' })
   const values = {
+    riderId: chosen?.id ?? null,
     userId: session.user.id,
     message: orNull(v.message),
     fee: v.fee ?? null,
