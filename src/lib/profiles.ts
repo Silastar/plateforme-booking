@@ -1,10 +1,12 @@
 import 'server-only'
 import { eq } from 'drizzle-orm'
+import { after } from 'next/server'
 import { randomUUID } from 'node:crypto'
 
 import { db } from '@/db'
 import { band, bandMember, musician, organization, user } from '@/db/schema'
 
+import { locateBand, locateMusician, locateOrga } from './geocode'
 import { uniqueSlug } from './slug'
 import type { ProfileInput } from './validation'
 
@@ -63,5 +65,15 @@ export async function createProfile(userId: string, profile: ProfileInput) {
       .update(user)
       .set({ role: profile.role, status: profile.role === 'orga' ? 'pending' : 'active' })
       .where(eq(user.id, userId))
+  })
+  // Coordonnées de la ville du nouveau profil, après la réponse.
+  after(async () => {
+    if (profile.role === 'orga') {
+      const o = await db.query.organization.findFirst({ where: eq(organization.ownerId, userId) })
+      if (o) await locateOrga(o.id)
+    } else if (profile.role === 'groupe') {
+      const m = await db.query.bandMember.findFirst({ where: eq(bandMember.userId, userId) })
+      if (m) await locateBand(m.bandId)
+    } else await locateMusician(userId)
   })
 }

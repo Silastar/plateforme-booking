@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 import { addDays, iso, weekdayIndex } from './calendar'
 import { GENRES } from './genres'
+import { reaches } from './geo'
 
 export const GIG_FORMATS = ['headline', 'support', 'bill'] as const
 export const GIG_INCLUDES = ['meal', 'drinks', 'lodging', 'travel'] as const
@@ -53,18 +54,29 @@ export type MatchBand = {
   genres: string[]
   feeMin: number | null
   feeMax: number | null
+  lat?: number | null
+  lng?: number | null
+  radiusKm?: number | null
 }
-export type MatchGig = { genres: string[]; budgetMin: number | null; budgetMax: number | null }
+export type MatchGig = {
+  genres: string[]
+  budgetMin: number | null
+  budgetMax: number | null
+  // Coordonnées du lieu de la date (ou de l'orga)
+  point?: { lat: number | null; lng: number | null } | null
+}
 export type Match = {
   genre: boolean
   // null : une des deux fourchettes manque, on ne peut pas trancher
   money: boolean | null
   // dispo coché par le groupe et aucun membre indispensable pris
   night: boolean
+  // le lieu est dans le rayon du groupe ; null si on ne sait pas
+  place: boolean | null
   fits: boolean
 }
 
-// Trois des quatre critères du cahier des charges ; le lieu (zone du groupe) viendra avec la recherche.
+// Les quatre critères du cahier des charges : genre, argent, date, lieu.
 export function matchGig(g: MatchGig, b: MatchBand, nightOpen: boolean): Match {
   const bandGenres = new Set([b.mainGenre, ...b.genres])
   const genre = g.genres.length === 0 || g.genres.some((x) => bandGenres.has(x))
@@ -76,7 +88,17 @@ export function matchGig(g: MatchGig, b: MatchBand, nightOpen: boolean): Match {
     lowB === null || highB === null || lowF === null || highF === null
       ? null
       : lowB <= highF && lowF <= highB
-  return { genre, money, night: nightOpen, fits: genre && money !== false && nightOpen }
+  const place = reaches(
+    { lat: b.lat ?? null, lng: b.lng ?? null, radiusKm: b.radiusKm ?? null },
+    g.point ?? null,
+  )
+  return {
+    genre,
+    money,
+    night: nightOpen,
+    place,
+    fits: genre && money !== false && nightOpen && place !== false,
+  }
 }
 
 /* ---------- Formulaire ---------- */

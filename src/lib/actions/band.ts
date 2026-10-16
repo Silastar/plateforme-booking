@@ -1,11 +1,13 @@
 'use server'
 
 import { eq } from 'drizzle-orm'
+import { after } from 'next/server'
 
 import { db } from '@/db'
 import { band } from '@/db/schema'
 import { getBandForEdit } from '@/lib/bands'
 import { orNull, readForm } from '@/lib/form-data'
+import { locateBand } from '@/lib/geocode'
 import { BAND_FIELDS, bandEditSchema } from '@/lib/profile-edit'
 import { getSession } from '@/lib/session'
 import { pickFile, removeMedia, saveImage, savePdf, UploadError } from '@/lib/uploads'
@@ -79,5 +81,7 @@ export async function updateBand(_prev: FormState, fd: FormData): Promise<FormSt
   // Les anciens fichiers remplacés ou retirés ne servent plus à rien.
   if (photo !== current.photo) await removeMedia(current.photo)
   if (rider !== current.rider) await removeMedia(current.rider)
+  // Coordonnées de la ville, après la réponse (le service de géocodage peut prendre une seconde).
+  if (v.city !== current.city || current.lat === null) after(() => locateBand(current.id))
   return { status: 'saved', errors: {} }
 }

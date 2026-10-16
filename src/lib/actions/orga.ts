@@ -1,11 +1,13 @@
 'use server'
 
 import { and, eq } from 'drizzle-orm'
+import { after } from 'next/server'
 import { randomUUID } from 'node:crypto'
 
 import { db } from '@/db'
 import { organization, venue } from '@/db/schema'
 import { orNull, readForm } from '@/lib/form-data'
+import { locateOrga, locateVenue } from '@/lib/geocode'
 import { getOrgaForEdit } from '@/lib/orgas'
 import {
   ORGA_FIELDS,
@@ -77,6 +79,7 @@ export async function updateOrga(_prev: FormState, fd: FormData): Promise<FormSt
     .where(eq(organization.id, orga.id))
   if (logo !== orga.logo) await removeMedia(orga.logo)
   if (cover !== orga.cover) await removeMedia(orga.cover)
+  if (v.city !== orga.city || orga.lat === null) after(() => locateOrga(orga.id))
   return { status: 'saved', errors: {} }
 }
 
@@ -119,12 +122,20 @@ export async function saveVenue(_prev: FormState, fd: FormData): Promise<FormSta
     gear: parseVenueGear(fd),
     photo,
   }
+  const venueRowId = existing?.id ?? randomUUID()
   if (existing) {
     await db.update(venue).set(values).where(eq(venue.id, existing.id))
     if (photo !== existing.photo) await removeMedia(existing.photo)
   } else {
-    await db.insert(venue).values({ id: randomUUID(), organizationId: orga.id, ...values })
+    await db.insert(venue).values({ id: venueRowId, organizationId: orga.id, ...values })
   }
+  const moved =
+    !existing ||
+    existing.lat === null ||
+    existing.address !== values.address ||
+    existing.postalCode !== values.postalCode ||
+    existing.city !== values.city
+  if (moved) after(() => locateVenue(venueRowId))
   return { status: 'saved', errors: {} }
 }
 

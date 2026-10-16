@@ -6,6 +6,7 @@ import { application, band, gig, organization, user } from '@/db/schema'
 
 import { bandAvailability } from './availability'
 import { todayIso } from './calendar'
+import { reaches } from './geo'
 import { matchGig, type Match } from './gig-rules'
 
 const withPlace = {
@@ -37,6 +38,17 @@ export async function getGigForOrga(gigId: string, userId: string) {
   return g && g.organization.ownerId === userId ? g : null
 }
 
+type Coords = { lat: number | null; lng: number | null }
+
+// Coordonnées d'une date : son lieu s'il est placé, sinon la ville de l'orga.
+export function gigPoint(g: {
+  venue?: Coords | null
+  organization?: Coords | null
+}): Coords | null {
+  if (g.venue && g.venue.lat !== null) return g.venue
+  return g.organization ?? null
+}
+
 // Groupes dont le soir est vraiment dispo (coché, aucun membre indispensable pris).
 export async function bandsOpenOn(bandIds: string[], day: string): Promise<Set<string>> {
   const states = await Promise.all(bandIds.map((id) => bandAvailability(id, [day])))
@@ -51,6 +63,7 @@ export async function compatibleBands(
     genres: string[]
     budgetMin: number | null
     budgetMax: number | null
+    point?: Coords | null
   },
   limit = 5,
 ) {
@@ -64,7 +77,15 @@ export async function compatibleBands(
           or (coalesce(${band.feeMin}, ${band.feeMax}) <= ${high}
               and ${low} <= coalesce(${band.feeMax}, ${band.feeMin})))`
   const rows = await db
-    .select({ id: band.id, name: band.name, slug: band.slug, city: band.city })
+    .select({
+      id: band.id,
+      name: band.name,
+      slug: band.slug,
+      city: band.city,
+      lat: band.lat,
+      lng: band.lng,
+      radiusKm: band.radiusKm,
+    })
     .from(band)
     .where(
       and(
@@ -80,7 +101,9 @@ export async function compatibleBands(
       ),
     )
     .orderBy(asc(band.name))
-  return { count: rows.length, bands: rows.slice(0, limit) }
+  // Le lieu doit être dans le rayon du groupe (inconnu = on garde).
+  const near = rows.filter((b) => reaches(b, g.point ?? null) !== false)
+  return { count: near.length, bands: near.slice(0, limit) }
 }
 
 /* ---------- Côté groupes ---------- */
@@ -140,6 +163,7 @@ export async function matchForBands(
     genres: string[]
     budgetMin: number | null
     budgetMax: number | null
+    point?: Coords | null
   }[],
   bands: {
     id: string
@@ -147,6 +171,9 @@ export async function matchForBands(
     genres: string[]
     feeMin: number | null
     feeMax: number | null
+    lat: number | null
+    lng: number | null
+    radiusKm: number | null
   }[],
 ): Promise<Map<string, Match>> {
   const out = new Map<string, Match>()

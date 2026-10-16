@@ -41,7 +41,7 @@ describe('compatibilité date ↔ groupe', () => {
 
   it('ça colle : genre commun, fourchettes qui se chevauchent, soir dispo', () => {
     const m = matchGig({ genres: ['garage', 'punk'], budgetMin: 700, budgetMax: 900 }, band, true)
-    expect(m).toEqual({ genre: true, money: true, night: true, fits: true })
+    expect(m).toEqual({ genre: true, money: true, night: true, place: null, fits: true })
   })
 
   it('pas de genre commun, budget trop bas ou soir pas dispo : ça ne colle pas', () => {
@@ -54,6 +54,21 @@ describe('compatibilité date ↔ groupe', () => {
     expect(matchGig({ genres: ['rock'], budgetMin: 900, budgetMax: 900 }, band, false).fits).toBe(
       false,
     )
+  })
+
+  it('lieu hors du rayon du groupe : ça ne colle pas', () => {
+    const lausanne = { ...band, lat: 46.52, lng: 6.63, radiusKm: 100 }
+    const fribourg = { lat: 46.8, lng: 7.16 }
+    const zurich = { lat: 47.37, lng: 8.54 }
+    const g = { genres: ['rock'], budgetMin: 900, budgetMax: 900 }
+    expect(matchGig({ ...g, point: fribourg }, lausanne, true)).toMatchObject({
+      place: true,
+      fits: true,
+    })
+    expect(matchGig({ ...g, point: zurich }, lausanne, true)).toMatchObject({
+      place: false,
+      fits: false,
+    })
   })
 
   it('cachet ou budget inconnu : on ne bloque pas', () => {

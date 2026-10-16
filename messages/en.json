@@ -821,7 +821,9 @@
         "moneyUnknown": "Budget or fee not set",
         "night": "Night checked available in your calendar",
         "noNight": "Night not checked available (or a member is busy)",
-        "place": "Band area: checked by search (coming soon)"
+        "placeYes": "The venue is in your area ({km} km)",
+        "placeNo": "Outside your area: {km} km for a {radius} km radius",
+        "placeUnknown": "Your area (radius) or the venue address isn’t set"
       },
       "manage": "Manage in My dates",
       "status": {
@@ -1386,5 +1388,75 @@
       "gear": "gear {ok}/{total}"
     },
     "pdfGenerated": "Generated on {date}"
+  },
+  "search": {
+    "bands": {
+      "title": "Find your band",
+      "metaTitle": "Bands",
+      "intro": "Genre, place, date, budget: bands that travel to you.",
+      "forDate": "For your {date} date, {place}.",
+      "count": "{count, plural, =0 {No bands} one {# band} other {# bands}}",
+      "empty": "No band matches. Widen the radius or remove a filter.",
+      "free": "Free on {date}",
+      "busy": "Not free on {date}",
+      "zoneUnknown": "Area not set",
+      "distance": "{km} km",
+      "musicians": "{count, plural, one {# musician} other {# musicians}}",
+      "fee": "Fee",
+      "feeLocked": "Fee for promoters only",
+      "feeOpen": "Negotiable",
+      "gear": "Gear {ok}/{total}",
+      "profile": "Profile",
+      "rider": "Tech rider"
+    },
+    "dates": {
+      "count": "{count, plural, =0 {No dates} one {# date} other {# dates}}",
+      "empty": "No date matches. Widen the area or change the month.",
+      "distance": "{km} km away"
+    },
+    "filters": {
+      "title": "Filters",
+      "genre": "Genre",
+      "place": "Place",
+      "placeHelp": "Only bands that travel this far show up.",
+      "otherCity": "Another city…",
+      "city": "City",
+      "cityPlaceholder": "E.g. Fribourg",
+      "maxKm": "Max distance",
+      "anyKm": "Any",
+      "km": "{km} km",
+      "date": "Date",
+      "freeOnly": "Free that night only",
+      "budget": "Your budget (CHF)",
+      "min": "Min",
+      "max": "Max",
+      "gear": "Matches your gear",
+      "gearHelp": "Compared with the selected venue’s detailed gear.",
+      "sort": "Sort",
+      "sorts": {
+        "relevance": "Relevance",
+        "distance": "Distance",
+        "fee": "Lowest fee",
+        "name": "Name"
+      },
+      "submit": "Search",
+      "reset": "Clear all",
+      "month": "Month",
+      "anyMonth": "Any month",
+      "around": "Around",
+      "aroundHelp": "By default, your band’s city and radius.",
+      "budgetMin": "Minimum budget (CHF)",
+      "fitsOnly": "Only the ones that match",
+      "cityNotFound": "City not found: “{city}”."
+    },
+    "view": {
+      "label": "View",
+      "list": "List",
+      "map": "Map"
+    },
+    "map": {
+      "center": "Search point",
+      "link": "See"
+    }
   }
 }

@@ -2,6 +2,7 @@ import { relations } from 'drizzle-orm'
 import {
   boolean,
   date,
+  doublePrecision,
   index,
   integer,
   jsonb,
@@ -77,6 +78,12 @@ export const verification = pgTable('verification', {
 // Fichiers envoyés (photos, fiche technique) : chemin public « /media/<nom> ».
 const media = (name: string) => text(name)
 
+// Coordonnées (WGS 84), calculées à partir de la ville ou de l'adresse ; vides tant que pas trouvées.
+const geo = {
+  lat: doublePrecision('lat'),
+  lng: doublePrecision('lng'),
+}
+
 export type VenueGear = {
   consoleInputs?: number
   monitorMixes?: number
@@ -134,6 +141,7 @@ export const organization = pgTable('organization', {
   budgetMin: integer('budget_min'),
   budgetMax: integer('budget_max'),
   feeTerms: text('fee_terms'),
+  ...geo,
   ...timestamps,
 })
 
@@ -161,6 +169,7 @@ export const venue = pgTable('venue', {
   photo: media('photo'),
   // Matériel détaillé (catalogue), comparé aux fiches techniques des groupes
   gear: jsonb('gear').$type<VenueGear>().notNull().default({}),
+  ...geo,
   ...timestamps,
 })
 
@@ -201,6 +210,7 @@ export const band = pgTable('band', {
   feeMin: integer('fee_min'),
   feeMax: integer('fee_max'),
   feeNote: text('fee_note'),
+  ...geo,
   ...timestamps,
 })
 
@@ -245,7 +255,19 @@ export const musician = pgTable('musician', {
   subNoticeDays: integer('sub_notice_days'),
   repertoireNote: text('repertoire_note'),
   gearNote: text('gear_note'),
+  ...geo,
   ...timestamps,
+})
+
+/* ---------- Géolocalisation ---------- */
+
+// Réponses du service de géocodage (OpenStreetMap), pour ne pas redemander la même adresse.
+export const geocodeCache = pgTable('geocode_cache', {
+  query: text('query').primaryKey(),
+  lat: doublePrecision('lat'),
+  lng: doublePrecision('lng'),
+  label: text('label'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 })
 
 /* ---------- Calendriers ---------- */

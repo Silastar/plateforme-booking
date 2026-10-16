@@ -11,8 +11,9 @@ import type { Locale } from '@/i18n/routing'
 import { withdrawApplication } from '@/lib/actions/gigs'
 import { getAdminBands } from '@/lib/bands'
 import { todayIso } from '@/lib/calendar'
+import { distanceKm, hasPoint } from '@/lib/geo'
 import { matchGig } from '@/lib/gig-rules'
-import { bandsOpenOn, canSeeGig, getBandApplications, getGigPage } from '@/lib/gigs'
+import { bandsOpenOn, canSeeGig, getBandApplications, getGigPage, gigPoint } from '@/lib/gigs'
 import { getBandRiders } from '@/lib/riders'
 import { getSession } from '@/lib/session'
 
@@ -140,7 +141,9 @@ export default async function GigPage({ params }: Props) {
             </section>
 
             {bands.map((b) => {
-              const m = matchGig(g, b, open.has(b.id))
+              const point = gigPoint(g)
+              const m = matchGig({ ...g, point }, b, open.has(b.id))
+              const km = hasPoint(b) && hasPoint(point) ? Math.round(distanceKm(b, point)) : null
               return (
                 <section key={b.id} className={styles.panel} aria-label={b.name}>
                   <h2 className={styles.panelTitle}>{t('detail.match.title', { band: b.name })}</h2>
@@ -162,8 +165,12 @@ export default async function GigPage({ params }: Props) {
                       {m.night ? t('detail.match.night') : t('detail.match.noNight')}
                     </li>
                     <li>
-                      {mark(null)}
-                      {t('detail.match.place')}
+                      {mark(m.place)}
+                      {m.place === null
+                        ? t('detail.match.placeUnknown')
+                        : m.place
+                          ? t('detail.match.placeYes', { km: km ?? 0 })
+                          : t('detail.match.placeNo', { km: km ?? 0, radius: b.radiusKm ?? 0 })}
                     </li>
                   </ul>
                 </section>

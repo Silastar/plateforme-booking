@@ -1,10 +1,12 @@
 'use server'
 
 import { eq } from 'drizzle-orm'
+import { after } from 'next/server'
 
 import { db } from '@/db'
 import { musician } from '@/db/schema'
 import { orNull, readForm } from '@/lib/form-data'
+import { locateMusician } from '@/lib/geocode'
 import { getMusicianForEdit } from '@/lib/musicians'
 import { MUSICIAN_FIELDS, musicianEditSchema } from '@/lib/profile-edit'
 import { getSession } from '@/lib/session'
@@ -53,5 +55,6 @@ export async function updateMusician(_prev: FormState, fd: FormData): Promise<Fo
     })
     .where(eq(musician.userId, current.userId))
   if (photo !== current.photo) await removeMedia(current.photo)
+  if (v.city !== current.city || current.lat === null) after(() => locateMusician(current.userId))
   return { status: 'saved', errors: {} }
 }

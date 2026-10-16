@@ -821,7 +821,9 @@
         "moneyUnknown": "Budget ou cachet pas renseigné",
         "night": "Soir coché dispo dans ton calendrier",
         "noNight": "Soir pas coché dispo (ou un membre est pris)",
-        "place": "Zone du groupe : vérifiée avec la recherche (bientôt)"
+        "placeYes": "Le lieu est dans ta zone ({km} km)",
+        "placeNo": "Hors de ta zone : {km} km pour un rayon de {radius} km",
+        "placeUnknown": "Ta zone (rayon) ou l’adresse du lieu n’est pas renseignée"
       },
       "manage": "Gérer dans Mes dates",
       "status": {
@@ -1386,5 +1388,75 @@
       "gear": "matériel {ok}/{total}"
     },
     "pdfGenerated": "Générée le {date}"
+  },
+  "search": {
+    "bands": {
+      "title": "Trouve ton groupe",
+      "metaTitle": "Groupes",
+      "intro": "Genre, lieu, date, budget : les groupes qui roulent jusqu’à toi.",
+      "forDate": "Pour ta date du {date}, {place}.",
+      "count": "{count, plural, =0 {Aucun groupe} one {# groupe} other {# groupes}}",
+      "empty": "Aucun groupe ne correspond. Élargis le rayon ou retire un filtre.",
+      "free": "Libre le {date}",
+      "busy": "Pas libre le {date}",
+      "zoneUnknown": "Zone non précisée",
+      "distance": "{km} km",
+      "musicians": "{count, plural, one {# musicien} other {# musiciens}}",
+      "fee": "Cachet",
+      "feeLocked": "Cachet réservé aux orgas",
+      "feeOpen": "À discuter",
+      "gear": "Matériel {ok}/{total}",
+      "profile": "Profil",
+      "rider": "Fiche technique"
+    },
+    "dates": {
+      "count": "{count, plural, =0 {Aucune date} one {# date} other {# dates}}",
+      "empty": "Aucune date ne correspond. Élargis la zone ou change de mois.",
+      "distance": "à {km} km"
+    },
+    "filters": {
+      "title": "Filtres",
+      "genre": "Genre",
+      "place": "Lieu",
+      "placeHelp": "Seuls les groupes qui roulent jusqu’ici apparaissent.",
+      "otherCity": "Autre ville…",
+      "city": "Ville",
+      "cityPlaceholder": "Ex. Fribourg",
+      "maxKm": "Distance max",
+      "anyKm": "Peu importe",
+      "km": "{km} km",
+      "date": "Date",
+      "freeOnly": "Libres ce soir-là uniquement",
+      "budget": "Ton budget (CHF)",
+      "min": "Min",
+      "max": "Max",
+      "gear": "Compatible avec ton matos",
+      "gearHelp": "Comparé au matériel détaillé du lieu choisi.",
+      "sort": "Trier",
+      "sorts": {
+        "relevance": "Pertinence",
+        "distance": "Distance",
+        "fee": "Cachet croissant",
+        "name": "Nom"
+      },
+      "submit": "Chercher",
+      "reset": "Tout effacer",
+      "month": "Mois",
+      "anyMonth": "Tous les mois",
+      "around": "Autour de",
+      "aroundHelp": "Par défaut, la ville et le rayon de ton groupe.",
+      "budgetMin": "Budget minimum (CHF)",
+      "fitsOnly": "Seulement celles qui collent",
+      "cityNotFound": "Ville introuvable : « {city} »."
+    },
+    "view": {
+      "label": "Affichage",
+      "list": "Liste",
+      "map": "Carte"
+    },
+    "map": {
+      "center": "Point de recherche",
+      "link": "Voir"
+    }
   }
 }

@@ -10,7 +10,7 @@ import type { Locale } from '@/i18n/routing'
 import { cancelGig, declineApplication } from '@/lib/actions/gigs'
 import { todayIso } from '@/lib/calendar'
 import { matchGig } from '@/lib/gig-rules'
-import { bandsOpenOn, compatibleBands, getOrgaGigs } from '@/lib/gigs'
+import { bandsOpenOn, compatibleBands, getOrgaGigs, gigPoint } from '@/lib/gigs'
 import { getOrgaForEdit } from '@/lib/orgas'
 import { compareWithVenue } from '@/lib/rider-core'
 import { itemData, loadBandRiders } from '@/lib/riders'
@@ -65,7 +65,13 @@ export default async function MyDatesPage({ params, searchParams }: Props) {
     await Promise.all(
       shown
         .filter(() => tab === 'open')
-        .map(async (g) => [g.id, await compatibleBands(g)] as const),
+        .map(
+          async (g) =>
+            [
+              g.id,
+              await compatibleBands({ ...g, point: gigPoint({ ...g, organization: orga }) }),
+            ] as const,
+        ),
     ),
   )
   // Candidatures de la date ouverte, triées par compatibilité.
@@ -76,7 +82,14 @@ export default async function MyDatesPage({ params, searchParams }: Props) {
           selected.day,
         )
         return selected.applications
-          .map((a) => ({ ...a, match: matchGig(selected, a.band, open.has(a.bandId)) }))
+          .map((a) => ({
+            ...a,
+            match: matchGig(
+              { ...selected, point: gigPoint({ ...selected, organization: orga }) },
+              a.band,
+              open.has(a.bandId),
+            ),
+          }))
           .sort(
             (a, b) =>
               Number(b.status === 'pending') - Number(a.status === 'pending') ||
